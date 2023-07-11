@@ -16,44 +16,43 @@
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:src="@drawable/logo_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/ett_log_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="User Log-In"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_app_name" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/ett_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:ems="10"
             android:inputType="textPassword"
             android:hint="User Password"
-            app:layout_constraintEnd_toEndOf="@+id/editTextText"
+            app:layout_constraintEnd_toEndOf="@+id/ett_log_in"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editTextText"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+            app:layout_constraintStart_toStartOf="@+id/ett_log_in"
+            app:layout_constraintTop_toBottomOf="@+id/ett_log_in" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/ib_login"
             android:layout_width="125dp"
             android:layout_height="129dp"
             android:background="@color/transparent"
@@ -61,7 +60,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/ett_password" />
+
+        <TextView
+            android:id="@+id/tv_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="monospace"
+            android:text="My Work App"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
