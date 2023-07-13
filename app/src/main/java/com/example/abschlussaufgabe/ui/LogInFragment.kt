@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.AppRepository
+import com.example.abschlussaufgabe.databinding.ActivityMainBinding
 import com.example.abschlussaufgabe.databinding.FragmentLogInBinding
 
 
 class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
+    private lateinit var bindingActivityMain: ActivityMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +44,7 @@ class LogInFragment : Fragment() {
             var isValid = false
 
             for (user in AppRepository().user.value!!) {
-                if (user.userLogIn == inputUsername && user.userPassword == inputPassword) {
+                if (user.userLogIn.lowercase() == inputUsername.lowercase() && user.userPassword == inputPassword) {
                     isValid = true
                     break
                 }

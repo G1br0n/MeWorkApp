@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="light_mode" type="id" />
+    <item name="material_bar" type="id" />
+    <item name="time_bar" type="id" />
+    <item name="more_bar" type="id" />
+</resources>
