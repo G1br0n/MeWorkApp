@@ -9,5 +9,8 @@ data class UserDataModel(
     val userLogIn: String,
     val userPassword: String,
 
-    val userQualification: List<String>
+    val userQualification: List<String>,
+
+    val userBaNumber: Int,
+    val userBupNumber: Int,
 )

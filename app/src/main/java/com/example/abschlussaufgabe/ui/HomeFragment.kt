@@ -52,6 +52,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
+        binding.tvUserBa.text = "BA-${userData.userBaNumber}"
+        binding.tvUserBup.text = "BüP-${userData.userBupNumber}"
 
         val adapter = QualificationItemAdapter(userData)
         binding.rvQualification.layoutManager = LinearLayoutManager(requireContext())
