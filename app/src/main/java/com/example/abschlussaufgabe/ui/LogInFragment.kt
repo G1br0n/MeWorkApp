@@ -35,23 +35,25 @@ class LogInFragment : Fragment() {
 
 
         //TODO 1: LogIn dataBank
-        val test: String = "test"
+
 
         binding.ibLogin.setOnClickListener {
             val inputUsername = binding.ettLogIn.text.toString()
             val inputPassword = binding.ettPassword.text.toString()
+            var userId: Int = 0
 
             var isValid = false
 
             for (user in AppRepository().user.value!!) {
                 if (user.userLogIn.lowercase() == inputUsername.lowercase() && user.userPassword == inputPassword) {
                     isValid = true
+                    userId = user.userId
                     break
                 }
             }
 
             if (isValid) {
-                findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
+                findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment(userId))
             } else {
                 Toast.makeText(
                     requireContext(),
