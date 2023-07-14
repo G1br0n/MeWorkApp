@@ -1,7 +1,9 @@
 package com.example.abschlussaufgabe.adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.QualificationItemBinding
@@ -22,8 +24,9 @@ class QualificationItemAdapter(
         return  dataset.userQualification.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val user = dataset.userQualification[position]
+        val user = "${dataset.userQualification[position]}   ${dataset.userQualificationFit[position].year}.${dataset.userQualificationFit[position].monthValue}.${dataset.userQualificationFit[position].dayOfMonth}"
         holder.binding.tvItemQualification.text = user
 
     }
