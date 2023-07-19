@@ -34,7 +34,7 @@ android {
         jvmTarget = '17'
     }
 
-    // View Binding aktivieren
+    // DataBinding aktivieren
     buildFeatures {
         dataBinding true
     }
@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //Flexbox
-    implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

@@ -7,20 +7,20 @@
 
     </data>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounder_text"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="2dp"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center"
-            tools:text="TextView"
-            />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/rounder_text"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        tools:text="TextView" />
 
 </layout>

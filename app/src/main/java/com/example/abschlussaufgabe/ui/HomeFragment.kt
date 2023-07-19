@@ -15,6 +15,7 @@ import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
+import com.google.android.flexbox.FlexboxLayoutManager
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -67,6 +68,9 @@ class HomeFragment : Fragment() {
         viewModel.userList.observe(viewLifecycleOwner){ _ ->
             binding.rvQualification.adapter = userAdapter
         }
+
+
+        binding.rvMaterial.layoutManager = FlexboxLayoutManager(context)
 
         viewModel.materialList.observe(viewLifecycleOwner){
             binding.rvMaterial.adapter = MaterialItemAdapter(it)

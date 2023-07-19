@@ -6,5 +6,6 @@ data class MaterialModel(
     val id: Int,
     val name: String,
 
-    val tuv: LocalDate
+    val tuv: LocalDate,
+    val number: Int
 )
