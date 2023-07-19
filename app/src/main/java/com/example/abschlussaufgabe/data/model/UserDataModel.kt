@@ -9,6 +9,8 @@ data class UserDataModel(
     val userLastName: String,
     val userBirthDate: String,
 
+        //TODO: userPhoto
+
     val userLogIn: String,
     val userPassword: String,
 
