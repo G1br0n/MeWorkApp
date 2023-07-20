@@ -2,13 +2,11 @@
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.abschlussaufgabe.adapter.QualificationItemAdapter
 
-import com.example.abschlussaufgabe.data.model.MaterialModel
+import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.databinding.MaterialItemBinding
-import com.example.abschlussaufgabe.databinding.QualificationItemBinding
 
-class MaterialItemAdapter(private val itemList: List<MaterialModel>) : RecyclerView.Adapter<MaterialItemAdapter.ItemViewHolder>() {
+class MaterialItemAdapter(private val itemList: List<StorageMaterialModel>) : RecyclerView.Adapter<MaterialItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(val binding: MaterialItemBinding) : RecyclerView.ViewHolder(binding.root)
 

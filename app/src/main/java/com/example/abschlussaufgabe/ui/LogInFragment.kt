@@ -7,17 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.AppRepository
+import com.example.abschlussaufgabe.data.local.UserMaterialDatabase
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
 import com.example.abschlussaufgabe.databinding.FragmentLogInBinding
+import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 
 class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
     private lateinit var bindingActivityMain: ActivityMainBinding
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +48,7 @@ class LogInFragment : Fragment() {
 
             var isValid = false
 
-            for (user in AppRepository().user.value!!) {
+            for (user in viewModel.userList.value!!) {
                 if (user.userLogIn.lowercase() == inputUsername.lowercase() && user.userPassword == inputPassword) {
                     isValid = true
                     userId = user.userId
@@ -52,8 +56,12 @@ class LogInFragment : Fragment() {
                 }
             }
 
+
+
+
             if (isValid) {
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment(userId))
+                (activity as? MainActivity)?.showNavigationBar()
             } else {
                 Toast.makeText(
                     requireContext(),

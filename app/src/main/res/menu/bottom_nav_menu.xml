@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home"
+        />
+
+    <item
+        android:id="@+id/blankFragment"
+        android:icon="@drawable/baseline_access_time_24"
+        android:title="Time"
+        />
+    <item
+        android:id="@+id/materialFragment"
+        android:icon="@drawable/baseline_handyman_24"
+        android:title="Material"
+        />
+
+    <item
+        android:id="@+id/carFragment"
+        android:icon="@drawable/baseline_directions_car_24"
+        android:title="Car"
+        />
+</menu>
