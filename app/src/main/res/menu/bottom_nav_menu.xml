@@ -8,7 +8,7 @@
         />
 
     <item
-        android:id="@+id/blankFragment"
+        android:id="@+id/workTimeFragment"
         android:icon="@drawable/baseline_access_time_24"
         android:title="Time"
         />
@@ -17,7 +17,6 @@
         android:icon="@drawable/baseline_handyman_24"
         android:title="Material"
         />
-
     <item
         android:id="@+id/carFragment"
         android:icon="@drawable/baseline_directions_car_24"

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Die Farbe für das ausgewählte (checked) Element -->
+    <item android:color="@color/back_ground_item" android:state_checked="true"/>
+    <!-- Die Farbe für nicht ausgewählte Elemente -->
+    <item android:color="@color/back_ground"/>
+</selector>

@@ -6,6 +6,11 @@
         <!-- Customize your light theme here. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    </style>
+
+    <style name="BottomNavigationView">
+        <item name="colorSecondaryContainer">@color/back_ground_item</item>
     </style>
 
     <style name="Theme.AbschlussAufgabe" parent="Base.Theme.AbschlussAufgabe" />
