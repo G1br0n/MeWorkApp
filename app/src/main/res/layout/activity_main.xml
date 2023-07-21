@@ -39,6 +39,8 @@
             android:visibility="gone"
             app:menu="@menu/bottom_nav_menu"
             android:theme="@style/BottomNavigationView"
+            android:outlineAmbientShadowColor="@color/back_ground_ramen"
+
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

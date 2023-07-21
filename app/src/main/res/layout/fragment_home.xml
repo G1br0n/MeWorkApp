@@ -152,8 +152,9 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_material"
-                        android:layout_width="349dp"
-                        android:layout_height="146dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.533"
