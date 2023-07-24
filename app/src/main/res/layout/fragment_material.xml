@@ -23,12 +23,13 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_material_in_material"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="0dp"
                 android:layout_margin="16dp"
                 android:layout_marginTop="8dp"
                 android:outlineAmbientShadowColor="@color/back_ground_ramen"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/cv_material_psa"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -72,16 +73,16 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_material_B"
+                android:id="@+id/cv_material_psa"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_margin="16dp"
                 android:outlineAmbientShadowColor="@color/back_ground_ramen"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_material_in_material">
+                app:layout_constraintStart_toStartOf="parent">
                 >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -124,12 +125,11 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:backgroundTint="@color/back_ground"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/cv_material_B"
-                app:layout_constraintStart_toStartOf="@+id/cv_material_B"
-                app:layout_constraintTop_toBottomOf="@+id/cv_material_B">
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="@+id/cv_material_psa"
+                app:layout_constraintStart_toStartOf="@+id/cv_material_psa">
 
                 <ImageButton
                     android:id="@+id/imageButton"
@@ -137,9 +137,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/back_ground"
-                    android:src="@drawable/button_material_to_user"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="20dp" />
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/button_material_to_user_shadow" />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
@@ -147,9 +146,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/back_ground"
-                    android:src="@drawable/button_material_from_user_to_user"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="20dp" />
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/button_material_from_user_to_user_shadow" />
 
                 <ImageButton
                     android:id="@+id/imageButton3"
@@ -157,19 +155,19 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/back_ground"
-                    android:src="@drawable/button_material_to_storage"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="20dp" />
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/button_material_from_user_to_storage_shadow" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginBottom="68dp"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                app:layout_constraintStart_toStartOf="@+id/linearLayout">
 
                 <ImageButton
                     android:id="@+id/imageButton4"
@@ -177,6 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/back_ground"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/button_material_drop" />
 
                 <ImageButton
@@ -185,6 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/back_ground"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/button_formular" />
 
                 <ImageButton
@@ -193,6 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/back_ground"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/button_learn" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
