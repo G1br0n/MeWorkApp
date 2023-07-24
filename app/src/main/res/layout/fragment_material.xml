@@ -26,8 +26,9 @@
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
                 android:layout_marginTop="8dp"
-                android:outlineAmbientShadowColor="@color/back_ground_ramen"
                 app:cardCornerRadius="20dp"
+                android:outlineAmbientShadowColor="@color/back_ground_ramen"
+
                 app:cardElevation="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/cv_material_psa"
                 app:layout_constraintEnd_toEndOf="parent"
