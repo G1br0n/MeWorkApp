@@ -17,7 +17,8 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.abschlussaufgabe.ui.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <argument
             android:name="user_id"
             app:argType="integer" />

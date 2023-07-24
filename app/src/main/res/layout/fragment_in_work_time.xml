@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/work_time_start_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.InWorkTimeFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/back_ground">
+
+            <ImageButton
+                android:id="@+id/ib_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/button_start"
+                android:background="@color/back_ground"
+                app:layout_constraintBottom_toBottomOf="@+id/myTimePicker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toEndOf="@+id/myTimePicker"
+                app:layout_constraintTop_toTopOf="@+id/myTimePicker"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TimePicker
+                android:id="@+id/myTimePicker"
+                android:layout_width="198dp"
+                android:layout_height="126dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="25dp"
+                android:timePickerMode="spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/ib_start"
+                app:layout_constraintStart_toStartOf="@+id/myTimePicker"
+                app:layout_constraintTop_toBottomOf="@+id/ib_start" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+</layout>

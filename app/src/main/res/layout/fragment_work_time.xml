@@ -17,13 +17,12 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_work_time"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_marginTop="8dp"
             android:outlineAmbientShadowColor="@color/back_ground_ramen"
-            app:cardElevation="40dp"
             app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+            app:cardElevation="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,19 +33,21 @@
                 android:layout_height="match_parent"
                 android:background="@color/back_ground">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Arbeit Zeit Erfassung"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
 
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragment_container_view_time"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:navGraph="@navigation/nav_time">
+
+                </androidx.fragment.app.FragmentContainerView>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

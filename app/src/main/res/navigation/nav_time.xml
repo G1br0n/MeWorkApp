@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_time"
+    app:startDestination="@id/inWorkTimeFragment">
+
+    <fragment
+        android:id="@+id/inWorkTimeFragment"
+        android:name="com.example.abschlussaufgabe.ui.InWorkTimeFragment"
+        android:label="InWorkTimeFragment"
+        tools:layout="@layout/fragment_in_work_time"/>
+</navigation>
