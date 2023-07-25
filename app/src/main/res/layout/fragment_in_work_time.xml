@@ -22,21 +22,23 @@
                 android:id="@+id/ib_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/button_start"
+                android:layout_marginEnd="16dp"
                 android:background="@color/back_ground"
+                android:src="@drawable/button_start"
                 app:layout_constraintBottom_toBottomOf="@+id/myTimePicker"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.513"
-                app:layout_constraintStart_toEndOf="@+id/myTimePicker"
                 app:layout_constraintTop_toTopOf="@+id/myTimePicker"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.512" />
 
             <TimePicker
                 android:id="@+id/myTimePicker"
-                android:layout_width="198dp"
-                android:layout_height="126dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
+                android:layout_width="186dp"
+                android:layout_height="122dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:foregroundGravity="left"
+                android:scaleX="0.6"
+                android:scaleY="1.5"
                 android:timePickerMode="spinner"
 
                 app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +52,42 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="@+id/ib_start"
                 app:layout_constraintStart_toStartOf="@+id/myTimePicker"
-                app:layout_constraintTop_toBottomOf="@+id/ib_start" />
+                app:layout_constraintTop_toBottomOf="@+id/ib_start"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_save_current_position"
+                android:layout_width="231dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="16dp"
+                android:text="  Aktuelle Position speichern"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/spinner"
+                app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+            <CheckBox
+                android:id="@+id/check_box_save_current_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_save_current_position"
+                app:layout_constraintEnd_toEndOf="@+id/spinner"
+                app:layout_constraintTop_toTopOf="@+id/tv_save_current_position" />
+
+            <EditText
+                android:id="@+id/editTextNumberSigned"
+                android:layout_width="229dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="2dp"
+                android:ems="10"
+                android:hint="SAP Nummer eingeben"
+                android:inputType="numberSigned"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_save_current_position"
+                app:layout_constraintTop_toBottomOf="@+id/tv_save_current_position" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

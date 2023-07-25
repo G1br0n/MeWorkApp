@@ -33,6 +33,7 @@ class InWorkTimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // suche nach user daten
         for (i in viewModel.userList.value!!) {
             if (i.userId == viewModel.userId) {
                 userData = i
@@ -40,38 +41,30 @@ class InWorkTimeFragment : Fragment() {
             }
         }
 
+        //Spinner ----------------------------------------------------------------------------------
         val positionList = userData.userQualification
         val spinner: Spinner = binding.spinner
-        var options = arrayOf("Wäle deine Position")
 
+        var options = arrayOf("Wäle deine Position")//Optionsliste für dropdownmenü(spinner) mit startwert
 
+        //füle die dropdown list mit list aus UserModel.qwalifikation
         for (i in positionList.indices){
-          options =  options.plus(positionList[i])
+            options =  options.plus(positionList[i])
         }
 
-
-        val adapter = ArrayAdapter(
-            context!!,
-            android.R.layout.simple_spinner_item, options
-        )
-
+        val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, options)
         spinner.adapter = adapter
-
-
-
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedItem = parent?.getItemAtPosition(position).toString()
-
-
-             //   selectedItem.notifyDataSetChanged()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Handle case when nothing is selected
             }
+        }
+        //------------------------------------------------------------------------------------------
 
-            }
-
+        binding.myTimePicker.setIs24HourView(true)
     }
 }
