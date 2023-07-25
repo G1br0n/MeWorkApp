@@ -20,7 +20,6 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
-    private lateinit var bindingActivityMain: ActivityMainBinding
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -52,6 +51,7 @@ class LogInFragment : Fragment() {
                 if (user.userLogIn.lowercase() == inputUsername.lowercase() && user.userPassword == inputPassword) {
                     isValid = true
                     userId = user.userId
+                    viewModel.userId = userId
                     break
                 }
             }
@@ -62,6 +62,7 @@ class LogInFragment : Fragment() {
             if (isValid) {
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment(userId))
                 (activity as? MainActivity)?.showNavigationBar()
+
             } else {
                 Toast.makeText(
                     requireContext(),

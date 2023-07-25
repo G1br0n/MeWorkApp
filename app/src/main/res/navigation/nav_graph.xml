@@ -32,7 +32,11 @@
         android:id="@+id/materialFragment"
         android:name="com.example.abschlussaufgabe.ui.MaterialFragment"
         android:label="fragment_material"
-        tools:layout="@layout/fragment_material" />
+        tools:layout="@layout/fragment_material" >
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/workTimeFragment"
         android:name="com.example.abschlussaufgabe.ui.WorkTimeFragment"

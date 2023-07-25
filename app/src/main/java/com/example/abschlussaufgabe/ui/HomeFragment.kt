@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
 
 
     //todo: arguments user_id
-    private var userId: Int = 0
+    var userId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,11 +52,12 @@ class HomeFragment : Fragment() {
         for (i in viewModel.userList.value!!){
             if ( i.userId == userId) {
                 userData = i
+               // viewModel.userId = userId
             }
         }
 
         //CardView User
-        binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
+        binding.tvUserName.text = "${userData.userId} ${userData.userLastName}"
         binding.tvUserBa.text = "BA-${userData.userBaNumber}"
         binding.tvUserBup.text = "BüP-${userData.userBupNumber}"
 
@@ -75,7 +76,7 @@ class HomeFragment : Fragment() {
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
 
         }
-        //-----
+
     }
 
 }

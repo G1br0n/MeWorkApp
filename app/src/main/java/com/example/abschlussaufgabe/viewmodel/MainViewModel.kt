@@ -18,7 +18,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val userList = repository.user
     val materialList = repository.material
     val userMaterialList = repository.userMaterialList
-
+    var userId: Int = 0
 
     fun insertUserMaterial(materialList: UserMaterialModel) {
         viewModelScope.launch {

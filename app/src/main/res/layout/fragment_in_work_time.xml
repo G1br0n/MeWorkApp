@@ -38,10 +38,12 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="25dp"
                 android:timePickerMode="spinner"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
+
                 android:id="@+id/spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
