@@ -27,9 +27,10 @@
                 android:layout_margin="16dp"
                 android:layout_marginTop="8dp"
                 app:cardCornerRadius="20dp"
+                android:outlineSpotShadowColor="@color/back_ground_ramen"
                 android:outlineAmbientShadowColor="@color/back_ground_ramen"
 
-                app:cardElevation="20dp"
+                app:cardElevation="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/cv_material_psa"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,9 +79,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_margin="16dp"
+                android:outlineSpotShadowColor="@color/back_ground_ramen"
                 android:outlineAmbientShadowColor="@color/back_ground_ramen"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="20dp"
+                app:cardElevation="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">

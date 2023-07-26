@@ -37,10 +37,9 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="16dp"
                 android:foregroundGravity="left"
-                android:scaleX="0.6"
+                android:scaleX="1"
                 android:scaleY="1.5"
                 android:timePickerMode="spinner"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +69,6 @@
                 android:id="@+id/check_box_save_current_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_save_current_position"
                 app:layout_constraintEnd_toEndOf="@+id/spinner"
                 app:layout_constraintTop_toTopOf="@+id/tv_save_current_position" />
