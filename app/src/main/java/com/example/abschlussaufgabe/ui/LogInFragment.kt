@@ -36,31 +36,24 @@ class LogInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         //TODO 1: LogIn dataBank
-
-
         binding.ibLogin.setOnClickListener {
             val inputUsername = binding.ettLogIn.text.toString()
             val inputPassword = binding.ettPassword.text.toString()
-            var userId: Int = 0
 
             var isValid = false
 
             for (user in viewModel.userList.value!!) {
                 if (user.userLogIn.lowercase() == inputUsername.lowercase() && user.userPassword == inputPassword) {
                     isValid = true
-                    userId = user.userId
-                    viewModel.userId = userId
+                    viewModel.userData = user
                     break
                 }
             }
 
 
-
-
             if (isValid) {
-                findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment(userId))
+                findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
                 (activity as? MainActivity)?.showNavigationBar()
 
             } else {

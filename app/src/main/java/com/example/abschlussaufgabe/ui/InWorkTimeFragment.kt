@@ -30,16 +30,14 @@ class InWorkTimeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_in_work_time, container, false)
         return binding.root
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        userData = viewModel.userData
+
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // suche nach user daten
-        for (i in viewModel.userList.value!!) {
-            if (i.userId == viewModel.userId) {
-                userData = i
-                // viewModel.userId = userId
-            }
-        }
 
         //Spinner ----------------------------------------------------------------------------------
         val positionList = userData.userQualification
@@ -63,8 +61,16 @@ class InWorkTimeFragment : Fragment() {
                 // Handle case when nothing is selected
             }
         }
+
         //------------------------------------------------------------------------------------------
 
+        //TimePicker 24 Hour Style
         binding.myTimePicker.setIs24HourView(true)
+
+        //TODO: Test time picker
+        binding.ibStart.setOnClickListener {
+        binding.tvSaveCurrentPosition.text = "  ${binding.myTimePicker.hour}:${binding.myTimePicker.minute}"
+        }
+
     }
 }

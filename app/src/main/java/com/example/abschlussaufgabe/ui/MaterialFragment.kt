@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.ui
 
 
+import MaterialItemAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,21 +14,23 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentMaterialBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
+import com.google.android.flexbox.FlexboxLayoutManager
 
 
 class MaterialFragment : Fragment() {
     private lateinit var binding: FragmentMaterialBinding
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var userData: UserDataModel
-
     private var userId: Int = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            userId = it.getInt("user_id")
-        }
+        userData = viewModel.userData
     }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +43,10 @@ class MaterialFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textView2.text = viewModel.userId.toString()
 
+        binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
+        viewModel.materialList.observe(viewLifecycleOwner){
+            binding.rvMaterial.adapter = MaterialItemAdapter(it)
+        }
     }
 }

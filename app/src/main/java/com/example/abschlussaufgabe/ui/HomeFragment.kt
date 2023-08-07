@@ -27,13 +27,9 @@ class HomeFragment : Fragment() {
 
 
     //todo: arguments user_id
-    var userId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            userId = it.getInt("user_id")
-        }
+        userData = viewModel.userData
     }
 
     override fun onCreateView(
@@ -49,18 +45,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        for (i in viewModel.userList.value!!){
-            if ( i.userId == userId) {
-                userData = i
-               // viewModel.userId = userId
-            }
-        }
 
         //CardView User
-        binding.tvUserName.text = "${userData.userId} ${userData.userLastName}"
+        binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
         binding.tvUserBa.text = "BA-${userData.userBaNumber}"
         binding.tvUserBup.text = "BüP-${userData.userBupNumber}"
 
+        //RecyclerView for Qualification
         binding.rvQualification.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.userList.observe(viewLifecycleOwner){ _ ->
@@ -69,9 +60,8 @@ class HomeFragment : Fragment() {
         //-----
 
 
-        //CardView Material
+        //CardView Material user
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
-
         viewModel.materialList.observe(viewLifecycleOwner){
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
 

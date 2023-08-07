@@ -19,7 +19,6 @@ class MaterialItemAdapter(private val itemList: List<StorageMaterialModel>) : Re
     override fun onBindViewHolder(holder: MaterialItemAdapter.ItemViewHolder, position: Int) {
         val item = itemList[position]
         holder.binding.textView.text = item.name
-
     }
 
     override fun getItemCount(): Int {
