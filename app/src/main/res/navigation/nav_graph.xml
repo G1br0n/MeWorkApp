@@ -38,4 +38,8 @@
         android:name="com.example.abschlussaufgabe.ui.WorkTimeFragment"
         android:label="fragment_work_time"
         tools:layout="@layout/fragment_work_time" />
+    <fragment
+        android:id="@+id/materialReceivedFragment"
+        android:name="com.example.abschlussaufgabe.ui.MaterialReceivedFragment"
+        android:label="MaterialReceivedFragment" />
 </navigation>

@@ -13,6 +13,8 @@ import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.local.UserMaterialDatabase
+import com.example.abschlussaufgabe.data.model.StorageMaterialModel
+import com.example.abschlussaufgabe.data.model.UserMaterialModel
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
 import com.example.abschlussaufgabe.databinding.FragmentLogInBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
@@ -21,6 +23,8 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
     private val viewModel: MainViewModel by activityViewModels()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,11 +42,15 @@ class LogInFragment : Fragment() {
 
         //TODO 1: LogIn dataBank
         binding.ibLogin.setOnClickListener {
+
+
+
             val inputUsername = binding.ettLogIn.text.toString()
             val inputPassword = binding.ettPassword.text.toString()
 
             var isValid = false
 
+            //Hier durchsuche ich die userdaten und gleiche es mit eingegebenen daten im loginfragment ab
             for (user in viewModel.userList.value!!) {
                 if (user.userLogIn.lowercase() == inputUsername.lowercase() && user.userPassword == inputPassword) {
                     isValid = true
@@ -51,12 +59,14 @@ class LogInFragment : Fragment() {
                 }
             }
 
-
             if (isValid) {
+                //Naviegire zum homeFragment wenn die userdaten ubereinstimmen
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
+                //Öfne NavBar bei navigiren zum homeFragment
                 (activity as? MainActivity)?.showNavigationBar()
 
             } else {
+                //Wenn die userdaten nicht ind der liste sind oder der eingegebene passwort nicht übereinstimt wirt eine Toast nachricht dem entsprechendnangezeigt
                 Toast.makeText(
                     requireContext(),
                     "Eingegebene Passwort oder Username sind falsch",
@@ -64,5 +74,12 @@ class LogInFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        //Schlisse navBar wenn loginfragment wieder geöfnet wird
+        (activity as? MainActivity)?.closeNavigationBar()
     }
 }

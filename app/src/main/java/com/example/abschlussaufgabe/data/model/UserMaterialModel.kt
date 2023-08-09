@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class UserMaterialModel(
 
     @PrimaryKey(autoGenerate = true)
-    val idMaterial: Int,
+    val idMaterial: Int = 0,
 
     val name: String,
     val locationId: Int

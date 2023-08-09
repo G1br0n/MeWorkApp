@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.UserDataModel
@@ -47,6 +48,10 @@ class MaterialFragment : Fragment() {
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
         viewModel.materialList.observe(viewLifecycleOwner){
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
+        }
+
+        binding.imageButton.setOnClickListener {
+            findNavController().navigate(R.id.materialReceivedFragment)
         }
     }
 }

@@ -3,18 +3,14 @@ package com.example.abschlussaufgabe.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.abschlussaufgabe.data.local.UserMaterialDatabase
+import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
-import com.example.abschlussaufgabe.data.model.UserMaterialModel
 import java.time.LocalDate
 
 class AppRepository(
-    private val userMaterialDatabase: UserMaterialDatabase
+    private val storageMaterialDatabase: StorageMaterialDatabase
 ) {
-
-
-    val userMaterialList: LiveData<List<UserMaterialModel>> = userMaterialDatabase.userMaterialDao.getAll()
 
     //UserList
     private val _user = MutableLiveData<List<UserDataModel>>()
@@ -30,7 +26,7 @@ class AppRepository(
     //todo: init block !!!!
     init {
         loadUser()
-        loadMaterial()
+        loadStorageMaterial()
 
     }
 
@@ -81,7 +77,7 @@ class AppRepository(
     }
 
 
-    private fun loadMaterial() {
+    private fun loadStorageMaterial() {
         _material.value = listOf(
             StorageMaterialModel(1, "GSMR-1", 1),
             StorageMaterialModel(2, "BahnErdeGarnitur-1", 1),
@@ -129,9 +125,26 @@ class AppRepository(
 
     }
 
-    suspend fun insert(userMaterial: UserMaterialModel) {
+
+    val storageMaterialList: LiveData<List<StorageMaterialModel>> = material
+
+    suspend fun insert(storageMaterial: StorageMaterialModel) {
         try {
-            userMaterialDatabase.userMaterialDao.insert(userMaterial)
+            storageMaterialDatabase.storageMaterialDao.insert(storageMaterial)
+        } catch (e: Exception) {
+            Log.e("TAG", "Failed to insert into database: $e")
+        }
+    }
+
+
+    //Fun befült die lager datenbank wenn es lehr ist
+    suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>){
+        try {
+            if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()){
+                for (i in storageMaterialList){
+                    storageMaterialDatabase.storageMaterialDao.insert(i)
+                }
+            }
         } catch (e: Exception) {
             Log.e("TAG", "Failed to insert into database: $e")
         }
