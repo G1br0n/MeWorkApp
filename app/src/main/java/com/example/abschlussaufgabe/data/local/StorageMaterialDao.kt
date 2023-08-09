@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
-import com.example.abschlussaufgabe.data.model.UserMaterialModel
 
 @Dao
 interface StorageMaterialDao {

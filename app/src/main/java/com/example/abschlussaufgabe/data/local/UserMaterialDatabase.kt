@@ -19,7 +19,7 @@ fun getUserMaterialDatabase(context: Context): UserMaterialDatabase {
             INSTANCE = Room.databaseBuilder(
                 context.applicationContext,
                 UserMaterialDatabase::class.java,
-                "user_material_database"
+                "user_material_table"
             )
                 .build()
         }

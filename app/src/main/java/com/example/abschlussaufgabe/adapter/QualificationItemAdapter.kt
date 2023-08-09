@@ -24,7 +24,6 @@ class QualificationItemAdapter(
         return  dataset.userQualification.size
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val user = "${dataset.userQualification[position]}   ${dataset.userQualificationFit[position].year}.${dataset.userQualificationFit[position].monthValue}.${dataset.userQualificationFit[position].dayOfMonth}"
         holder.binding.tvItemQualification.text = user

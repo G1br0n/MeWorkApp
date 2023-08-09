@@ -20,7 +20,7 @@ fun getStorageMaterialDatabase(context: Context): StorageMaterialDatabase {
             INSTANCE = Room.databaseBuilder(
                 context.applicationContext,
                 StorageMaterialDatabase::class.java,
-                "storage_material_database"
+                "storage_material_table"
             )
                 .build()
         }

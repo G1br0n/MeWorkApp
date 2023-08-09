@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.databinding.MaterialItemBinding
 
+
 class MaterialItemAdapter(private val itemList: List<StorageMaterialModel>) : RecyclerView.Adapter<MaterialItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(val binding: MaterialItemBinding) : RecyclerView.ViewHolder(binding.root)
