@@ -10,6 +10,7 @@ import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 @Database(entities = [StorageMaterialModel::class], version = 1)
 abstract class StorageMaterialDatabase: RoomDatabase() {
     abstract val storageMaterialDao: StorageMaterialDao
+    //abstract fun storageMaterialDao(): StorageMaterialDao
 }
 
 private lateinit var INSTANCE: StorageMaterialDatabase

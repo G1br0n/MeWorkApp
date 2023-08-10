@@ -12,6 +12,7 @@ class AppRepository(
     private val storageMaterialDatabase: StorageMaterialDatabase
 ) {
 
+    var  hallo: LiveData<StorageMaterialModel> = storageMaterialDatabase.storageMaterialDao.getById(1 )
     //UserList
     private val _user = MutableLiveData<List<UserDataModel>>()
     val user: LiveData<List<UserDataModel>>
@@ -81,7 +82,7 @@ class AppRepository(
         _material.value = listOf(
             StorageMaterialModel(1, "GSMR-1", 1),
             StorageMaterialModel(2, "BahnErdeGarnitur-1", 1),
-            StorageMaterialModel(3, "GSMR-2", 1),
+            StorageMaterialModel(3, "GSMR-2", 1001),
             StorageMaterialModel(4, "BüpGarnitur-1", 1),
             StorageMaterialModel(5, "LA-1", 1),
             StorageMaterialModel(6, "LA-33", 1),
@@ -89,7 +90,7 @@ class AppRepository(
             StorageMaterialModel(8, "E-Sail-2", 1),
             StorageMaterialModel(9, "E-Sail-4", 1),
             StorageMaterialModel(10, "ZPW-10-22", 1),
-            StorageMaterialModel(11, "HS-1", 1),
+            StorageMaterialModel(11, "HS-1", 1001),
             StorageMaterialModel(12, "HS-2", 1),
             StorageMaterialModel(13, "HS-3", 1),
             StorageMaterialModel(14, "HS-4", 1),
@@ -126,8 +127,6 @@ class AppRepository(
     }
 
 
-
-
     suspend fun insert(storageMaterial: StorageMaterialModel) {
         try {
             storageMaterialDatabase.storageMaterialDao.insert(storageMaterial)
@@ -140,11 +139,12 @@ class AppRepository(
     //Fun befült die lager datenbank wenn es lehr ist
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>){
         try {
-            if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()){
+            //TODO: feller vorhanden
+           // if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()){
                 for (i in storageMaterialList){
                     storageMaterialDatabase.storageMaterialDao.insert(i)
                 }
-            }
+           // }
         } catch (e: Exception) {
             Log.e("TAG", "Failed to insert into database: $e")
         }

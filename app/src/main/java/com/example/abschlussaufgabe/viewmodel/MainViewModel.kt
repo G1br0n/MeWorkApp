@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +19,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var storageMaterialDatabase: StorageMaterialDatabase = getStorageMaterialDatabase(application)
     private val repository = AppRepository(storageMaterialDatabase)
+
+    val hallo = repository.hallo
 
     //Userliste
     val userList = repository.user
@@ -63,11 +66,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateMaterialLocation(id: Int, newLocationId: Int) {
         viewModelScope.launch {
-            val material = storageMaterialDatabase.storageMaterialDao.getById(id).value
-            material?.let {
+            val material = storageMaterialDatabase.storageMaterialDao.getById(id).value!!
+
+            material.let {
+
+                Log.e("df","test")
                 it.locationId = newLocationId
                 storageMaterialDatabase.storageMaterialDao.update(it)
-                loadUserMaterialList()
+               // loadUserMaterialList()
             }
         }
     }

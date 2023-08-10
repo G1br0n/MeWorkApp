@@ -16,6 +16,7 @@ interface StorageMaterialDao {
     @Update
     suspend fun update(storageMaterial: StorageMaterialModel)
 
+
     @Query("SELECT * FROM StorageMaterialModel")
     fun getAll(): LiveData<List<StorageMaterialModel>>
 

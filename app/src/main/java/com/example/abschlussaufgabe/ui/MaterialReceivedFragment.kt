@@ -59,11 +59,26 @@ class MaterialReceivedFragment : Fragment() {
             codeScanner.startPreview()
         }
 
+
         binding.ibReceived.setOnClickListener{
-            //id = binding.etMaterialId.text.toString().toInt()
-           // Toast.makeText(activity, "${id}", Toast.LENGTH_LONG).show()
-            //viewModel.updateMaterialLocation(id,viewModel.userData.userId)
-            //viewModel.loadUserMaterialList()
+
+            try {
+
+                id = binding.etMaterialId.text.toString().toInt()
+
+                var test = viewModel.storageMaterialDatabase.storageMaterialDao.getById(1).value!!.materialId
+                //test!!.locationId = 1001
+                //viewModel.hallo.value!!.locationId = 1001
+
+                Toast.makeText(activity, "${test}", Toast.LENGTH_LONG).show()
+
+                viewModel.updateMaterialLocation(1,1001)
+
+                viewModel.loadUserMaterialList()
+            } catch (ex: Exception) {
+                Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
+            }
+
             findNavController().navigateUp()
         }
 
