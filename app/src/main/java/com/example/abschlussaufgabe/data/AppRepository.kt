@@ -126,7 +126,7 @@ class AppRepository(
     }
 
 
-    val storageMaterialList: LiveData<List<StorageMaterialModel>> = material
+
 
     suspend fun insert(storageMaterial: StorageMaterialModel) {
         try {

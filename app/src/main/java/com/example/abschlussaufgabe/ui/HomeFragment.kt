@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         //CardView User
         binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
         binding.tvUserBa.text = "BA-${userData.userBaNumber}"
@@ -57,16 +56,13 @@ class HomeFragment : Fragment() {
         viewModel.userList.observe(viewLifecycleOwner){ _ ->
             binding.rvQualification.adapter = QualificationItemAdapter(userData)
         }
-        //-----
-
 
         //CardView Material user
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
-        viewModel.materialList.observe(viewLifecycleOwner){
+        viewModel.userMaterialList.observe(viewLifecycleOwner){
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
 
         }
-
 
     }
 

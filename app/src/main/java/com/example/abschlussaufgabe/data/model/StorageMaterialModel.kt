@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 data class StorageMaterialModel(
 
     @PrimaryKey(autoGenerate = true)
-    val idMaterial: Int,
+    val materialId: Int,
 
     val name: String,
-    val locationId: Int
+    var locationId: Int
 )
