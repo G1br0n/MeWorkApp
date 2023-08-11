@@ -135,7 +135,7 @@
                 app:layout_constraintStart_toStartOf="@+id/cv_material_psa">
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/ibMaterialReciver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -144,7 +144,7 @@
                     android:src="@drawable/button_material_to_user_shadow" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/ibMaterialHandOver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -153,7 +153,7 @@
                     android:src="@drawable/button_material_from_user_to_user_shadow" />
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/ibMaterialDeliver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

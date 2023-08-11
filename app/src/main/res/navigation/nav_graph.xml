@@ -42,4 +42,8 @@
         android:id="@+id/materialReceivedFragment"
         android:name="com.example.abschlussaufgabe.ui.MaterialReceivedFragment"
         android:label="MaterialReceivedFragment" />
+    <fragment
+        android:id="@+id/materialDeliverFragment"
+        android:name="com.example.abschlussaufgabe.ui.MaterialDeliverFragment"
+        android:label="MaterialDeliverFragment" />
 </navigation>

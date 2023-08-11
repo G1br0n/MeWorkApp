@@ -14,13 +14,13 @@ import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
+import com.example.abschlussaufgabe.databinding.FragmentMaterialDeliverBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 
-class MaterialReceivedFragment : Fragment() {
+class MaterialDeliverFragment : Fragment() {
     private lateinit var codeScanner: CodeScanner
-    private lateinit var binding: FragmentMaterialReceivedBinding
+    private lateinit var binding: FragmentMaterialDeliverBinding
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class MaterialReceivedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_material_received, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_material_deliver, container, false)
         return binding.root
     }
 
@@ -58,39 +58,27 @@ class MaterialReceivedFragment : Fragment() {
                 }
             }
 
-        }
-        scannerView.setOnClickListener {
-            codeScanner.startPreview()
-        }
 
-        //Button empfangen wen angeklickt er wird
-        binding.ibReceived.setOnClickListener {
-            try {
-                // setze id aus dem eingabe feld
-                id = binding.etMaterialId.text.toString().toInt()
 
-                //udate StorageMaterial Model Datenbank
-                viewModel.updateMaterialLocation(id, viewModel.userData.userId)
 
-                //Update UserMaterialListe aus dem datenbank
-                viewModel.loadUserMaterialList()
+            binding.ibDeliver.setOnClickListener {
 
-            } catch (ex: Exception) {
-                Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
+                findNavController().navigateUp()
+
+                try {
+                    // setze id aus dem eingabe feld
+                    id = binding.etMaterialId.text.toString().toInt()
+
+                    //udate StorageMaterial Model Datenbank
+                    viewModel.updateMaterialLocation(id, 1)
+
+                    //Update UserMaterialListe aus dem datenbank
+                    viewModel.loadUserMaterialList()
+
+                } catch (ex: Exception) {
+                    Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
+                }
             }
-            findNavController().navigateUp()
         }
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        codeScanner.startPreview()
-    }
-
-    override fun onPause() {
-        codeScanner.releaseResources()
-        super.onPause()
     }
 }

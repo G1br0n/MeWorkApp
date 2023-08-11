@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentMaterialBinding
@@ -46,12 +45,24 @@ class MaterialFragment : Fragment() {
 
 
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
-        viewModel.materialList.observe(viewLifecycleOwner){
+        viewModel.userMaterialList.observe(viewLifecycleOwner){
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
         }
 
-        binding.imageButton.setOnClickListener {
+        binding.ibMaterialReciver.setOnClickListener {
             findNavController().navigate(R.id.materialReceivedFragment)
         }
+
+        binding.ibMaterialDeliver.setOnClickListener {
+            findNavController().navigate(R.id.materialDeliverFragment)
+        }
+        viewModel.loadUserMaterialList()
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadUserMaterialList()
+    }
+
+
 }

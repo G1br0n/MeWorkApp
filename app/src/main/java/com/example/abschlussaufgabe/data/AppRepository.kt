@@ -17,7 +17,6 @@ class AppRepository(
     val user: LiveData<List<UserDataModel>>
         get() = _user
 
-    //  var materialStorageDatenbank = storageMaterialDatabase.storageMaterialDao.getAll().value!!.filter {  }
 
     private val _material = MutableLiveData<List<StorageMaterialModel>>()
     val material: LiveData<List<StorageMaterialModel>>
@@ -137,7 +136,8 @@ class AppRepository(
     //Fun befült die lager datenbank wenn es lehr ist
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>) {
         try {
-            //TODO: feller vorhanden
+
+            // TODO: feller vorhanden
 
             //if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()){
                 for (i in storageMaterialList) {
