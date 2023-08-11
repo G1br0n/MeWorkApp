@@ -1,8 +1,9 @@
 package com.example.abschlussaufgabe.ui
 
-import android.graphics.Color
+
 import android.os.Bundle
 import android.text.Editable
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +11,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
+
 import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
+import kotlinx.coroutines.launch
+
 
 class MaterialReceivedFragment : Fragment() {
     private lateinit var codeScanner: CodeScanner
@@ -62,21 +67,26 @@ class MaterialReceivedFragment : Fragment() {
 
         binding.ibReceived.setOnClickListener{
 
-            try {
+        try {
 
                 id = binding.etMaterialId.text.toString().toInt()
 
-                var test = viewModel.storageMaterialDatabase.storageMaterialDao.getById(1).value!!.materialId
-                //test!!.locationId = 1001
-                //viewModel.hallo.value!!.locationId = 1001
-
+                //viewLifecycleOwner.lifecycleScope.launch {
+                    var test = viewModel.updateMaterialLocation(id,viewModel.userData.userId)
+               // }
+                    //test!!.locationId = 1001
                 Toast.makeText(activity, "${test}", Toast.LENGTH_LONG).show()
-
-                viewModel.updateMaterialLocation(1,1001)
-
+                //viewModel.hallo.value!!.locationId = 1001
                 viewModel.loadUserMaterialList()
+
+               // viewModel.updateMaterialLocation(1,1001)
+
+
+
+              //  viewModel.loadUserMaterialList()
             } catch (ex: Exception) {
                 Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
+
             }
 
             findNavController().navigateUp()

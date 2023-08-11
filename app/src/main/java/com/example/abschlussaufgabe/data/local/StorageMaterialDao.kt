@@ -13,9 +13,8 @@ interface StorageMaterialDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(storageMaterial: StorageMaterialModel)
 
-    @Update
-    suspend fun update(storageMaterial: StorageMaterialModel)
-
+    @Query("UPDATE StorageMaterialModel SET locationId = :locationId WHERE materialId = :materialId")
+    suspend fun updateStorage(materialId: Int, locationId: Int)
 
     @Query("SELECT * FROM StorageMaterialModel")
     fun getAll(): LiveData<List<StorageMaterialModel>>
@@ -26,5 +25,7 @@ interface StorageMaterialDao {
     @Query("DELETE FROM StorageMaterialModel")
     suspend fun deleteAll()
 
+    @Query("SELECT * FROM StorageMaterialModel WHERE locationId = :userId")
+    fun getMaterialsByUserId(userId: String): LiveData<List<StorageMaterialModel>>
 
 }

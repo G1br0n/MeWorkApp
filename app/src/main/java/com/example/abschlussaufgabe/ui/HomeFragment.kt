@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import MaterialItemAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +61,7 @@ class HomeFragment : Fragment() {
         //CardView Material user
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
         viewModel.userMaterialList.observe(viewLifecycleOwner){
+            Log.e("Home","$it")
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
 
         }

@@ -18,9 +18,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     var storageMaterialDatabase: StorageMaterialDatabase = getStorageMaterialDatabase(application)
-    private val repository = AppRepository(storageMaterialDatabase)
+    val repository = AppRepository(storageMaterialDatabase)
 
-    val hallo = repository.hallo
 
     //Userliste
     val userList = repository.user
@@ -31,6 +30,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //Material liste für erst befülüng des datenbank vom lager bestand
     val materialList = repository.material
 
+   // val materialStorageDatenbank = repository.materialStorageDatenbank
 
 
 
@@ -41,7 +41,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init {
-        insertUserMaterial()
+        loadUserMaterialList()
+      //  insertUserMaterial()
     }
 
     private fun insertUserMaterial() {
@@ -53,29 +54,32 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadUserMaterialList() {
         viewModelScope.launch {
-            val materialCheckedList = mutableListOf<StorageMaterialModel>()
 
+
+            viewModelScope.launch {
+                var userMaterialList = storageMaterialDatabase.storageMaterialDao.getMaterialsByUserId(userData.userId.toString())
+                _userMaterialList.value = userMaterialList.value
+            }
+
+           /* val materialCheckedList = mutableListOf<StorageMaterialModel>()
             for (material in materialList.value!!) {
                 if (material.locationId == userData.userId) {
+
+                    //todo: Tester Log
+                    Log.e("Home","Test2")
+
                     materialCheckedList.add(material)
                 }
-            }
             _userMaterialList.value = materialCheckedList
+            }*/
         }
     }
 
     fun updateMaterialLocation(id: Int, newLocationId: Int) {
         viewModelScope.launch {
-            val material = storageMaterialDatabase.storageMaterialDao.getById(id).value!!
-
-            material.let {
-
-                Log.e("df","test")
-                it.locationId = newLocationId
-                storageMaterialDatabase.storageMaterialDao.update(it)
-               // loadUserMaterialList()
-            }
+           repository.updateStorageMaterial(id,newLocationId)
         }
     }
+
 
 }
