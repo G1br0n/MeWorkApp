@@ -57,7 +57,7 @@ class MaterialDeliverFragment : Fragment() {
                     ).show()
                 }
             }
-
+        }
 
 
 
@@ -81,4 +81,4 @@ class MaterialDeliverFragment : Fragment() {
             }
         }
     }
-}
+

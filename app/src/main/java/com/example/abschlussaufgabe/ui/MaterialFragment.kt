@@ -45,6 +45,7 @@ class MaterialFragment : Fragment() {
 
 
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
+
         viewModel.userMaterialList.observe(viewLifecycleOwner){
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
         }
