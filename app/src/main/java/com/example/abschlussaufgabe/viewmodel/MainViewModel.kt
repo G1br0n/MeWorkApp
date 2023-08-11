@@ -41,8 +41,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init {
-        loadUserMaterialList()
-      //  insertUserMaterial()
+        insertUserMaterial()
     }
 
     private fun insertUserMaterial() {
@@ -54,14 +53,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadUserMaterialList() {
         viewModelScope.launch {
-
-
-            viewModelScope.launch {
-                var userMaterialList = storageMaterialDatabase.storageMaterialDao.getMaterialsByUserId(userData.userId.toString())
-                _userMaterialList.value = userMaterialList.value
-            }
-
-           /* val materialCheckedList = mutableListOf<StorageMaterialModel>()
+            val materialCheckedList = mutableListOf<StorageMaterialModel>()
             for (material in materialList.value!!) {
                 if (material.locationId == userData.userId) {
 
@@ -70,8 +62,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
                     materialCheckedList.add(material)
                 }
+            }
             _userMaterialList.value = materialCheckedList
-            }*/
         }
     }
 

@@ -72,24 +72,26 @@ class MaterialReceivedFragment : Fragment() {
                 id = binding.etMaterialId.text.toString().toInt()
 
                 //viewLifecycleOwner.lifecycleScope.launch {
+
+                    //Update Datenbank von StorageMaterialModel
                     var test = viewModel.updateMaterialLocation(id,viewModel.userData.userId)
                // }
                     //test!!.locationId = 1001
                 Toast.makeText(activity, "${test}", Toast.LENGTH_LONG).show()
                 //viewModel.hallo.value!!.locationId = 1001
-                viewModel.loadUserMaterialList()
+               viewModel.loadUserMaterialList()
 
                // viewModel.updateMaterialLocation(1,1001)
 
 
-
+            findNavController().navigateUp()
               //  viewModel.loadUserMaterialList()
             } catch (ex: Exception) {
                 Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
 
             }
 
-            findNavController().navigateUp()
+
         }
 
     }
