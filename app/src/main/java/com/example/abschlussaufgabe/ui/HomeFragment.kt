@@ -12,8 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.QualificationItemAdapter
-import com.example.abschlussaufgabe.data.AppRepository
-import com.example.abschlussaufgabe.data.local.UserMaterialDatabase
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
@@ -46,6 +44,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         //CardView User
         binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
         binding.tvUserBa.text = "BA-${userData.userBaNumber}"
@@ -60,16 +60,17 @@ class HomeFragment : Fragment() {
 
         //CardView Material user
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
+
         viewModel.userMaterialList.observe(viewLifecycleOwner){
             Log.e("Home","$it")
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
 
         }
-
+        viewModel.loadUserMaterialList()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadUserMaterialList()
+       viewModel.loadUserMaterialList()
     }
 }

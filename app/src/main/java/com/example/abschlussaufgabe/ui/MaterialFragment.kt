@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 
 import MaterialItemAdapter
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,8 +39,11 @@ class MaterialFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_material, container, false)
         return binding.root
+
+
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,6 +52,7 @@ class MaterialFragment : Fragment() {
 
         viewModel.userMaterialList.observe(viewLifecycleOwner){
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
+
         }
 
         binding.ibMaterialReciver.setOnClickListener {
@@ -57,12 +62,15 @@ class MaterialFragment : Fragment() {
         binding.ibMaterialDeliver.setOnClickListener {
             findNavController().navigate(R.id.materialDeliverFragment)
         }
+
         viewModel.loadUserMaterialList()
+
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadUserMaterialList()
+
+       viewModel.loadUserMaterialList()
     }
 
 

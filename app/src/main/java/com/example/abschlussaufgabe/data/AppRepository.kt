@@ -81,8 +81,8 @@ class AppRepository(
             StorageMaterialModel(2, "BahnErdeGarnitur-1", 1),
             StorageMaterialModel(3, "GSMR-2", 1001),
             StorageMaterialModel(4, "BüpGarnitur-1", 1001),
-            StorageMaterialModel(5, "LA-1", 1),
-            StorageMaterialModel(6, "LA-33", 1),
+            StorageMaterialModel(5, "LA-1", 1002),
+            StorageMaterialModel(6, "LA-33", 1002),
             StorageMaterialModel(7, "E-Sail-1", 1),
             StorageMaterialModel(8, "E-Sail-2", 1),
             StorageMaterialModel(9, "E-Sail-4", 1),
@@ -159,6 +159,10 @@ class AppRepository(
 
     fun getMaterialsByUserIdLiveData(userId: String): LiveData<List<StorageMaterialModel>> {
         return storageMaterialDatabase.storageMaterialDao.getMaterialsByUserId(userId)
+    }
+
+    suspend fun getById(userId: Int): LiveData<List<StorageMaterialModel>> {
+        return storageMaterialDatabase.storageMaterialDao.getById(userId)
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.abschlussaufgabe.ui
 
+import MaterialItemAdapter
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -33,6 +35,7 @@ class MaterialReceivedFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
@@ -57,13 +60,13 @@ class MaterialReceivedFragment : Fragment() {
                     ).show()
                 }
             }
-
-        }
-        scannerView.setOnClickListener {
-            codeScanner.startPreview()
         }
 
-        //Button empfangen wen angeklickt er wird
+        //starte camera preview
+        codeScanner.startPreview()
+
+
+        //Button empfangen wen er angeklickt  wird
         binding.ibReceived.setOnClickListener {
             try {
                 // setze id aus dem eingabe feld
@@ -75,9 +78,16 @@ class MaterialReceivedFragment : Fragment() {
                 //Update UserMaterialListe aus dem datenbank
                 viewModel.loadUserMaterialList()
 
+                //Benachrichtige user über die erfolgreiche action
+                Toast.makeText(activity, "Material erfolgreich empfangen", Toast.LENGTH_LONG).show()
+
+                //Fange Mögliche Feller ab
             } catch (ex: Exception) {
+                //Benachritige mit Toast über den feller
                 Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
             }
+
+            //Naviegire zurück zu MaterialFragment
             findNavController().navigateUp()
         }
 

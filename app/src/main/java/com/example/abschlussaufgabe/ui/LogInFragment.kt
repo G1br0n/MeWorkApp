@@ -11,11 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.AppRepository
-import com.example.abschlussaufgabe.data.local.UserMaterialDatabase
-import com.example.abschlussaufgabe.data.model.StorageMaterialModel
-import com.example.abschlussaufgabe.data.model.UserMaterialModel
-import com.example.abschlussaufgabe.databinding.ActivityMainBinding
 import com.example.abschlussaufgabe.databinding.FragmentLogInBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 

@@ -59,26 +59,49 @@ class MaterialDeliverFragment : Fragment() {
             }
         }
 
+        //starte camera preview
+        codeScanner.startPreview()
 
 
-            binding.ibDeliver.setOnClickListener {
+        //Button abgeben wen er angeklickt  wird
+        binding.ibDeliver.setOnClickListener {
 
-                findNavController().navigateUp()
+            findNavController().navigateUp()
 
-                try {
-                    // setze id aus dem eingabe feld
-                    id = binding.etMaterialId.text.toString().toInt()
+            try {
+                // setze id aus dem eingabe feld
+                id = binding.etMaterialId.text.toString().toInt()
 
-                    //udate StorageMaterial Model Datenbank
-                    viewModel.updateMaterialLocation(id, 1)
+                //udate StorageMaterial Model Datenbank
+                viewModel.updateMaterialLocation(id, 1)
 
-                    //Update UserMaterialListe aus dem datenbank
-                    viewModel.loadUserMaterialList()
+                //Update UserMaterialListe aus dem datenbank
+                viewModel.loadUserMaterialList()
 
-                } catch (ex: Exception) {
-                    Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
-                }
+                //Benachrichtige user über die erfolgreiche action
+                Toast.makeText(
+                    activity,
+                    "Material erfolgreich im Lager Abgegeben",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                //Fange Mögliche Feller ab
+            } catch (ex: Exception) {
+                //Benachritige mit Toast über den feller
+                Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
             }
+
+            //Naviegire zurück zu MaterialFragment
+            findNavController().navigateUp()
         }
     }
+    override fun onResume() {
+        super.onResume()
+        codeScanner.startPreview()
+    }
 
+    override fun onPause() {
+        codeScanner.releaseResources()
+        super.onPause()
+    }
+}

@@ -28,7 +28,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var userData: UserDataModel
 
     //Material liste für erst befülüng des datenbank vom lager bestand
-    val materialList = repository.material
+    val storageMaterialList = repository.material
 
    // val materialStorageDatenbank = repository.materialStorageDatenbank
 
@@ -46,15 +46,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun insertUserMaterial() {
         viewModelScope.launch {
-            repository.insertAll(materialList.value!!)
+            repository.insertAll(storageMaterialList.value!!)
         }
+    }
+
+    fun loadUserMaterialListFilteredByID(){
+
     }
 
 
     fun loadUserMaterialList() {
         viewModelScope.launch {
+
             val materialCheckedList = mutableListOf<StorageMaterialModel>()
-            for (material in materialList.value!!) {
+
+            for (material in storageMaterialList.value!!) {
                 if (material.locationId == userData.userId) {
 
                     //todo: Tester Log
@@ -64,6 +70,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
             _userMaterialList.value = materialCheckedList
+
+           // _userMaterialList.value = repository.getById(userData.userId).value
         }
     }
 
