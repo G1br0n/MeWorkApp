@@ -63,6 +63,10 @@ class MaterialFragment : Fragment() {
             findNavController().navigate(R.id.materialDeliverFragment)
         }
 
+        binding.ibMaterialPlacement.setOnClickListener {
+            findNavController().navigate(R.id.materialPlacementFragment)
+        }
+
         viewModel.loadUserMaterialList()
 
     }

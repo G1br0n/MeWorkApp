@@ -85,14 +85,15 @@ class MaterialDeliverFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
 
+                //Naviegire zurück zu MaterialFragment
+                findNavController().navigate(R.id.materialFragment)
+
                 //Fange Mögliche Feller ab
             } catch (ex: Exception) {
                 //Benachritige mit Toast über den feller
                 Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
             }
 
-            //Naviegire zurück zu MaterialFragment
-            findNavController().navigateUp()
         }
     }
     override fun onResume() {

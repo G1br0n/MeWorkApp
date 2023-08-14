@@ -173,7 +173,7 @@
                 app:layout_constraintStart_toStartOf="@+id/linearLayout">
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/ibMaterialPlacement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

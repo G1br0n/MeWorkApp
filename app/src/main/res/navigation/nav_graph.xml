@@ -46,4 +46,8 @@
         android:id="@+id/materialDeliverFragment"
         android:name="com.example.abschlussaufgabe.ui.MaterialDeliverFragment"
         android:label="MaterialDeliverFragment" />
+    <fragment
+        android:id="@+id/materialPlacementFragment"
+        android:name="com.example.abschlussaufgabe.ui.MaterialPlacementFragment"
+        android:label="MaterialPlacementFragment" />
 </navigation>

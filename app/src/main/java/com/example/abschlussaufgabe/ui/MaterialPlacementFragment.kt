@@ -1,6 +1,5 @@
 package com.example.abschlussaufgabe.ui
 
-import MaterialItemAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
@@ -16,13 +15,13 @@ import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.databinding.FragmentMaterialPlacementBinding
 import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
-
-class MaterialReceivedFragment : Fragment() {
+class MaterialPlacementFragment : Fragment() {
     private lateinit var codeScanner: CodeScanner
-    private lateinit var binding: FragmentMaterialReceivedBinding
+    private lateinit var binding: FragmentMaterialPlacementBinding
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -31,7 +30,12 @@ class MaterialReceivedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_material_received, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_material_placement,
+                container,
+                false
+            )
         return binding.root
     }
 
@@ -67,22 +71,26 @@ class MaterialReceivedFragment : Fragment() {
 
 
         //Button empfangen wen er angeklickt  wird
-        binding.ibReceived.setOnClickListener {
+        binding.ibPlace.setOnClickListener {
             try {
                 // setze id aus dem eingabe feld
+
                 id = binding.etMaterialId.text.toString().toInt()
+                var sapNumber = binding.etSapNumber.text.toString().toInt()
+
 
                 //udate StorageMaterial Model Datenbank
-                viewModel.updateMaterialLocation(id, viewModel.userData.userId)
+                viewModel.updateMaterialLocation(id, sapNumber)
 
                 //Update UserMaterialListe aus dem datenbank
                 viewModel.loadUserMaterialList()
 
                 //Benachrichtige user über die erfolgreiche action
-                Toast.makeText(activity, "Material erfolgreich empfangen", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Material erfolgreich platziert", Toast.LENGTH_LONG).show()
 
                 //Naviegire zurück zu MaterialFragment
                 findNavController().navigate(R.id.materialFragment)
+
                 //Fange Mögliche Feller ab
             } catch (ex: Exception) {
                 //Benachritige mit Toast über den feller
