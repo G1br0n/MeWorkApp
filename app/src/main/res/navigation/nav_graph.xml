@@ -50,4 +50,8 @@
         android:id="@+id/materialPlacementFragment"
         android:name="com.example.abschlussaufgabe.ui.MaterialPlacementFragment"
         android:label="MaterialPlacementFragment" />
+    <fragment
+        android:id="@+id/carGetInFragment"
+        android:name="com.example.abschlussaufgabe.ui.CarGetInFragment"
+        android:label="CarGetInFragment" />
 </navigation>

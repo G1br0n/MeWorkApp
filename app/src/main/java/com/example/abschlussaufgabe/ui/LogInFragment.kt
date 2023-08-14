@@ -35,13 +35,16 @@ class LogInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        //TODO 1: LogIn dataBank
+
+        // Login button wen er angeklickt wird
         binding.ibLogin.setOnClickListener {
 
 
 
+            //Empfange eigegebenen text
             val inputUsername = binding.ettLogIn.text.toString()
             val inputPassword = binding.ettPassword.text.toString()
+
 
             var isValid = false
 
@@ -55,10 +58,15 @@ class LogInFragment : Fragment() {
             }
 
             if (isValid) {
+
+
+
                 //Naviegire zum homeFragment wenn die userdaten ubereinstimmen
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
+
                 //Öfne NavBar bei navigiren zum homeFragment
                 (activity as? MainActivity)?.showNavigationBar()
+
                 //Lade User Material List
                  viewModel.loadUserMaterialList()
             } else {

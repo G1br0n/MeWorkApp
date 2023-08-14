@@ -139,11 +139,11 @@ class AppRepository(
 
             // TODO: feller vorhanden
 
-            //if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()){
+            if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()){
                 for (i in storageMaterialList) {
                     storageMaterialDatabase.storageMaterialDao.insert(i)
                 }
-            //}
+            }
         } catch (e: Exception) {
             Log.e("TAG", "Failed to insert into database: $e")
         }

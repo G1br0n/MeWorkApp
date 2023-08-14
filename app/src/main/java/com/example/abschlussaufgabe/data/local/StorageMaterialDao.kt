@@ -28,4 +28,6 @@ interface StorageMaterialDao {
     @Query("SELECT * FROM StorageMaterialModel WHERE locationId = :userId")
     fun getMaterialsByUserId(userId: String): LiveData<List<StorageMaterialModel>>
 
+    @Query("SELECT COUNT(*) FROM StorageMaterialModel")
+    fun getCount():Int
 }

@@ -41,23 +41,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init {
-        insertUserMaterial()
+        insertStorageMaterial()
     }
 
-    private fun insertUserMaterial() {
+    private fun insertStorageMaterial() {
         viewModelScope.launch {
             repository.insertAll(storageMaterialList.value!!)
         }
     }
 
-    fun loadUserMaterialListFilteredByID(){
-
-    }
-
 
     fun loadUserMaterialList() {
         viewModelScope.launch {
-
             val materialCheckedList = mutableListOf<StorageMaterialModel>()
 
             for (material in storageMaterialList.value!!) {
@@ -80,6 +75,4 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
            repository.updateStorageMaterial(id,newLocationId)
         }
     }
-
-
 }
