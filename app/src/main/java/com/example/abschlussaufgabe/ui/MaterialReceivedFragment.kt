@@ -75,9 +75,6 @@ class MaterialReceivedFragment : Fragment() {
                 //udate StorageMaterial Model Datenbank
                 viewModel.updateMaterialLocation(id, viewModel.userData.userId)
 
-                //Update UserMaterialListe aus dem datenbank
-                viewModel.loadUserMaterialList()
-
                 //Benachrichtige user über die erfolgreiche action
                 Toast.makeText(activity, "Material erfolgreich empfangen", Toast.LENGTH_LONG).show()
 

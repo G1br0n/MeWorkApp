@@ -75,9 +75,6 @@ class MaterialDeliverFragment : Fragment() {
                 //udate StorageMaterial Model Datenbank
                 viewModel.updateMaterialLocation(id, 1)
 
-                //Update UserMaterialListe aus dem datenbank
-                viewModel.loadUserMaterialList()
-
                 //Benachrichtige user über die erfolgreiche action
                 Toast.makeText(
                     activity,

@@ -9,8 +9,10 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.databinding.FragmentLogInBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
@@ -18,6 +20,7 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
     private val viewModel: MainViewModel by activityViewModels()
+
 
 
 
@@ -66,6 +69,7 @@ class LogInFragment : Fragment() {
 
                 //Öfne NavBar bei navigiren zum homeFragment
                 (activity as? MainActivity)?.showNavigationBar()
+
 
 
             } else {

@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userData = viewModel.userData
+       // viewModel.loadUserMaterialList()
     }
 
     override fun onCreateView(
@@ -67,11 +68,11 @@ class HomeFragment : Fragment() {
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
 
         }
-        viewModel.loadUserMaterialList()
+
     }
 
     override fun onResume() {
         super.onResume()
-       viewModel.loadUserMaterialList()
+      // viewModel.loadUserMaterialList()
     }
 }

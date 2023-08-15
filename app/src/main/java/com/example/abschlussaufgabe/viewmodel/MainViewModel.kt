@@ -42,19 +42,29 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init {
-        insertStorageMaterial()
-        getStorageMaterialFromDataBank()
-    }
 
-    private fun insertStorageMaterial() {
         viewModelScope.launch {
             repository.insertAll(storageMaterialList.value!!)
+            _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank()
+            loadUserMaterialList()
+        }
+
+    }
+
+
+    //Hier Lade Ich den datenbanck wen es lehr ist
+    private fun insertStorageMaterial() {
+        viewModelScope.launch {
+
         }
     }
 
+    //Hier versuche ich ich die LiveData aus dem datenbank zu fülehen
     private fun getStorageMaterialFromDataBank(){
         viewModelScope.launch {
-             _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank().value
+
+            //todo: Tester Log
+            Log.e("Home","${storageMaterialDataList.value}")
         }
     }
 
@@ -64,25 +74,32 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val materialCheckedList = mutableListOf<StorageMaterialModel>()
 
 
-            //TODO: storageMaterialDataList wird nicht gefült
-            for (material in storageMaterialList.value!!) {
-                if (material.locationId == userData.userId) {
+            if (!storageMaterialDataList.value.isNullOrEmpty()){
+                //TODO: storageMaterialDataList wird nicht gefült
+                for (material in _storageMaterialDataList.value!!) {
+                    //TODO: 1001 to userDada.userId
+                    if (material.locationId == userData.userId) {
 
-                    //todo: Tester Log
-                    Log.e("Home","Test2")
+                        //todo: Tester Log
+                        Log.e("Home","Test loadUserMaterialList")
 
-                    materialCheckedList.add(material)
+                        materialCheckedList.add(material)
+                    }
                 }
-            }
-            _userMaterialList.value = materialCheckedList
+                _userMaterialList.value = materialCheckedList
+                }
+
+
 
            // _userMaterialList.value = repository.getById(userData.userId).value
         }
     }
 
-    fun updateMaterialLocation(id: Int, newLocationId: Int) {
+  fun updateMaterialLocation(id: Int, newLocationId: Int) {
         viewModelScope.launch {
-           repository.updateStorageMaterial(id,newLocationId)
+            repository.updateStorageMaterial(id,newLocationId)
+            _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank()
+            loadUserMaterialList()
         }
     }
 }

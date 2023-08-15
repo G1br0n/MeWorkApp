@@ -34,7 +34,7 @@ class AppRepository(
         loadStorageMaterial()
     }
 
-    private fun loadUser() {
+    fun loadUser() {
         _userData.value = listOf(
             //User 1
             UserDataModel(
@@ -80,7 +80,7 @@ class AppRepository(
         )
     }
 
-    private fun loadStorageMaterial() {
+    fun loadStorageMaterial() {
         _storageMaterialGroundList.value = listOf(
             StorageMaterialModel(1, "GSMR-1", 1),
             StorageMaterialModel(2, "BahnErdeGarnitur-1", 1),
@@ -140,17 +140,9 @@ class AppRepository(
     // befült die lager datenbank wenn es lehr ist
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>) {
         try {
+            storageMaterialDatabase.storageMaterialDao.insertAll(_storageMaterialGroundList.value!!)
 
-            // TODO: feller vorhanden
 
-            if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()) {
-                for (i in storageMaterialList) {
-                    storageMaterialDatabase.storageMaterialDao.insert(i)
-                }
-            //} else {
-             //   _storageMaterialGroundList.value =
-               //     storageMaterialDatabase.storageMaterialDao.getAll().value
-            }
         } catch (e: Exception) {
             Log.e("TAG", "Failed to insert into database: $e")
         }
@@ -158,8 +150,13 @@ class AppRepository(
 
 
 
-    suspend fun getAllStorageMaterialFromDataBank (): LiveData<List<StorageMaterialModel>>{
-       return storageMaterialDatabase.storageMaterialDao.getAll()
+    suspend fun getAllStorageMaterialFromDataBank (): List<StorageMaterialModel>{
+       try {
+           return storageMaterialDatabase.storageMaterialDao.getAll()
+       } catch (e:java.lang.Exception){
+           Log.e("AppRepository","${e.message}")
+       }
+       return emptyList()
     }
 
     suspend fun updateStorageMaterial(materialId: Int, userId: Int) {
@@ -171,18 +168,20 @@ class AppRepository(
     }
 
 
-    fun getCountStorageMaterial():Int{
+    suspend fun getCountStorageMaterial():Int{
         return storageMaterialDatabase.storageMaterialDao.getCount()
     }
 
 
-    suspend fun getMaterialsByUserIdLiveData(userId: String): LiveData<List<StorageMaterialModel>> {
+    suspend fun getMaterialsByUserIdLiveData(userId: String): List<StorageMaterialModel> {
+
         return storageMaterialDatabase.storageMaterialDao.getMaterialsByUserId(userId)
     }
 
-    suspend fun getById(userId: Int): LiveData<List<StorageMaterialModel>> {
+    suspend fun getById(userId: Int): List<StorageMaterialModel> {
         return storageMaterialDatabase.storageMaterialDao.getById(userId)
     }
+
 
 
 }

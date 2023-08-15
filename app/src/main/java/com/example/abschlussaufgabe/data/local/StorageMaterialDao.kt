@@ -13,21 +13,25 @@ interface StorageMaterialDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(storageMaterial: StorageMaterialModel)
 
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>)
+
+
     @Query("UPDATE StorageMaterialModel SET locationId = :locationId WHERE materialId = :materialId")
     suspend fun updateStorage(materialId: Int, locationId: Int)
 
     @Query("SELECT * FROM StorageMaterialModel")
-    fun getAll(): LiveData<List<StorageMaterialModel>>
+    suspend fun getAll(): List<StorageMaterialModel>
 
     @Query("SELECT * FROM StorageMaterialModel WHERE locationId = :id")
-    fun getById(id: Int): LiveData<List<StorageMaterialModel>>
+    suspend fun getById(id: Int): List<StorageMaterialModel>
 
     @Query("DELETE FROM StorageMaterialModel")
     suspend fun deleteAll()
 
     @Query("SELECT * FROM StorageMaterialModel WHERE locationId = :userId")
-    fun getMaterialsByUserId(userId: String): LiveData<List<StorageMaterialModel>>
+    suspend fun getMaterialsByUserId(userId: String): List<StorageMaterialModel>
 
     @Query("SELECT COUNT(*) FROM StorageMaterialModel")
-    fun getCount():Int
+    suspend fun getCount():Int
 }
