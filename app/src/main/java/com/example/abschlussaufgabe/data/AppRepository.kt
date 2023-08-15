@@ -13,24 +13,29 @@ class AppRepository(
 ) {
 
     //UserList
-    private val _user = MutableLiveData<List<UserDataModel>>()
-    val user: LiveData<List<UserDataModel>>
-        get() = _user
+    private val _userData = MutableLiveData<List<UserDataModel>>()
+    val userData: LiveData<List<UserDataModel>>
+        get() = _userData
 
 
-    private val _material = MutableLiveData<List<StorageMaterialModel>>()
-    val material: LiveData<List<StorageMaterialModel>>
-        get() = _material
 
-    //todo: init block !!!!
+    private val _storageMaterialGroundList = MutableLiveData<List<StorageMaterialModel>>()
+    val storageMaterialGroundList: LiveData<List<StorageMaterialModel>>
+        get() = _storageMaterialGroundList
+
+
+    private val _storageMaterialDataList = MutableLiveData<List<StorageMaterialModel>>()
+    val storageMaterialDataList: LiveData<List<StorageMaterialModel>>
+        get() = _storageMaterialDataList
+
+
     init {
         loadUser()
         loadStorageMaterial()
-
     }
 
     private fun loadUser() {
-        _user.value = listOf(
+        _userData.value = listOf(
             //User 1
             UserDataModel(
                 1001,
@@ -76,7 +81,7 @@ class AppRepository(
     }
 
     private fun loadStorageMaterial() {
-        _material.value = listOf(
+        _storageMaterialGroundList.value = listOf(
             StorageMaterialModel(1, "GSMR-1", 1),
             StorageMaterialModel(2, "BahnErdeGarnitur-1", 1),
             StorageMaterialModel(3, "GSMR-2", 1001),
@@ -123,7 +128,6 @@ class AppRepository(
 
     }
 
-
     suspend fun insert(storageMaterial: StorageMaterialModel) {
         try {
             storageMaterialDatabase.storageMaterialDao.insert(storageMaterial)
@@ -133,31 +137,46 @@ class AppRepository(
     }
 
 
-    //Fun befült die lager datenbank wenn es lehr ist
+    // befült die lager datenbank wenn es lehr ist
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>) {
         try {
 
             // TODO: feller vorhanden
 
-            if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()){
+            //if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()) {
                 for (i in storageMaterialList) {
                     storageMaterialDatabase.storageMaterialDao.insert(i)
-                }
+              //  }
+            //} else {
+             //   _storageMaterialGroundList.value =
+               //     storageMaterialDatabase.storageMaterialDao.getAll().value
             }
         } catch (e: Exception) {
             Log.e("TAG", "Failed to insert into database: $e")
         }
     }
 
+
+
+    suspend fun getAllStorageMaterialFromDataBank (): LiveData<List<StorageMaterialModel>>{
+       return storageMaterialDatabase.storageMaterialDao.getAll()
+    }
+
     suspend fun updateStorageMaterial(materialId: Int, userId: Int) {
 
         storageMaterialDatabase.storageMaterialDao.updateStorage(materialId, userId)
 
-        var test = _material.value!!.indexOfFirst { it.materialId == materialId }
-        _material.value!![test].locationId = userId
+        var test = _storageMaterialGroundList.value!!.indexOfFirst { it.materialId == materialId }
+        _storageMaterialGroundList.value!![test].locationId = userId
     }
 
-    fun getMaterialsByUserIdLiveData(userId: String): LiveData<List<StorageMaterialModel>> {
+
+    fun getCountStorageMaterial():Int{
+        return storageMaterialDatabase.storageMaterialDao.getCount()
+    }
+
+
+    suspend fun getMaterialsByUserIdLiveData(userId: String): LiveData<List<StorageMaterialModel>> {
         return storageMaterialDatabase.storageMaterialDao.getMaterialsByUserId(userId)
     }
 

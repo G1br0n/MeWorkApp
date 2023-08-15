@@ -22,16 +22,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     //Userliste
-    val userList = repository.user
+    val userList = repository.userData
 
     //Einzelne User, wird im LoginFragment deklarirt
     lateinit var userData: UserDataModel
 
     //Material liste für erst befülüng des datenbank vom lager bestand
-    val storageMaterialList = repository.material
+    val storageMaterialList = repository.storageMaterialGroundList
 
-   // val materialStorageDatenbank = repository.materialStorageDatenbank
-
+   var _storageMaterialDataList = MutableLiveData<List<StorageMaterialModel>>()
+    val storageMaterialDataList: LiveData<List<StorageMaterialModel>>
+        get() = _storageMaterialDataList
 
 
     //User material liste aus dem lagerbestand DAO
@@ -42,6 +43,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         insertStorageMaterial()
+        getStorageMaterialFromDataBank()
     }
 
     private fun insertStorageMaterial() {
@@ -50,11 +52,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    private fun getStorageMaterialFromDataBank(){
+        viewModelScope.launch {
+             _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank().value
+        }
+    }
 
     fun loadUserMaterialList() {
+
         viewModelScope.launch {
             val materialCheckedList = mutableListOf<StorageMaterialModel>()
 
+
+            //TODO: storageMaterialDataList wird nicht gefült
             for (material in storageMaterialList.value!!) {
                 if (material.locationId == userData.userId) {
 

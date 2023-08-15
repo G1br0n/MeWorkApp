@@ -67,8 +67,7 @@ class LogInFragment : Fragment() {
                 //Öfne NavBar bei navigiren zum homeFragment
                 (activity as? MainActivity)?.showNavigationBar()
 
-                //Lade User Material List
-                 viewModel.loadUserMaterialList()
+
             } else {
                 //Wenn die userdaten nicht ind der liste sind oder der eingegebene passwort nicht übereinstimt wirt eine Toast nachricht dem entsprechendnangezeigt
                 Toast.makeText(

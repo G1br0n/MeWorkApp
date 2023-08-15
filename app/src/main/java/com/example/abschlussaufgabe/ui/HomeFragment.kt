@@ -47,7 +47,8 @@ class HomeFragment : Fragment() {
 
 
         //CardView User
-        binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
+       binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
+        //binding.tvUserName.text = "${viewModel.storageMaterialDataList.value!![0].name}"
         binding.tvUserBa.text = "BA-${userData.userBaNumber}"
         binding.tvUserBup.text = "BüP-${userData.userBupNumber}"
 
