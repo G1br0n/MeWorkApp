@@ -4,6 +4,7 @@ package com.example.abschlussaufgabe.ui
 import MaterialItemAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,10 +50,16 @@ class MaterialFragment : Fragment() {
 
 
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
+        binding.rvMaterialA.layoutManager = FlexboxLayoutManager(requireContext())
 
         viewModel.userMaterialList.observe(viewLifecycleOwner){
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
 
+        }
+
+        viewModel.userPsaMaterialList.observe(viewLifecycleOwner){
+            Log.e("Mat","binding.rvMaterialA.adapter")
+          binding.rvMaterialA.adapter = MaterialItemAdapter(it)
         }
 
         binding.ibMaterialReciver.setOnClickListener {

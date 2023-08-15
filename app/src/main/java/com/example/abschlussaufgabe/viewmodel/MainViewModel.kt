@@ -30,9 +30,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //Material liste für erst befülüng des datenbank vom lager bestand
     val storageMaterialList = repository.storageMaterialGroundList
 
-   var _storageMaterialDataList = MutableLiveData<List<StorageMaterialModel>>()
     val storageMaterialDataList: LiveData<List<StorageMaterialModel>>
         get() = _storageMaterialDataList
+    private var _storageMaterialDataList = MutableLiveData<List<StorageMaterialModel>>()
 
 
     //User material liste aus dem lagerbestand DAO
@@ -40,6 +40,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
        get() = _userMaterialList
    private val _userMaterialList = MutableLiveData<List<StorageMaterialModel>>()
 
+    val userPsaMaterialList: LiveData<List<StorageMaterialModel>>
+        get() = _userPsaMaterialList
+    private val _userPsaMaterialList = MutableLiveData<List<StorageMaterialModel>>()
 
     init {
 
@@ -52,46 +55,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    //Hier Lade Ich den datenbanck wen es lehr ist
-    private fun insertStorageMaterial() {
-        viewModelScope.launch {
-
-        }
-    }
-
-    //Hier versuche ich ich die LiveData aus dem datenbank zu fülehen
-    private fun getStorageMaterialFromDataBank(){
-        viewModelScope.launch {
-
-            //todo: Tester Log
-            Log.e("Home","${storageMaterialDataList.value}")
-        }
-    }
-
     fun loadUserMaterialList() {
 
         viewModelScope.launch {
-            val materialCheckedList = mutableListOf<StorageMaterialModel>()
+            val materialList = mutableListOf<StorageMaterialModel>()
+            val psaMaterialList = mutableListOf<StorageMaterialModel>()
 
+            _storageMaterialDataList.value?.let { materials ->
+                for (material in materials) {
+                    when {
+                        material.locationId == userData.userId && material.materialId > 100000 ->
+                            psaMaterialList.add(material)
 
-            if (!storageMaterialDataList.value.isNullOrEmpty()){
-                //TODO: storageMaterialDataList wird nicht gefült
-                for (material in _storageMaterialDataList.value!!) {
-                    //TODO: 1001 to userDada.userId
-                    if (material.locationId == userData.userId) {
+                        material.locationId == userData.userId && material.materialId < 100000 ->
+                            materialList.add(material)
 
-                        //todo: Tester Log
-                        Log.e("Home","Test loadUserMaterialList")
-
-                        materialCheckedList.add(material)
                     }
                 }
-                _userMaterialList.value = materialCheckedList
-                }
+            }
 
+            _userPsaMaterialList.value = psaMaterialList
+            _userMaterialList.value = materialList
 
-
-           // _userMaterialList.value = repository.getById(userData.userId).value
         }
     }
 

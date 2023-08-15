@@ -123,7 +123,32 @@ class AppRepository(
             StorageMaterialModel(39, "LA-39", 1),
             StorageMaterialModel(40, "BüpGarnitur-4", 1),
             StorageMaterialModel(41, "GSMR-5", 1),
-            StorageMaterialModel(42, "BahnErdeGarnitur-4", 1)
+            StorageMaterialModel(42, "BahnErdeGarnitur-4", 1),
+            StorageMaterialModel(100001, "WesteRot", 1001),
+            StorageMaterialModel(100002, "WesteGrün", 1001),
+            StorageMaterialModel(100003, "HoseRot", 1001),
+            StorageMaterialModel(100004, "HoseGrün,", 1),
+            StorageMaterialModel(100005, "S3-S", 1),
+            StorageMaterialModel(100006, "HelmBlau", 1),
+            StorageMaterialModel(100007, "HelmRot", 1),
+            StorageMaterialModel(100008, "Schutzbrille", 1),
+            StorageMaterialModel(100009, "ArbeitsschuheS1", 1),
+            StorageMaterialModel(100010, "ArbeitsschuheS2", 1),
+            StorageMaterialModel(100011, "HandschuheLeder", 1),
+            StorageMaterialModel(100012, "HandschuheNitril", 1),
+            StorageMaterialModel(100013, "Atemschutzmaske", 1),
+            StorageMaterialModel(100014, "Ohrenschützer", 1),
+            StorageMaterialModel(100015, "Kniepolster", 1),
+            StorageMaterialModel(100016, "Sicherheitsgurt", 1),
+            StorageMaterialModel(100017, "Reflektorweste", 1),
+            StorageMaterialModel(100018, "Feuerschutzanzug", 1),
+            StorageMaterialModel(100019, "Chemikalienschürze", 1),
+            StorageMaterialModel(100020, "Isolierhandschuhe", 1),
+            StorageMaterialModel(100021, "SchutzhelmMitVisier", 1),
+            StorageMaterialModel(100022, "Vollschutzanzug", 1),
+            StorageMaterialModel(100023, "Sicherheitsstiefel", 1),
+            StorageMaterialModel(100024, "Gehörschutzstöpsel", 1),
+            StorageMaterialModel(100025, "AtemschutzHalbmaske", 1)
         )
 
     }
