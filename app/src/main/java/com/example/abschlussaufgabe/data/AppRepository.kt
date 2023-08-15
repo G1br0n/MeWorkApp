@@ -143,10 +143,10 @@ class AppRepository(
 
             // TODO: feller vorhanden
 
-            //if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()) {
+            if (storageMaterialDatabase.storageMaterialDao.getAll().value!!.isEmpty()) {
                 for (i in storageMaterialList) {
                     storageMaterialDatabase.storageMaterialDao.insert(i)
-              //  }
+                }
             //} else {
              //   _storageMaterialGroundList.value =
                //     storageMaterialDatabase.storageMaterialDao.getAll().value
