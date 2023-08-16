@@ -4,7 +4,6 @@ import RailStationApi
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.abschlussaufgabe.data.model.RailStationResultPhotoModel
 import com.example.abschlussaufgabe.data.model.RailStationsPhotoModel
 
 class ApiRepository(private val api: RailStationApi) {
@@ -19,12 +18,12 @@ class ApiRepository(private val api: RailStationApi) {
             try {
                 val bfPhotoList = api.retrofitService.getStationList()
 
-                _bfPhotoList.value = bfPhotoList
+                _bfPhotoList.value = bfPhotoList.random()
 
-                Log.e("test","${_bfPhotoList.value}")
+                Log.e("Test","ApiRepository: ${_bfPhotoList.value}")
 
             } catch (ex:Exception){
-                    Log.e("test","${ex.message}")
+                Log.e("Test","ApiRepository: ${ex.message}")
             }
         }
 

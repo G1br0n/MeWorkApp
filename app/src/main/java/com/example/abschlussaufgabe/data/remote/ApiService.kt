@@ -22,7 +22,7 @@ private val retrofit: Retrofit = Retrofit.Builder()
 interface ApiService {
 
     @GET("stations")
-    suspend fun getStationList(): RailStationsPhotoModel
+    suspend fun getStationList(): List<RailStationsPhotoModel>
 
 }
 

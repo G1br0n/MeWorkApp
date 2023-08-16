@@ -10,13 +10,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.QualificationItemAdapter
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
-
+import  com.example.abschlussaufgabe.data.model.RailStationsPhotoModel
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
@@ -29,7 +30,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userData = viewModel.userData
-       // viewModel.loadUserMaterialList()
+
     }
 
     override fun onCreateView(
@@ -71,14 +72,19 @@ class HomeFragment : Fragment() {
 
         viewModel.bfPhotoList.observe(viewLifecycleOwner){
             binding.tvCityTitle.text = it.title
-
-         //   binding.imageView2.setImageResource(it.photoUrl.toInt())
+            if(it.photoUrl != null){
+                binding.imageView2.load(it.photoUrl)
+            }
         }
 
+        binding.imageView2.setOnClickListener {
+            viewModel.loadBfPhotoList()
+        }
     }
 
     override fun onResume() {
         super.onResume()
       // viewModel.loadUserMaterialList()
+        viewModel.loadBfPhotoList()
     }
 }
