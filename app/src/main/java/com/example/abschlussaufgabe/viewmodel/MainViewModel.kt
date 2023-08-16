@@ -1,11 +1,12 @@
 package com.example.abschlussaufgabe.viewmodel
 
+import RailStationApi
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.abschlussaufgabe.data.ApiRepository
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.local.getStorageMaterialDatabase
@@ -18,8 +19,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     var storageMaterialDatabase: StorageMaterialDatabase = getStorageMaterialDatabase(application)
+
     val repository = AppRepository(storageMaterialDatabase)
 
+    val apiRepository = ApiRepository(RailStationApi)
+
+    val bfPhotoList = apiRepository.bfPhotoList
 
     //Userliste
     val userList = repository.userData
@@ -45,15 +50,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _userPsaMaterialList = MutableLiveData<List<StorageMaterialModel>>()
 
     init {
-
         viewModelScope.launch {
             repository.insertAll(storageMaterialList.value!!)
             _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank()
             loadUserMaterialList()
+            loadBfPhotoList()
         }
 
     }
 
+    fun loadBfPhotoList(){
+        viewModelScope.launch {
+           apiRepository.getBfPhotoList()
+        }
+    }
 
     fun loadUserMaterialList() {
 
@@ -80,7 +90,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-  fun updateMaterialLocation(id: Int, newLocationId: Int) {
+    fun updateMaterialLocation(id: Int, newLocationId: Int) {
         viewModelScope.launch {
             repository.updateStorageMaterial(id,newLocationId)
             _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank()

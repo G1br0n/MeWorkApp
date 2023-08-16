@@ -11,23 +11,25 @@ import com.example.abschlussaufgabe.data.model.UserDataModel
 import java.time.LocalDate
 
 class AppRepository(
-    private val storageMaterialDatabase: StorageMaterialDatabase,
+    private val storageMaterialDatabase: StorageMaterialDatabase
 ) {
 
 
 
-    //UserList
+    //UserList mit login daten passwort und anderen werten, wird aus feste liste in funktion loadUser geladen
     private val _userData = MutableLiveData<List<UserDataModel>>()
     val userData: LiveData<List<UserDataModel>>
         get() = _userData
 
 
-
+    //TODO: Diese wariable kann mann zu standarte Lise umbauen
+    //Variable für grund Datenbank  wird aus loadStorageMaterial() gefült, wenn das app erste mal instalirt wird damit der daten bank gefült wird
     private val _storageMaterialGroundList = MutableLiveData<List<StorageMaterialModel>>()
     val storageMaterialGroundList: LiveData<List<StorageMaterialModel>>
         get() = _storageMaterialGroundList
 
 
+    //Diese variable wird aus dem daten bank geladen auch nach dem eine objeckt geändert wurde,
     private val _storageMaterialDataList = MutableLiveData<List<StorageMaterialModel>>()
     val storageMaterialDataList: LiveData<List<StorageMaterialModel>>
         get() = _storageMaterialDataList
@@ -38,6 +40,8 @@ class AppRepository(
         loadStorageMaterial()
     }
 
+
+    //feste user liste
     fun loadUser() {
         _userData.value = listOf(
             //User 1
@@ -84,6 +88,8 @@ class AppRepository(
         )
     }
 
+    //feste datensatz mit material liste für lager und psa material, id bis 100.000 ist lager bestand ab 100.000 psa ausrüstung
+    //Beachte es gibt material id und lockationId die zeigen sol wo sich der material gerade befindet
     fun loadStorageMaterial() {
         _storageMaterialGroundList.value = listOf(
             StorageMaterialModel(1, "GSMR-1", 1),
@@ -157,16 +163,8 @@ class AppRepository(
 
     }
 
-    suspend fun insert(storageMaterial: StorageMaterialModel) {
-        try {
-            storageMaterialDatabase.storageMaterialDao.insert(storageMaterial)
-        } catch (e: Exception) {
-            Log.e("TAG", "Failed to insert into database: $e")
-        }
-    }
 
-
-    // befült die lager datenbank wenn es lehr ist
+    //Die funktion initialiesirt den daten banck bei onconflicktStrategy.Abort damit der datenbank sich nicht auf grund wert setzt sonder verändert bleibt
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>) {
         try {
             storageMaterialDatabase.storageMaterialDao.insertAll(_storageMaterialGroundList.value!!)
@@ -177,8 +175,7 @@ class AppRepository(
         }
     }
 
-
-
+    //Diese funktion befült  die LiveData Aus dem datenbank
     suspend fun getAllStorageMaterialFromDataBank (): List<StorageMaterialModel>{
        try {
            return storageMaterialDatabase.storageMaterialDao.getAll()
@@ -188,6 +185,7 @@ class AppRepository(
        return emptyList()
     }
 
+    //Mit diese funktion verändere ich die lokationId von einem betimtimten material
     suspend fun updateStorageMaterial(materialId: Int, userId: Int) {
 
         storageMaterialDatabase.storageMaterialDao.updateStorage(materialId, userId)
@@ -196,21 +194,26 @@ class AppRepository(
         _storageMaterialGroundList.value!![test].locationId = userId
     }
 
-
+//TODO:--------------------------------- Nicht genutzte funktionen ---------------------------------
+    suspend fun insert(storageMaterial: StorageMaterialModel) {
+        try {
+            storageMaterialDatabase.storageMaterialDao.insert(storageMaterial)
+        } catch (e: Exception) {
+            Log.e("TAG", "Failed to insert into database: $e")
+        }
+    }
     suspend fun getCountStorageMaterial():Int{
         return storageMaterialDatabase.storageMaterialDao.getCount()
     }
 
-
     suspend fun getMaterialsByUserIdLiveData(userId: String): List<StorageMaterialModel> {
-
         return storageMaterialDatabase.storageMaterialDao.getMaterialsByUserId(userId)
     }
 
     suspend fun getById(userId: Int): List<StorageMaterialModel> {
         return storageMaterialDatabase.storageMaterialDao.getById(userId)
     }
-
+//TODO:---------------------------------------------------------------------------------------------
 
 
 

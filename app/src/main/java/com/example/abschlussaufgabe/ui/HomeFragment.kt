@@ -69,6 +69,12 @@ class HomeFragment : Fragment() {
 
         }
 
+        viewModel.bfPhotoList.observe(viewLifecycleOwner){
+            binding.tvCityTitle.text = it.title
+
+         //   binding.imageView2.setImageResource(it.photoUrl.toInt())
+        }
+
     }
 
     override fun onResume() {
