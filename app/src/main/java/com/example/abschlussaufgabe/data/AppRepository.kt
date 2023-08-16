@@ -6,11 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
+
+
 import java.time.LocalDate
 
 class AppRepository(
-    private val storageMaterialDatabase: StorageMaterialDatabase
+    private val storageMaterialDatabase: StorageMaterialDatabase,
 ) {
+
+
 
     //UserList
     private val _userData = MutableLiveData<List<UserDataModel>>()
@@ -206,6 +210,7 @@ class AppRepository(
     suspend fun getById(userId: Int): List<StorageMaterialModel> {
         return storageMaterialDatabase.storageMaterialDao.getById(userId)
     }
+
 
 
 

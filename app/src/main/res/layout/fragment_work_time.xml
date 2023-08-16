@@ -28,7 +28,7 @@
                 android:layout_marginTop="8dp"
                 android:outlineAmbientShadowColor="@color/back_ground_ramen"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="40dp"
+                app:cardElevation="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
