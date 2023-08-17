@@ -17,13 +17,13 @@ import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
-import  com.example.abschlussaufgabe.data.model.RailStationsPhotoModel
+
 class HomeFragment : Fragment() {
+
     private lateinit var binding: FragmentHomeBinding
-
     private val viewModel: MainViewModel by activityViewModels()
-
     private lateinit var userData: UserDataModel
+
 
 
     //todo: arguments user_id
@@ -47,9 +47,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         //CardView User
-       binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
+        binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
         //binding.tvUserName.text = "${viewModel.storageMaterialDataList.value!![0].name}"
         binding.tvUserBa.text = "BA-${userData.userBaNumber}"
         binding.tvUserBup.text = "BüP-${userData.userBupNumber}"
@@ -80,6 +79,10 @@ class HomeFragment : Fragment() {
         binding.imageView2.setOnClickListener {
             viewModel.loadBfPhotoList()
         }
+
+
+
+
     }
 
     override fun onResume() {
