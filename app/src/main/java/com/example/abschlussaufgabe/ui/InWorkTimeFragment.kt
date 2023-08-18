@@ -14,18 +14,14 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.model.GpsModel
+import com.example.abschlussaufgabe.data.model.WorkRunModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentInWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import kotlin.math.roundToInt
 
 
 //TODO: Ungünstiger name am besten würde es StartInWorkTimeFragment oder so was enliches
@@ -58,6 +54,8 @@ class InWorkTimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var gpsData: WorkRunModel = WorkRunModel("", "","","")
+
         //Spinner ----------------------------------------------------------------------------------
         val positionList = userData.userQualification
         val spinner: Spinner = binding.spinner
@@ -79,12 +77,13 @@ class InWorkTimeFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                val selectedItem = parent?.getItemAtPosition(position).toString()
+                gpsData.position = parent?.getItemAtPosition(position).toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Handle case when nothing is selected
             }
+
         }
 
         //------------------------------------------------------------------------------------------
@@ -92,17 +91,19 @@ class InWorkTimeFragment : Fragment() {
         //TimePicker 24 Hour Style
         binding.myTimePicker.setIs24HourView(true)
 
-        //TODO: Test time picker
-        binding.ibStart.setOnClickListener {
-           // binding.tvSaveCurrentPosition.text = "  ${binding.myTimePicker.hour}:${binding.myTimePicker.minute}"
-            findNavController().navigate(R.id.stopWorkTimeFragment)
-        }
-
 
         //GPS
-        var gpsData: GpsModel = GpsModel("", "", "", "", "", "")
 
         val REQUEST_LOCATION_PERMISSION_CODE = 0
+
+        var latitude = ""
+        var longitude = ""
+        //TODO: Test time picker
+
+
+
+
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -116,8 +117,8 @@ class InWorkTimeFragment : Fragment() {
                     location.let {
 
 
-                        val latitude = it.latitude.toString()
-                        val longitude = it.longitude.toString()
+                       latitude = it.latitude.toString()
+                        longitude = it.longitude.toString()
 
                         if(isChecked){
                             binding.tvSaveCurrentPosition.text = "  $latitude $longitude"
@@ -138,6 +139,17 @@ class InWorkTimeFragment : Fragment() {
             }
         }
 
+
+        binding.ibStart.setOnClickListener {
+            gpsData.latitude = latitude
+            gpsData.longitude = longitude
+
+            gpsData.sap = binding.editTextNumberSigned.text.toString()
+
+            viewModel._gpsLiveData.value = gpsData
+
+            findNavController().navigate(R.id.stopWorkTimeFragment)
+        }
 
 
 

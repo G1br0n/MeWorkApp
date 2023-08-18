@@ -30,14 +30,37 @@
 
             <TextView
                 android:id="@+id/tvPosition"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
                 android:text="TextView"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/ib_start"
+                app:layout_constraintEnd_toEndOf="@+id/ib_start"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ib_start" />
+
+            <TextView
+                android:id="@+id/tvfGeoLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvPosition"
+                app:layout_constraintStart_toStartOf="@+id/tvPosition"
+                app:layout_constraintTop_toBottomOf="@+id/tvPosition" />
+
+            <TextView
+                android:id="@+id/tvSap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvfGeoLocation"
+                app:layout_constraintStart_toStartOf="@+id/tvfGeoLocation"
+                app:layout_constraintTop_toBottomOf="@+id/tvfGeoLocation" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

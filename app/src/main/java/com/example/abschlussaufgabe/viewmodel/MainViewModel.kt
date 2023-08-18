@@ -1,10 +1,7 @@
 package com.example.abschlussaufgabe.viewmodel
 
 import RailStationApi
-import android.Manifest
 import android.app.Application
-import android.location.Location
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,11 +10,9 @@ import com.example.abschlussaufgabe.data.ApiRepository
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.local.getStorageMaterialDatabase
-import com.example.abschlussaufgabe.data.model.GpsModel
+import com.example.abschlussaufgabe.data.model.WorkRunModel
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 
 import kotlinx.coroutines.launch
 
@@ -57,8 +52,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _userPsaMaterialList = MutableLiveData<List<StorageMaterialModel>>()
 
 
-    var _gpsLiveData = MutableLiveData<GpsModel>()
-    val gpsLiveData: LiveData<GpsModel>
+    var _gpsLiveData = MutableLiveData<WorkRunModel>()
+    val gpsLiveData: LiveData<WorkRunModel>
         get() = _gpsLiveData
 
 
