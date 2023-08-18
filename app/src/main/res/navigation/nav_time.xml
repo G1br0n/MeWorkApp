@@ -10,4 +10,8 @@
         android:name="com.example.abschlussaufgabe.ui.InWorkTimeFragment"
         android:label="InWorkTimeFragment"
         tools:layout="@layout/fragment_in_work_time"/>
+    <fragment
+        android:id="@+id/stopWorkTimeFragment"
+        android:name="com.example.abschlussaufgabe.ui.StopWorkTimeFragment"
+        android:label="StopWorkTimeFragment" />
 </navigation>

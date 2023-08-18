@@ -69,6 +69,7 @@
                 android:id="@+id/check_box_save_current_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:buttonIconTint="#000000"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_save_current_position"
                 app:layout_constraintEnd_toEndOf="@+id/spinner"
                 app:layout_constraintTop_toTopOf="@+id/tv_save_current_position" />

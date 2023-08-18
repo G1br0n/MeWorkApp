@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.GpsModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
@@ -93,8 +94,8 @@ class InWorkTimeFragment : Fragment() {
 
         //TODO: Test time picker
         binding.ibStart.setOnClickListener {
-            binding.tvSaveCurrentPosition.text =
-                "  ${binding.myTimePicker.hour}:${binding.myTimePicker.minute}"
+           // binding.tvSaveCurrentPosition.text = "  ${binding.myTimePicker.hour}:${binding.myTimePicker.minute}"
+            findNavController().navigate(R.id.stopWorkTimeFragment)
         }
 
 
