@@ -5,5 +5,9 @@ data class WorkRunModel(
     var longitude:String,
 
     var position:String,
-    var sap:String
+    var sap:String,
+
+    var startHour: Int,
+    var startMin: Int,
+    var startSek: Int
 )

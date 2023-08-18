@@ -22,6 +22,8 @@ import com.example.abschlussaufgabe.databinding.FragmentInWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import java.time.LocalDate
+import java.time.LocalTime
 
 
 //TODO: Ungünstiger name am besten würde es StartInWorkTimeFragment oder so was enliches
@@ -54,7 +56,7 @@ class InWorkTimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var gpsData: WorkRunModel = WorkRunModel("", "","","")
+        var gpsData: WorkRunModel = WorkRunModel("", "","","",0,0,0)
 
         //Spinner ----------------------------------------------------------------------------------
         val positionList = userData.userQualification
@@ -143,6 +145,10 @@ class InWorkTimeFragment : Fragment() {
         binding.ibStart.setOnClickListener {
             gpsData.latitude = latitude
             gpsData.longitude = longitude
+
+            gpsData.startHour = binding.myTimePicker.hour
+            gpsData.startMin = binding.myTimePicker.minute
+            gpsData.startSek = 0
 
             gpsData.sap = binding.editTextNumberSigned.text.toString()
 
