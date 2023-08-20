@@ -18,22 +18,21 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 class WorkTimeFragment : Fragment() {
     private lateinit var binding: FragmentWorkTimeBinding
     private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var userData: UserDataModel
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
+        //FragmentContainerView 2 von 2 , zuständig für die neben fragmete für start stop fragment, arbeitet mit nav_time
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_work_time, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
     }
 }

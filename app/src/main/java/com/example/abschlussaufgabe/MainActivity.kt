@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-
-        //Navigation BarBot Activierung. standart visibility = View.GONE
+        //FragmentContainerView 1 von 2 , zuständig für die hauptnaviegation fragmete, arbeitet mit nav_graph
         val navHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as NavHostFragment
         navController = navHostFragment.navController
 
+        //Navigation BarBot Activierung. standart visibility = View.GONE
         val bottomNavBar = binding.bottomNavBar
         setupWithNavController(bottomNavBar, navController)
 

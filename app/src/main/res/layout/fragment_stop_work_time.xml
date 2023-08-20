@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
-                android:text="TextView"
+                tools:text="TextView"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/ib_start"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                tools:text="TextView"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvPosition"
                 app:layout_constraintStart_toStartOf="@+id/tvPosition"
@@ -56,7 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                tools:text="TextView"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvfGeoLocation"
                 app:layout_constraintStart_toStartOf="@+id/tvfGeoLocation"
@@ -64,22 +64,21 @@
 
             <TextView
                 android:id="@+id/textClock"
-                android:layout_width="158dp"
-                android:layout_height="46dp"
-                android:layout_marginTop="44dp"
-                android:text="12:21:30"
-                android:textSize="30sp"
+                android:layout_width="199dp"
+                android:layout_height="113dp"
                 android:gravity="center"
+                android:scaleY="2.5"
+                tools:text="12:21:30"
+                android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="@+id/ib_start"
                 app:layout_constraintEnd_toStartOf="@+id/ib_start"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.359"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/ib_start"
-                app:layout_constraintVertical_bias="0.0" />
-
+                app:layout_constraintVertical_bias="0.5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </FrameLayout>
+
 </layout>

@@ -17,7 +17,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_material_in_material"
+            android:id="@+id/cv_car"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_margin="16dp"
@@ -26,6 +26,7 @@
             android:outlineSpotShadowColor="@color/back_ground_ramen"
             android:outlineAmbientShadowColor="@color/back_ground_ramen"
 
+            android:backgroundTint="@color/back_ground"
             app:cardElevation="8dp"
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,5 +34,84 @@
             app:layout_constraintTop_toTopOf="parent">
 
         </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/back_ground"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+
+            app:layout_constraintEnd_toEndOf="@+id/cv_car"
+            app:layout_constraintStart_toStartOf="@+id/cv_car">
+
+            <ImageButton
+                android:id="@+id/ibMaterialReciver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/back_ground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_drive_start_shadow" />
+
+            <ImageButton
+                android:id="@+id/ibMaterialHandOver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/back_ground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_hand_over_car_shadow" />
+
+            <ImageButton
+                android:id="@+id/ibMaterialDeliver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/back_ground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_leave_car_shadow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="68dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout">
+
+            <ImageButton
+                android:id="@+id/ibMaterialPlacement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/back_ground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_refuel_car_shadow" />
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/back_ground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_check_oil_shadow" />
+
+            <ImageButton
+                android:id="@+id/imageButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/back_ground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_sos_adac_shadow" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

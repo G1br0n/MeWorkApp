@@ -9,6 +9,7 @@ data class CarModel (
     @PrimaryKey(autoGenerate = true)
     val carId: Int,
     var locationId:  Int,
+    var statusDrive: Boolean,
 
     var oilControlDate: Date,
     var oilControlMileage: Int,

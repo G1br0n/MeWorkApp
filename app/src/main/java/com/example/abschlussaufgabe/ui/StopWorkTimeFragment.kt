@@ -80,7 +80,7 @@ class StopWorkTimeFragment : Fragment() {
                 val minutes = duration.minusHours(hours).toMinutes()
                 val seconds = duration.seconds % 60
 
-                binding.textClock.text = "${hours}h ${minutes}m ${seconds}s seit dem Start"
+                binding.textClock.text = "${hours}h ${minutes}m ${seconds}s"
 
                 handler.postDelayed(this, 1000)
             }
