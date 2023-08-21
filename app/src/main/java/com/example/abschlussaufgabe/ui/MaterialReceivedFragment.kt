@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import MaterialItemAdapter
 import android.annotation.SuppressLint
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -25,6 +26,7 @@ class MaterialReceivedFragment : Fragment() {
     private lateinit var binding: FragmentMaterialReceivedBinding
     private val viewModel: MainViewModel by activityViewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,8 +39,12 @@ class MaterialReceivedFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
+
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
+
         var id = 0
 
         //QR Code decoder
@@ -48,6 +54,11 @@ class MaterialReceivedFragment : Fragment() {
                 //löse bewust feller aus wenn die eingegebene ID kein zahl ist
                 try {
                     val text = it.text.toInt()
+
+                    //Spile sound ab wenn  qr geskent wurde
+                    viewModel.playQrSound(context!!)
+
+
                     id = text
                     binding.etMaterialId.text =
                         Editable.Factory.getInstance().newEditable(text.toString())
@@ -65,6 +76,9 @@ class MaterialReceivedFragment : Fragment() {
         //starte camera preview
         codeScanner.startPreview()
 
+        binding.scannerView.setOnClickListener {
+            codeScanner.startPreview()
+        }
 
         //Button empfangen wen er angeklickt  wird
         binding.ibReceived.setOnClickListener {
@@ -77,6 +91,9 @@ class MaterialReceivedFragment : Fragment() {
 
                 //udate StorageMaterial Model Datenbank
                 viewModel.updateMaterialLocation(id, viewModel.userData.userId)
+
+                //Spile sound ab wenn  material empfange
+                viewModel.playActionSound(context!!)
 
                 //Benachrichtige user über die erfolgreiche action
                 Toast.makeText(activity, "Material erfolgreich empfangen", Toast.LENGTH_LONG).show()

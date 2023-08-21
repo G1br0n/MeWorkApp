@@ -2,10 +2,13 @@ package com.example.abschlussaufgabe.viewmodel
 
 import RailStationApi
 import android.app.Application
+import android.content.Context
+import android.media.MediaPlayer
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.ApiRepository
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
@@ -128,5 +131,31 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             throw Exception("ID befindet sich nicht in der liste")
         }
 
+    }
+
+    //mediaplayer für QR
+    private lateinit var mediaPlayer: MediaPlayer
+    fun playQrSound(context: Context){
+        // MediaPlayer initialisieren
+        mediaPlayer = MediaPlayer.create(context, R.raw.qr_sound)
+
+        mediaPlayer.setVolume(1f,1f)
+        mediaPlayer.start()
+    }
+
+    fun playClickSound(context: Context){
+        // MediaPlayer initialisieren
+        mediaPlayer = MediaPlayer.create(context, R.raw.click_sound)
+
+        mediaPlayer.setVolume(1f,1f)
+        mediaPlayer.start()
+    }
+
+    fun playActionSound(context: Context){
+        // MediaPlayer initialisieren
+        mediaPlayer = MediaPlayer.create(context, R.raw.acktion_sound)
+
+        mediaPlayer.setVolume(1f,1f)
+        mediaPlayer.start()
     }
 }

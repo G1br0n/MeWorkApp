@@ -37,20 +37,26 @@ class MaterialDeliverFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
         var id = 0
 
         //QR Code decoder
         codeScanner = CodeScanner(activity, scannerView)
+
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
                 //löse bewust feller aus wenn die eingegebene ID kein zahl ist
                 try {
-                    val text = it.text.toInt()
-                    id = text
+                    val materialId = it.text.toInt()
+
+                    //Spile sound ab wenn  qr geskent wurde
+                    viewModel.playQrSound(context!!)
+
+                    id = materialId
                     binding.etMaterialId.text =
-                        Editable.Factory.getInstance().newEditable(text.toString())
+                        Editable.Factory.getInstance().newEditable(materialId.toString())
                     //Fange den feller ab mit eine toast nachricht
                 } catch (ex: Exception) {
                     Toast.makeText(
@@ -66,6 +72,11 @@ class MaterialDeliverFragment : Fragment() {
         codeScanner.startPreview()
 
 
+        binding.scannerView.setOnClickListener {
+            codeScanner.startPreview()
+        }
+
+
         //Button abgeben wen er angeklickt  wird
         binding.ibDeliver.setOnClickListener {
             try {
@@ -78,6 +89,9 @@ class MaterialDeliverFragment : Fragment() {
 
                 //udate StorageMaterial Model Datenbank
                 viewModel.updateMaterialLocation(id, 1)
+
+                //Spile sound ab wenn  material empfange
+                viewModel.playActionSound(context!!)
 
                 //Benachrichtige user über die erfolgreiche action
                 Toast.makeText(activity, "Material erfolgreich im Lager Abgegeben", Toast.LENGTH_LONG).show()

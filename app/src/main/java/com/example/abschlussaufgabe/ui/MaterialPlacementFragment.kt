@@ -52,6 +52,10 @@ class MaterialPlacementFragment : Fragment() {
                 try {
                 //löse bewust feller aus wenn die eingegebene ID kein zahl ist
                     val text = it.text.toInt()
+
+                    //Spile sound ab wenn  qr geskent wurde
+                    viewModel.playQrSound(context!!)
+
                     id = text
                     binding.etMaterialId.text =
                         Editable.Factory.getInstance().newEditable(text.toString())
@@ -69,13 +73,16 @@ class MaterialPlacementFragment : Fragment() {
         //starte camera preview
         codeScanner.startPreview()
 
+        binding.scannerView.setOnClickListener {
+            codeScanner.startPreview()
+        }
 
         //Button empfangen wen er angeklickt  wird
         binding.ibPlace.setOnClickListener {
             try {
                 // setze id aus dem eingabe feld
-
                 id = binding.etMaterialId.text.toString().toInt()
+
                 var sapNumber = binding.etSapNumber.text.toString().toInt()
 
                 //Überprüfe mit der funktion ob Id in der liste ist oder nicht, wen nicht schmeise feller raus
@@ -87,11 +94,15 @@ class MaterialPlacementFragment : Fragment() {
                 //Update UserMaterialListe aus dem datenbank
                 viewModel.loadUserMaterialList()
 
+                //Spile sound ab wenn  material empfange
+                viewModel.playActionSound(context!!)
+
                 //Benachrichtige user über die erfolgreiche action
                 Toast.makeText(activity, "Material erfolgreich platziert", Toast.LENGTH_LONG).show()
 
                 //Naviegire zurück zu MaterialFragment
                 findNavController().navigate(R.id.materialFragment)
+
 
                 //Fange Mögliche Feller ab
             } catch (ex: Exception) {

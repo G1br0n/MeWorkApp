@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
+import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -27,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         val bottomNavBar = binding.bottomNavBar
         setupWithNavController(bottomNavBar, navController)
 
+
     }
+
+
+
 
     //Fun
     fun showNavigationBar() {
