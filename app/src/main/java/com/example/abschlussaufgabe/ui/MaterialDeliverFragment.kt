@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.databinding.FragmentMaterialDeliverBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
+import kotlinx.coroutines.launch
 
 
 class MaterialDeliverFragment : Fragment() {
@@ -65,25 +68,23 @@ class MaterialDeliverFragment : Fragment() {
 
         //Button abgeben wen er angeklickt  wird
         binding.ibDeliver.setOnClickListener {
-
-            findNavController().navigateUp()
-
             try {
-                // setze id aus dem eingabe feld
+
+                //hol id in variable aus dem eingabe feld im UI
                 id = binding.etMaterialId.text.toString().toInt()
+
+                //Überprüfemit der funktion ob Id in der liste ist oder nicht, wen nicht schmeise feller raus
+                viewModel.checkMaterialId(id)
 
                 //udate StorageMaterial Model Datenbank
                 viewModel.updateMaterialLocation(id, 1)
 
                 //Benachrichtige user über die erfolgreiche action
-                Toast.makeText(
-                    activity,
-                    "Material erfolgreich im Lager Abgegeben",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(activity, "Material erfolgreich im Lager Abgegeben", Toast.LENGTH_LONG).show()
 
                 //Naviegire zurück zu MaterialFragment
                 findNavController().navigate(R.id.materialFragment)
+
 
                 //Fange Mögliche Feller ab
             } catch (ex: Exception) {
@@ -93,6 +94,7 @@ class MaterialDeliverFragment : Fragment() {
 
         }
     }
+
     override fun onResume() {
         super.onResume()
         codeScanner.startPreview()

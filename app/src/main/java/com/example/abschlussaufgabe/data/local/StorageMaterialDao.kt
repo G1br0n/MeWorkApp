@@ -22,8 +22,8 @@ interface StorageMaterialDao {
     @Query("SELECT * FROM StorageMaterialModel")
     suspend fun getAll(): List<StorageMaterialModel>
 
-    @Query("SELECT * FROM StorageMaterialModel WHERE locationId = :id")
-    suspend fun getById(id: Int): List<StorageMaterialModel>
+    @Query("SELECT * FROM StorageMaterialModel WHERE materialId = :materialId")
+    suspend fun getById(materialId: Int): List<StorageMaterialModel>
 
     @Query("DELETE FROM StorageMaterialModel")
     suspend fun deleteAll()

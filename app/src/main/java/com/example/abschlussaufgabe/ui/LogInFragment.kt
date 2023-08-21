@@ -23,7 +23,6 @@ class LogInFragment : Fragment() {
 
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,20 +33,16 @@ class LogInFragment : Fragment() {
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
         // Login button wen er angeklickt wird
         binding.ibLogin.setOnClickListener {
 
-
-
             //Empfange eigegebenen text
             val inputUsername = binding.ettLogIn.text.toString()
             val inputPassword = binding.ettPassword.text.toString()
-
 
             var isValid = false
 
@@ -60,17 +55,14 @@ class LogInFragment : Fragment() {
                 }
             }
 
+
             if (isValid) {
-
-
 
                 //Naviegire zum homeFragment wenn die userdaten ubereinstimmen
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
 
                 //Öfne NavBar bei navigiren zum homeFragment
                 (activity as? MainActivity)?.showNavigationBar()
-
-
 
             } else {
                 //Wenn die userdaten nicht ind der liste sind oder der eingegebene passwort nicht übereinstimt wirt eine Toast nachricht dem entsprechendnangezeigt

@@ -114,36 +114,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun updateGeoLocation() {
-        /*   lateinit var fusedLocationClient: FusedLocationProviderClient
-        val REQUEST_LOCATION_PERMISSION_CODE = 0
+    //Überprüfe mit der funktion ob Id in der liste ist oder nicht, wen nicht schmeise feller raus
+    fun checkMaterialId(id: Int) {
+        val checkIdList = mutableListOf<StorageMaterialModel>()
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
-
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            fusedLocationClient.lastLocation.addOnSuccessListener() { location: Location ->
-                location.let {
-
-                    val latitude = it.latitude
-                    val longitude = it.longitude
-                    val accuracy = it.accuracy
-                    val speed = it.speed
-                    val altitude = it.altitude
-                    val bearing = it.bearing
-
-                }
-                //                        todo neue paramenter
-                //binding.tvFive.text = fusedLocationClient.lastLocation.result.elapsedRealtimeAgeMillis.
+        for (materialId in storageMaterialDataList.value!!) {
+            if (materialId.materialId == id) {
+                checkIdList.add(materialId)
             }
-        } else {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION_CODE
-            )*/
-        //}
+        }
+
+        if (checkIdList.isEmpty()) {
+            throw Exception("ID befindet sich nicht in der liste")
+        }
+
     }
 }

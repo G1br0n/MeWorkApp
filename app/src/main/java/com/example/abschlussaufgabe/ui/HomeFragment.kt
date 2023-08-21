@@ -69,6 +69,7 @@ class HomeFragment : Fragment() {
 
         }
 
+
         viewModel.bfPhotoList.observe(viewLifecycleOwner){
             binding.tvCityTitle.text = "    ${it.title}    "
             if(it.photoUrl != null){

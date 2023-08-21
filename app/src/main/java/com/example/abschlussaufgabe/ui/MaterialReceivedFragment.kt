@@ -72,6 +72,9 @@ class MaterialReceivedFragment : Fragment() {
                 // setze id aus dem eingabe feld
                 id = binding.etMaterialId.text.toString().toInt()
 
+                //Überprüfe mit der funktion ob Id in der liste ist oder nicht, wen nicht schmeise feller raus
+                viewModel.checkMaterialId(id)
+
                 //udate StorageMaterial Model Datenbank
                 viewModel.updateMaterialLocation(id, viewModel.userData.userId)
 

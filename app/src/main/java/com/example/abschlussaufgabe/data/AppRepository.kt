@@ -210,8 +210,8 @@ class AppRepository(
         return storageMaterialDatabase.storageMaterialDao.getMaterialsByUserId(userId)
     }
 
-    suspend fun getById(userId: Int): List<StorageMaterialModel> {
-        return storageMaterialDatabase.storageMaterialDao.getById(userId)
+    suspend fun getById(materialId: Int): List<StorageMaterialModel> {
+        return storageMaterialDatabase.storageMaterialDao.getById(materialId)
     }
 //TODO:---------------------------------------------------------------------------------------------
 

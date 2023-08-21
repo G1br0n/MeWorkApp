@@ -49,8 +49,8 @@ class MaterialPlacementFragment : Fragment() {
         codeScanner = CodeScanner(activity, scannerView)
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
-                //löse bewust feller aus wenn die eingegebene ID kein zahl ist
                 try {
+                //löse bewust feller aus wenn die eingegebene ID kein zahl ist
                     val text = it.text.toInt()
                     id = text
                     binding.etMaterialId.text =
@@ -78,6 +78,8 @@ class MaterialPlacementFragment : Fragment() {
                 id = binding.etMaterialId.text.toString().toInt()
                 var sapNumber = binding.etSapNumber.text.toString().toInt()
 
+                //Überprüfe mit der funktion ob Id in der liste ist oder nicht, wen nicht schmeise feller raus
+                viewModel.checkMaterialId(id)
 
                 //udate StorageMaterial Model Datenbank
                 viewModel.updateMaterialLocation(id, sapNumber)

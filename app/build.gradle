@@ -76,6 +76,6 @@ dependencies {
     //QR Scaner
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
 
-    // location
+    // Geolocation
     implementation 'com.google.android.gms:play-services-location:21.0.1'
 }
