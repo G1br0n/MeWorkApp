@@ -30,14 +30,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //Material liste für erst befülüng des datenbank vom lager bestand
     private val storageMaterialList = repository.storageMaterialGroundList
 
-    //ApiObjectLiveData für UI observer
+    //Api Object LiveData für UI observer
     val bfPhotoList = apiRepository.bfPhotoList
 
     //komplete Userliste mit UserDataModel
-    val userList = repository.userData
+    val userDataList = repository.userDataList
 
     //Einzelne User, wird im LoginFragment deklarirt
-    lateinit var userData: UserDataModel
+    var userData: UserDataModel = repository.user
 
 
     val storageMaterialDataList: LiveData<List<StorageMaterialModel>>
@@ -137,6 +137,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var mediaPlayer: MediaPlayer
     fun playQrSound(context: Context){
         // MediaPlayer initialisieren
+        //TODO Sound wechseln wav qr_sound_2 funktioniert nich
         mediaPlayer = MediaPlayer.create(context, R.raw.qr_sound)
 
         mediaPlayer.setVolume(1f,1f)
@@ -153,7 +154,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun playActionSound(context: Context){
         // MediaPlayer initialisieren
-        mediaPlayer = MediaPlayer.create(context, R.raw.acktion_sound)
+        mediaPlayer = MediaPlayer.create(context, R.raw.action_sound_1)
+
+        mediaPlayer.setVolume(1f,1f)
+        mediaPlayer.start()
+    }
+
+    fun playLockedSound(context: Context){
+        // MediaPlayer initialisieren
+        mediaPlayer = MediaPlayer.create(context, R.raw.locked_sound)
+
+        mediaPlayer.setVolume(1f,1f)
+        mediaPlayer.start()
+    }
+
+    fun playLogInSound(context: Context){
+        // MediaPlayer initialisieren
+        mediaPlayer = MediaPlayer.create(context, R.raw.log_in_sound)
 
         mediaPlayer.setVolume(1f,1f)
         mediaPlayer.start()

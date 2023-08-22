@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.QualificationItemAdapter
 import com.example.abschlussaufgabe.data.model.UserDataModel
@@ -31,6 +32,8 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         userData = viewModel.userData
 
+        //Öfne NavBar bei navigiren zum homeFragment
+        (activity as? MainActivity)?.showNavigationBar()
     }
 
     override fun onCreateView(
@@ -56,7 +59,7 @@ class HomeFragment : Fragment() {
         //RecyclerView for Qualification
         binding.rvQualification.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.userList.observe(viewLifecycleOwner){ _ ->
+        viewModel.userDataList.observe(viewLifecycleOwner){ _ ->
             binding.rvQualification.adapter = QualificationItemAdapter(userData)
         }
 

@@ -9,10 +9,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.room.Room
 import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.databinding.FragmentLogInBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
@@ -27,7 +25,7 @@ class LogInFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_log_in, container, false)
         return binding.root
     }
@@ -47,7 +45,7 @@ class LogInFragment : Fragment() {
             var isValid = false
 
             //Hier durchsuche ich die userdaten und gleiche es mit eingegebenen daten im loginfragment ab
-            for (user in viewModel.userList.value!!) {
+            for (user in viewModel.userDataList.value!!) {
                 if (user.userLogIn.lowercase() == inputUsername.lowercase() && user.userPassword == inputPassword) {
                     isValid = true
                     viewModel.userData = user
@@ -59,19 +57,21 @@ class LogInFragment : Fragment() {
             if (isValid) {
 
                 //Naviegire zum homeFragment wenn die userdaten ubereinstimmen
+                viewModel.playLogInSound(context!!)
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
 
-                //Öfne NavBar bei navigiren zum homeFragment
-                (activity as? MainActivity)?.showNavigationBar()
+
 
             } else {
                 //Wenn die userdaten nicht ind der liste sind oder der eingegebene passwort nicht übereinstimt wirt eine Toast nachricht dem entsprechendnangezeigt
+               viewModel.playLockedSound(context!!)
                 Toast.makeText(
                     requireContext(),
-                    "Eingegebene Passwort oder Username sind falsch",
+                    "Passwort oder Username ist falsch",
                     Toast.LENGTH_LONG
                 ).show()
             }
+
         }
     }
 

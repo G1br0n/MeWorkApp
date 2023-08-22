@@ -15,11 +15,12 @@ class AppRepository(
 ) {
 
 
+    val user = UserDataModel(0, "", "", "", "G", "password", listOf(), listOf(), 0, 0)
 
     //UserList mit login daten passwort und anderen werten, wird aus feste liste in funktion loadUser geladen
-    private val _userData = MutableLiveData<List<UserDataModel>>()
-    val userData: LiveData<List<UserDataModel>>
-        get() = _userData
+    private val _userDataList = MutableLiveData<List<UserDataModel>>()
+    val userDataList: LiveData<List<UserDataModel>>
+        get() = _userDataList
 
 
     //TODO: Diese wariable kann mann zu standarte Lise umbauen
@@ -43,7 +44,7 @@ class AppRepository(
 
     //feste user liste
     fun loadUser() {
-        _userData.value = listOf(
+        _userDataList.value = listOf(
             //User 1
             UserDataModel(
                 1001,
@@ -176,13 +177,13 @@ class AppRepository(
     }
 
     //Diese funktion befült  die LiveData Aus dem datenbank
-    suspend fun getAllStorageMaterialFromDataBank (): List<StorageMaterialModel>{
-       try {
-           return storageMaterialDatabase.storageMaterialDao.getAll()
-       } catch (e:java.lang.Exception){
-           Log.e("AppRepository","${e.message}")
-       }
-       return emptyList()
+    suspend fun getAllStorageMaterialFromDataBank(): List<StorageMaterialModel> {
+        try {
+            return storageMaterialDatabase.storageMaterialDao.getAll()
+        } catch (e: java.lang.Exception) {
+            Log.e("AppRepository", "${e.message}")
+        }
+        return emptyList()
     }
 
     //Mit diese funktion verändere ich die lokationId von einem betimtimten material
@@ -194,7 +195,7 @@ class AppRepository(
         _storageMaterialGroundList.value!![test].locationId = userId
     }
 
-//TODO:--------------------------------- Nicht genutzte funktionen ---------------------------------
+    //TODO:--------------------------------- Nicht genutzte funktionen ---------------------------------
     suspend fun insert(storageMaterial: StorageMaterialModel) {
         try {
             storageMaterialDatabase.storageMaterialDao.insert(storageMaterial)
@@ -202,7 +203,8 @@ class AppRepository(
             Log.e("TAG", "Failed to insert into database: $e")
         }
     }
-    suspend fun getCountStorageMaterial():Int{
+
+    suspend fun getCountStorageMaterial(): Int {
         return storageMaterialDatabase.storageMaterialDao.getCount()
     }
 
@@ -214,7 +216,6 @@ class AppRepository(
         return storageMaterialDatabase.storageMaterialDao.getById(materialId)
     }
 //TODO:---------------------------------------------------------------------------------------------
-
 
 
 }

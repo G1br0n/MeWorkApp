@@ -63,15 +63,29 @@ class MaterialFragment : Fragment() {
         }
 
         binding.ibMaterialReciver.setOnClickListener {
+            viewModel.playClickSound(context!!)
             findNavController().navigate(R.id.materialReceivedFragment)
         }
 
         binding.ibMaterialDeliver.setOnClickListener {
+            viewModel.playClickSound(context!!)
             findNavController().navigate(R.id.materialDeliverFragment)
         }
 
         binding.ibMaterialPlacement.setOnClickListener {
+            viewModel.playClickSound(context!!)
             findNavController().navigate(R.id.materialPlacementFragment)
+        }
+
+        //Inacktive buttons spilen loked sound ab
+        binding.ibMaterialHandOver.setOnClickListener{
+            viewModel.playLockedSound(context!!)
+        }
+        binding.imageButton5.setOnClickListener{
+            viewModel.playLockedSound(context!!)
+        }
+        binding.imageButton6.setOnClickListener{
+            viewModel.playLockedSound(context!!)
         }
 
         viewModel.loadUserMaterialList()

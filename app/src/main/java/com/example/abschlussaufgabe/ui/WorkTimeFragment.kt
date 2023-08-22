@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -34,5 +35,30 @@ class WorkTimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//Inacktive buttons spilen loked sound ab und zeigen toasst nachricht an
+        binding.ibMeWorkTime.setOnClickListener{
+            Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
+            viewModel.playLockedSound(context!!)
+        }
+        binding.ibMeWorkPlan.setOnClickListener{
+            Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
+            viewModel.playLockedSound(context!!)
+        }
+        binding.ibReportSick.setOnClickListener{
+            Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
+            viewModel.playLockedSound(context!!)
+        }
+        binding.imageButton10.setOnClickListener{
+            Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
+            viewModel.playLockedSound(context!!)
+        }
+        binding.imageButton11.setOnClickListener{
+            Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
+            viewModel.playLockedSound(context!!)
+        }
+        binding.imageButton12.setOnClickListener{
+            Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
+            viewModel.playLockedSound(context!!)
+        }
     }
 }

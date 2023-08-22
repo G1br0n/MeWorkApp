@@ -59,6 +59,7 @@ class MaterialDeliverFragment : Fragment() {
                         Editable.Factory.getInstance().newEditable(materialId.toString())
                     //Fange den feller ab mit eine toast nachricht
                 } catch (ex: Exception) {
+                    viewModel.playLockedSound(context!!)
                     Toast.makeText(
                         activity,
                         "Die Id darf nur aus zahlen bestähen",

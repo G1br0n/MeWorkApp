@@ -53,10 +53,22 @@ class InWorkTimeFragment : Fragment() {
 
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        try {
+
+        if(viewModel.gpsLiveData.value!!.startHour != null ){
+            findNavController().navigate(R.id.stopWorkTimeFragment)
+        }
+        }catch (ex: Exception){
+
+        }
+
+
         var gpsData: WorkRunModel = WorkRunModel("", "","","",0,0,0)
+
 
         //Spinner ----------------------------------------------------------------------------------
         val positionList = userData.userQualification
@@ -148,12 +160,13 @@ class InWorkTimeFragment : Fragment() {
 
             gpsData.startHour = binding.myTimePicker.hour
             gpsData.startMin = binding.myTimePicker.minute
-            gpsData.startSek = 0
+            gpsData.startSek = LocalTime.now().second
 
             gpsData.sap = binding.editTextNumberSigned.text.toString()
 
             viewModel._gpsLiveData.value = gpsData
 
+            viewModel.playActionSound(context!!)
             findNavController().navigate(R.id.stopWorkTimeFragment)
         }
 

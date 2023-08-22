@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.UserDataModel
@@ -67,6 +68,7 @@ class StopWorkTimeFragment : Fragment() {
 
 
         binding.ibStart.setOnClickListener {
+            viewModel._gpsLiveData = MutableLiveData()
             findNavController().navigate(R.id.inWorkTimeFragment)
         }
     }
