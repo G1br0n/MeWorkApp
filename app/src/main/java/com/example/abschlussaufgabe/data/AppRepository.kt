@@ -3,6 +3,7 @@ package com.example.abschlussaufgabe.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
@@ -15,7 +16,8 @@ class AppRepository(
 ) {
 
 
-    val user = UserDataModel(0, "", "", "", "G", "password", listOf(), listOf(), 0, 0)
+    var user = UserDataModel(0, "", "", "",0, "G", "password", listOf(), listOf(), 0, 0,false)
+
 
     //UserList mit login daten passwort und anderen werten, wird aus feste liste in funktion loadUser geladen
     private val _userDataList = MutableLiveData<List<UserDataModel>>()
@@ -51,6 +53,9 @@ class AppRepository(
                 "Eugen",
                 "Lange",
                 "12.08.1989",
+
+                R.drawable.persona1,
+
                 "Gibron",
                 "password",
                 listOf("SIPO", "SAKRA", "BüP", "SAS", "BE", "HIB"),
@@ -63,7 +68,9 @@ class AppRepository(
                     LocalDate.of(2023, 4, 22)
                 ),
                 102030,
-                152535
+                152535,
+
+                false
             ),
 
             //User 2
@@ -72,6 +79,9 @@ class AppRepository(
                 "Lucas",
                 "Hard",
                 "21.06.1986",
+
+                R.drawable.persona1,
+
                 "Biebr",
                 "password",
                 listOf("SIPO", "BüP", "SAS", "BE", "HIB"),
@@ -84,13 +94,14 @@ class AppRepository(
                     LocalDate.of(2023, 1, 11)
                 ),
                 112030,
-                162535
+                162535,
+                false
             )
         )
     }
 
     //feste datensatz mit material liste für lager und psa material, id bis 100.000 ist lager bestand ab 100.000 psa ausrüstung
-    //Beachte es gibt material id und lockationId die zeigen sol wo sich der material gerade befindet
+    //Beachte es gibt material id die zeigt material nummer und lockationId die zeigen sol wo sich der material gerade befindet
     fun loadStorageMaterial() {
         _storageMaterialGroundList.value = listOf(
             StorageMaterialModel(1, "GSMR-1", 1),
@@ -194,6 +205,9 @@ class AppRepository(
         var test = _storageMaterialGroundList.value!!.indexOfFirst { it.materialId == materialId }
         _storageMaterialGroundList.value!![test].locationId = userId
     }
+
+
+
 
     //TODO:--------------------------------- Nicht genutzte funktionen ---------------------------------
     suspend fun insert(storageMaterial: StorageMaterialModel) {

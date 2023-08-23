@@ -1,60 +1,118 @@
 package com.example.abschlussaufgabe.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.CodeScannerView
+import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.databinding.FragmentCarGetInBinding
+import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
+import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CarGetInFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CarGetInFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var codeScanner: CodeScanner
+    private lateinit var binding: FragmentCarGetInBinding
+    private val viewModel: MainViewModel by activityViewModels()
+
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_car_get_in, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_car_get_in, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment carGetInFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CarGetInFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
+        if (viewModel.userData.haveTheCar){
+            findNavController().navigate(R.id.carFragment)
+        }
+
+
+        val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
+        val activity = requireActivity()
+
+        var id = 0
+
+        //QR Code decoder
+        codeScanner = CodeScanner(activity, scannerView)
+        codeScanner.decodeCallback = DecodeCallback {
+            activity.runOnUiThread {
+                //löse bewust feller aus wenn die eingegebene ID kein zahl ist
+                try {
+                    val text = it.text.toInt()
+
+                    //Spile sound ab wenn  qr geskent wurde
+                    viewModel.playQrSound(context!!)
+
+
+                    id = text
+                    binding.etCarId.text =
+                        Editable.Factory.getInstance().newEditable(text.toString())
+
+                //Fange den feller ab mit eine toast nachricht
+                } catch (ex: Exception) {
+                    viewModel.playLockedSound(context!!)
+                    Toast.makeText(
+                        activity,
+                        "Die Id darf nur aus zahlen bestähen",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
+        }
+
+        //starte camera preview
+        codeScanner.startPreview()
+
+        binding.scannerView.setOnClickListener {
+            codeScanner.startPreview()
+        }
+
+        //Button empfangen wen er angeklickt  wird
+        binding.ibGetIn.setOnClickListener {
+            try {
+
+                viewModel.userData.haveTheCar = true
+                findNavController().navigate(R.id.carFragment)
+
+
+
+            } catch (ex: Exception) {
+                //Benachritige mit Toast über den feller
+                Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
+            }
+
+
+        }
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        codeScanner.startPreview()
+    }
+
+    override fun onPause() {
+        codeScanner.releaseResources()
+        super.onPause()
     }
 }

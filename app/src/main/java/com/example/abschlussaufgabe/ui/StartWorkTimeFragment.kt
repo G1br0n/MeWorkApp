@@ -18,17 +18,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.WorkRunModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
-import com.example.abschlussaufgabe.databinding.FragmentInWorkTimeBinding
+import com.example.abschlussaufgabe.databinding.FragmentStartWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import java.time.LocalDate
 import java.time.LocalTime
 
 
 //TODO: Ungünstiger name am besten würde es StartInWorkTimeFragment oder so was enliches
-class InWorkTimeFragment : Fragment() {
-    private lateinit var binding: FragmentInWorkTimeBinding
+class StartWorkTimeFragment : Fragment() {
+    private lateinit var binding: FragmentStartWorkTimeBinding
 
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -43,7 +42,7 @@ class InWorkTimeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_in_work_time, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_start_work_time, container, false)
         return binding.root
     }
 

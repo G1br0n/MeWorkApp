@@ -13,6 +13,8 @@ interface StorageMaterialDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(storageMaterial: StorageMaterialModel)
 
+
+    //TODO: REPLACE strategy auf ABORT setzen
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>)
 

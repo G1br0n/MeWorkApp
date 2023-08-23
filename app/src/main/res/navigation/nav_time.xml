@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/inWorkTimeFragment"
-        android:name="com.example.abschlussaufgabe.ui.InWorkTimeFragment"
+        android:name="com.example.abschlussaufgabe.ui.StartWorkTimeFragment"
         android:label="InWorkTimeFragment"
-        tools:layout="@layout/fragment_in_work_time"/>
+        tools:layout="@layout/fragment_start_work_time"/>
     <fragment
         android:id="@+id/stopWorkTimeFragment"
         android:name="com.example.abschlussaufgabe.ui.StopWorkTimeFragment"

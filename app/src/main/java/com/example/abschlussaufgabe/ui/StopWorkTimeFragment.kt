@@ -13,7 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.UserDataModel
-import com.example.abschlussaufgabe.databinding.FragmentInWorkTimeBinding
+
 import com.example.abschlussaufgabe.databinding.FragmentStopWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient

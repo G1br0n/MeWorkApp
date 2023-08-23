@@ -29,9 +29,7 @@
         android:name="com.example.abschlussaufgabe.ui.MaterialFragment"
         android:label="fragment_material"
         tools:layout="@layout/fragment_material" >
-        <argument
-            android:name="user_id"
-            app:argType="integer" />
+
     </fragment>
     <fragment
         android:id="@+id/workTimeFragment"
@@ -54,4 +52,8 @@
         android:id="@+id/carGetInFragment"
         android:name="com.example.abschlussaufgabe.ui.CarGetInFragment"
         android:label="CarGetInFragment" />
+    <fragment
+        android:id="@+id/startWorkTimeFragment"
+        android:name="com.example.abschlussaufgabe.ui.StartWorkTimeFragment"
+        android:label="StartWorkTimeFragment" />
 </navigation>

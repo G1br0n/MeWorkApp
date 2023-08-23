@@ -133,6 +133,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
+
+    fun updateUserCarStatus(){
+        repository.user.haveTheCar = true
+    }
+
+
+
+
+
     //mediaplayer für QR
     private lateinit var mediaPlayer: MediaPlayer
     fun playQrSound(context: Context){

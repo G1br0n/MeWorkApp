@@ -1,7 +1,11 @@
 package com.example.abschlussaufgabe.data.model
 
 
+
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+
 
 data class UserDataModel(
     val userId: Int,
@@ -9,7 +13,7 @@ data class UserDataModel(
     val userLastName: String,
     val userBirthDate: String,
 
-        //TODO: userPhoto
+    val userImage: Int,
 
     val userLogIn: String,
     val userPassword: String,
@@ -19,5 +23,7 @@ data class UserDataModel(
     
     val userBaNumber: Int,
     val userBupNumber: Int,
+
+    var haveTheCar: Boolean,
 
 )
