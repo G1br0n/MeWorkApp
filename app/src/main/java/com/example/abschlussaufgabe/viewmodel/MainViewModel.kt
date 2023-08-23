@@ -152,6 +152,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         mediaPlayer.start()
     }
 
+
     fun playActionSound(context: Context){
         // MediaPlayer initialisieren
         mediaPlayer = MediaPlayer.create(context, R.raw.action_sound_1)
