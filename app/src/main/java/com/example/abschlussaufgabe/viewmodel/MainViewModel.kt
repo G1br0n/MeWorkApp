@@ -89,10 +89,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _storageMaterialDataList.value?.let { materials ->
                 for (material in materials) {
                     when {
-                        material.locationId == userData.userId && material.materialId > 100000 ->
+                        material.locationId == userData.userId.toInt() && material.materialId > 100000 ->
                             psaMaterialList.add(material)
 
-                        material.locationId == userData.userId && material.materialId < 100000 ->
+                        material.locationId == userData.userId.toInt() && material.materialId < 100000 ->
                             materialList.add(material)
 
                     }

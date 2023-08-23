@@ -7,6 +7,7 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
+import java.sql.Timestamp
 
 
 import java.time.LocalDate
@@ -16,7 +17,7 @@ class AppRepository(
 ) {
 
 
-    var user = UserDataModel(0, "", "", "",0, "G", "password", listOf(), listOf(), 0, 0,false)
+    var user = UserDataModel("",0, "", "", "","", "G",  arrayOf(), arrayOf(), 0, 0,false)
 
 
     //UserList mit login daten passwort und anderen werten, wird aus feste liste in funktion loadUser geladen
@@ -49,23 +50,24 @@ class AppRepository(
         _userDataList.value = listOf(
             //User 1
             UserDataModel(
+                "",
                 1001,
                 "Eugen",
                 "Lange",
                 "12.08.1989",
 
-                R.drawable.persona1,
+
 
                 "Gibron",
                 "password",
-                listOf("SIPO", "SAKRA", "BüP", "SAS", "BE", "HIB"),
-                listOf(
-                    LocalDate.of(2023, 5, 22),
-                    LocalDate.of(2023, 5, 22),
-                    LocalDate.of(2023, 1, 22),
-                    LocalDate.of(2023, 2, 22),
-                    LocalDate.of(2023, 3, 22),
-                    LocalDate.of(2023, 4, 22)
+                arrayOf("Sakra","SIPO", "BüP", "SAS", "BE", "HIB"),
+                arrayOf(
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
                 ),
                 102030,
                 152535,
@@ -75,23 +77,21 @@ class AppRepository(
 
             //User 2
             UserDataModel(
+                "",
                 1002,
                 "Lucas",
                 "Hard",
                 "21.06.1986",
 
-                R.drawable.persona1,
-
                 "Biebr",
                 "password",
-                listOf("SIPO", "BüP", "SAS", "BE", "HIB"),
-                listOf(
-                    LocalDate.of(2023, 5, 22),
-                    LocalDate.of(2023, 5, 22),
-                    LocalDate.of(2023, 1, 22),
-                    LocalDate.of(2023, 1, 11),
-                    LocalDate.of(2023, 1, 11),
-                    LocalDate.of(2023, 1, 11)
+                arrayOf("SIPO", "BüP", "SAS", "BE", "HIB"),
+                arrayOf(
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
+                    Timestamp(2023, 5, 22,12,0,0,1),
                 ),
                 112030,
                 162535,

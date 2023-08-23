@@ -25,7 +25,7 @@ class QualificationItemAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val user = "${dataset.userQualification[position]}   ${dataset.userQualificationFit[position].year}.${dataset.userQualificationFit[position].monthValue}.${dataset.userQualificationFit[position].dayOfMonth}"
+        val user = "${dataset.userQualification[position]}   ${dataset.userQualificationFit[position].year}.${dataset.userQualificationFit[position].month}.${dataset.userQualificationFit[position].day}"
         holder.binding.tvItemQualification.text = user
 
     }

@@ -91,7 +91,7 @@ class MaterialReceivedFragment : Fragment() {
                 viewModel.checkMaterialId(id)
 
                 //udate StorageMaterial Model Datenbank
-                viewModel.updateMaterialLocation(id, viewModel.userData.userId)
+                viewModel.updateMaterialLocation(id, viewModel.userData.userId.toInt())
 
                 //Spile sound ab wenn  material empfange
                 viewModel.playActionSound(context!!)
