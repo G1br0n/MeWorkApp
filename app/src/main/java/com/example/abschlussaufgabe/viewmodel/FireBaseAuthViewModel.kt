@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,11 +19,27 @@ class FireBaseAuthViewModel: ViewModel() {
 
 
 
-        fun register(email: String, password: String) {
+        fun register(
+            email: String,
+            password: String,
+            firstName: String,
+            lastName: String,
+            baNumber:Int = 0,
+            userQualification: List<String>,
+        ) {
 
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { authResult ->
                 if (authResult.isSuccessful) {
-                    login(email, password)
+
+                FireStoreViewModel().addNewUser(
+                    authResult.result.user!!.uid,
+                    email,
+                    password,
+                    firstName,
+                    lastName,
+                    baNumber,
+                    userQualification
+                )
                 } else {
                     Log.e("ERROR", "${authResult.exception}")
                 }

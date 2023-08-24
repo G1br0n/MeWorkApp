@@ -38,17 +38,7 @@ class LogInFragment : Fragment() {
         // Login button wen er angeklickt wird
 
         binding.button.setOnClickListener{
-            val inputUsername = binding.ettLogIn.text.toString()
-            val inputPassword = binding.ettPassword.text.toString()
-
-
-            fireBase.login(inputUsername,inputPassword)
-
-        fireBase.currentUser.observe(viewLifecycleOwner){
-           if (it != null){
-                Toast.makeText(requireContext(), it.uid, Toast.LENGTH_LONG).show()
-           }
-        }
+            findNavController().navigate(R.id.registerFragment)
 
         }
 

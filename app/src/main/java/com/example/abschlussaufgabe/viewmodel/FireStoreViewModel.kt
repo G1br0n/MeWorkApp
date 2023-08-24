@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
+import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.google.firebase.ktx.Firebase
 
 import com.google.firebase.firestore.ktx.firestore
@@ -18,26 +19,43 @@ class FireStoreViewModel : ViewModel() {
 
 
 
-    private val _currentUser = MutableLiveData<UserDataModel>()
-    val currentUser: LiveData<UserDataModel>
+    private val _currentUser = MutableLiveData<UserTestDataModel>()
+    val currentUser: LiveData<UserTestDataModel>
         get() = _currentUser
 
     val db = Firebase.firestore
 
-    fun addNewUser(user: UserDataModel) {
+    fun addNewUser(
+        userUid: String,
+        email: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+        baNumber:Int = 0,
+        userQualification: List<String>,
+
+    ) {
 
         val userData = mapOf(
-            "userId" to user.userId,
+            "userUid" to userUid,
+            "email" to email,
+           "password" to password,
+            "firstName" to firstName,
+            "lastName" to lastName,
+            "baNumber" to baNumber,
+
+            "userQualification" to userQualification
+
         )
 
-        db.collection("users").document(user.userUid).set(
+        db.collection("users").document(userUid).set(
             userData
         )
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 
-    fun getUserData(userId: String) {
+    /*fun getUserData(userId: String) {
         val docRef = db.collection("users").document(userId)
         docRef.get()
             .addOnSuccessListener { document ->
@@ -66,6 +84,6 @@ class FireStoreViewModel : ViewModel() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
-    }
+    }*/
 
 }

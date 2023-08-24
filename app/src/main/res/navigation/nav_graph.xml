@@ -56,4 +56,13 @@
         android:id="@+id/startWorkTimeFragment"
         android:name="com.example.abschlussaufgabe.ui.StartWorkTimeFragment"
         android:label="StartWorkTimeFragment" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.abschlussaufgabe.ui.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/registerQualificationFragment"
+        android:name="com.example.abschlussaufgabe.ui.RegisterQualificationFragment"
+        android:label="RegisterQualificationFragment" />
 </navigation>

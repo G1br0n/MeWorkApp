@@ -100,12 +100,16 @@
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:text="Regestriren"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:backgroundTint="#D3A48D"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.968"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.232" />
+                app:layout_constraintVertical_bias="0.005" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
