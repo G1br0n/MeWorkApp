@@ -80,9 +80,9 @@
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="60dp"
-                android:text="HiB"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="76dp"
+                android:text="Hib"
                 app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -248,25 +248,19 @@
 
             <TextView
                 android:id="@+id/tvDateInfo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Info: Erst datum eintragen im format tag.monat.jahr"
+                android:layout_marginStart="30sp"
+                android:layout_marginEnd="30sp"
+                android:text="Info: Erst Datum eintragen im format Tag.Monat.Jahr(10.12.2023) und dnn erst den Hacken setzen"
                 android:textColor="#ED1111"
+                android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/etHiB"
-                app:layout_constraintEnd_toEndOf="@+id/textView4"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4"
                 app:layout_constraintVertical_bias="0.243" />
 
-            <TextView
-                android:id="@+id/tvDateInfo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="und dan erst den hacken setzen"
-                android:textColor="#ED1111"
-                app:layout_constraintEnd_toEndOf="@+id/tvDateInfo"
-                app:layout_constraintStart_toStartOf="@+id/tvDateInfo"
-                app:layout_constraintTop_toBottomOf="@+id/tvDateInfo" />
 
             <Button
                 android:id="@+id/butRegEnd"

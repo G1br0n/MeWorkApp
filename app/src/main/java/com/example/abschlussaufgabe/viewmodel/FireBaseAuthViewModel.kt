@@ -25,21 +25,23 @@ class FireBaseAuthViewModel: ViewModel() {
             firstName: String,
             lastName: String,
             baNumber:Int = 0,
-            userQualification: List<String>,
+            userQualification: Map<String,String>,
         ) {
 
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { authResult ->
                 if (authResult.isSuccessful) {
 
-                FireStoreViewModel().addNewUser(
-                    authResult.result.user!!.uid,
-                    email,
-                    password,
-                    firstName,
-                    lastName,
-                    baNumber,
-                    userQualification
-                )
+                    FireStoreViewModel().addNewUser(
+                        authResult.result.user!!.uid,
+                        email,
+                        password,
+                        firstName,
+                        lastName,
+                        baNumber,
+                        userQualification
+                    )
+
+
                 } else {
                     Log.e("ERROR", "${authResult.exception}")
                 }

@@ -1,21 +1,22 @@
 package com.example.abschlussaufgabe.viewmodel
 
-import android.service.autofill.UserData
+
 import android.util.Log
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.google.firebase.ktx.Firebase
 
 import com.google.firebase.firestore.ktx.firestore
-import java.sql.Timestamp
 
 const val TAG = "FirestoreViewModel"
 
 class FireStoreViewModel : ViewModel() {
+
+    var userData: UserTestDataModel = UserTestDataModel("","","","","",0, mapOf())
+
+
 
 
 
@@ -32,7 +33,7 @@ class FireStoreViewModel : ViewModel() {
         firstName: String,
         lastName: String,
         baNumber:Int = 0,
-        userQualification: List<String>,
+        userQualification: Map<String,String>,
 
     ) {
 
@@ -51,7 +52,8 @@ class FireStoreViewModel : ViewModel() {
         db.collection("users").document(userUid).set(
             userData
         )
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 

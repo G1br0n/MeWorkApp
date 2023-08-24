@@ -211,10 +211,10 @@
                 android:id="@+id/tvPrivatText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:text="Persönliche Daten eintragen"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/imageView3"
                 app:layout_constraintEnd_toEndOf="@+id/tvRegister"
                 app:layout_constraintStart_toStartOf="@+id/tvRegister"
                 app:layout_constraintTop_toBottomOf="@+id/tvRegister" />

@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.example.abschlussaufgabe.databinding.FragmentLogInBinding
 import com.example.abschlussaufgabe.databinding.FragmentRegisterBinding
 import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
@@ -36,10 +37,36 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.imageView3.setImageResource(R.drawable.avatar_logo)
 
-        binding.butNext.setOnClickListener {
-            findNavController().navigate(R.id.registerQualificationFragment)
+        binding.butBack.setOnClickListener {
+            findNavController().navigateUp()
         }
+        binding.butNext.setOnClickListener {
+           try {
+
+           fireStore.userData = updateUser(fireStore.userData)
+            findNavController().navigate(R.id.registerQualificationFragment)
+           } catch (ex:Exception){
+               Toast.makeText(requireContext(), "Unerwartete feller", Toast.LENGTH_LONG).show()
+
+           }
+
+        }
+
+
     }
+
+    fun updateUser(user:UserTestDataModel): UserTestDataModel{
+        user.email = binding.etEmail.text.toString()
+        user.password = binding.etPassword.text.toString()
+        user.firstName = binding.etVorname.text.toString()
+        user.lastName = binding.etName.text.toString()
+        user.baNumber = binding.etBa.text.toString().toInt()
+        user.userQualification = mapOf()
+        return user
+    }
+
+
 }

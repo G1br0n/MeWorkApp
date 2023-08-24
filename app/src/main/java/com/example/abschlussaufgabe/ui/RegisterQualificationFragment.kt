@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -35,15 +36,26 @@ class RegisterQualificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var userQualification = mutableListOf<String>()
+        var userQualification = mutableMapOf<String,String>()
+        var userData = fireStore.userData
 
-        binding.etHiB.setOnClickListener {
-            DatePickerFragment().showDatePickerDialog(it)
+
+
+
+
+        binding.checkBoxHib.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.checkBoxHib.isChecked) {
+                userQualification[binding.checkBoxHib.text.toString()] = binding.etHiB.text.toString()
+            } else {
+                userQualification.remove(binding.checkBoxHib.text.toString())
+            }
         }
 
         binding.checkBoxHip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                userQualification.add(binding.checkBoxHip.text.toString())
+
+                userQualification[binding.checkBoxHip.text.toString()] = binding.etHip.text.toString()
+
             } else {
                 userQualification.remove(binding.checkBoxHip.text.toString())
             }
@@ -52,14 +64,14 @@ class RegisterQualificationFragment : Fragment() {
 
         binding.checkBoxSipo.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                userQualification.add(binding.checkBoxSipo.text.toString())
+                userQualification[binding.checkBoxSipo.text.toString()] = binding.etSipo.text.toString()
             } else {
                 userQualification.remove(binding.checkBoxSipo.text.toString())
             }
         }
         binding.checkBoxBm.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                userQualification.add(binding.checkBoxBm.text.toString())
+                userQualification[binding.checkBoxBm.text.toString()] = binding.etBm.text.toString()
             } else {
                 userQualification.remove(binding.checkBoxBm.text.toString())
             }
@@ -67,23 +79,17 @@ class RegisterQualificationFragment : Fragment() {
 
         binding.checkBoxSakra.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                userQualification.add(binding.checkBoxSakra.text.toString())
+                userQualification[binding.checkBoxSakra.text.toString()] = binding.etSakre.text.toString()
             } else {
                 userQualification.remove(binding.checkBoxSakra.text.toString())
             }
         }
 
-        binding.checkBoxHib.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                userQualification.add(binding.checkBoxHib.text.toString())
-            } else {
-                userQualification.remove(binding.checkBoxHib.text.toString())
-            }
-        }
+
 
         binding.checkBoxBup.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                userQualification.add(binding.checkBoxBup.text.toString())
+                userQualification[binding.checkBoxBup.text.toString()] = binding.etBup.text.toString()
             } else {
                 userQualification.remove(binding.checkBoxBup.text.toString())
             }
@@ -91,7 +97,7 @@ class RegisterQualificationFragment : Fragment() {
 
         binding.checkBoxBe.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                userQualification.add(binding.checkBoxBe.text.toString())
+                userQualification[binding.checkBoxBe.text.toString()] = binding.etBe.text.toString()
             } else {
                 userQualification.remove(binding.checkBoxBe.text.toString())
             }
@@ -99,7 +105,7 @@ class RegisterQualificationFragment : Fragment() {
 
         binding.checkBoxSaS.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                userQualification.add(binding.checkBoxSaS.text.toString())
+                userQualification[binding.checkBoxSaS.text.toString()] = binding.etSas.text.toString()
             } else {
                 userQualification.remove(binding.checkBoxSaS.text.toString())
             }
@@ -107,7 +113,7 @@ class RegisterQualificationFragment : Fragment() {
 
         binding.checkBoxPlPf.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                userQualification.add(binding.checkBoxPlPf.text.toString())
+                userQualification[binding.checkBoxPlPf.text.toString()] = binding.etPlPf.text.toString()
             } else {
                 userQualification.remove(binding.checkBoxPlPf.text.toString())
             }
@@ -115,23 +121,38 @@ class RegisterQualificationFragment : Fragment() {
 
 
 
+        binding.butBac.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
+        binding.butRegEnd.setOnClickListener {
 
-      /*  binding.butReg.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-            val firstName = binding.etVorname.text.toString()
-            val lastName = binding.etName.text.toString()
-            val baNumber = binding.etBa.text.toString().toInt()
-
+            for (key in userQualification.keys){
+                if(key == "Hib"){ userQualification[key] = binding.etHiB.text.toString() }
+                if(key == "Hip"){ userQualification[key] = binding.etHip.text.toString() }
+                if(key == "BE"){ userQualification[key] = binding.etBe.text.toString() }
+                if(key == "Sipo"){ userQualification[key] = binding.etSipo.text.toString() }
+                if(key == "BM"){ userQualification[key] = binding.etBm.text.toString() }
+                if(key == "Sakra"){ userQualification[key] = binding.etSakre.text.toString() }
+                if(key == "BuP"){ userQualification[key] = binding.etBup.text.toString() }
+                if(key == "PlPf"){ userQualification[key] = binding.etPlPf.text.toString() }
+                if(key == "SaS"){ userQualification[key] = binding.etSas.text.toString() }
+            }
+try {
             fireBase.register(
-                email,
-                password,
-                firstName,
-                lastName,
-                baNumber,
+                userData.email,
+                userData.password,
+                userData.firstName,
+                userData.lastName,
+                userData.baNumber,
                 userQualification,
             )
-        }*/
+
+    findNavController().navigate(R.id.logInFragment)
+}catch (ex: Exception){}
+
+
+        }
+
     }
 }

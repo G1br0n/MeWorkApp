@@ -60,7 +60,11 @@
         android:id="@+id/registerFragment"
         android:name="com.example.abschlussaufgabe.ui.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_registerQualificationFragment"
+            app:destination="@id/registerQualificationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerQualificationFragment"
         android:name="com.example.abschlussaufgabe.ui.RegisterQualificationFragment"
