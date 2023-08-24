@@ -35,7 +35,7 @@
                 android:id="@+id/ett_log_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
                 android:ems="10"
                 android:hint="@string/hint_login"
                 android:inputType="text"
@@ -49,7 +49,7 @@
                 android:id="@+id/ett_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
@@ -73,7 +73,7 @@
                 android:id="@+id/tv_app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="monospace"
                 android:text="@string/app_logo_text"
                 android:textColor="@color/black"
@@ -98,18 +98,17 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="98dp"
+                android:layout_height="39dp"
+                android:backgroundTint="@color/back_ground_item"
                 android:text="Regestriren"
                 android:textColor="@color/black"
+                android:textSize="8sp"
                 android:textStyle="bold"
-                android:backgroundTint="#D3A48D"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.968"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.005" />
+                app:layout_constraintEnd_toEndOf="@+id/ib_login"
+                app:layout_constraintStart_toStartOf="@+id/ib_login"
+                app:layout_constraintTop_toBottomOf="@+id/ib_login" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

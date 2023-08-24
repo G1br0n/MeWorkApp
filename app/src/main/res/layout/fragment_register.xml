@@ -20,19 +20,19 @@
                 android:id="@+id/tvBild"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:text="bild"
+                android:layout_marginTop="80dp"
+                android:text="Foto :"
                 android:textSize="18dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView3" />
+                app:layout_constraintStart_toStartOf="@+id/tvEmail"
+                app:layout_constraintTop_toBottomOf="@+id/tvRegister" />
 
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="308dp"
-                android:text="email"
+                android:layout_marginTop="352dp"
+                android:text="E-mail :"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="password"
+                android:text="Password :"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/tvEmail"
                 app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Vorname"
+                android:text="Vorname :"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/tvPassword"
                 app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Name"
+                android:text="Name :"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/tvVorname"
                 app:layout_constraintTop_toBottomOf="@+id/tvVorname" />
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="BA Nummer "
+                android:text="BA Nummer :"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/tvName"
                 app:layout_constraintTop_toBottomOf="@+id/tvName" />
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="Regestrirungs Processe"
+                android:text="Regestrirungs Process"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -91,28 +91,29 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/butNext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="48dp"
-                android:text="Weiter"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/butBack"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
                 android:id="@+id/butBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="48dp"
+                android:backgroundTint="@color/back_ground_item"
                 android:text="   Zurück   "
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/butNext"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/butNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/back_ground_item"
+                android:text="Regestrirung vortsetzen"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/butBack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/butReg" />
+                app:layout_constraintStart_toEndOf="@+id/butBack" />
 
             <EditText
                 android:id="@+id/etEmail"
@@ -179,9 +180,51 @@
                 android:id="@+id/imageView3"
                 android:layout_width="189dp"
                 android:layout_height="169dp"
-                tools:layout_editor_absoluteX="175dp"
-                tools:layout_editor_absoluteY="95dp"
+                android:backgroundTint="@color/back_ground"
+                app:layout_constraintEnd_toEndOf="@+id/etEmail"
+                app:layout_constraintStart_toStartOf="@+id/etEmail"
+                app:layout_constraintTop_toTopOf="@+id/tvBild"
                 tools:src="@tools:sample/avatars" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <TextView
+                android:id="@+id/tvPrivatText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Persönliche Daten eintragen"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/tvRegister"
+                app:layout_constraintStart_toStartOf="@+id/tvRegister"
+                app:layout_constraintTop_toBottomOf="@+id/tvRegister" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

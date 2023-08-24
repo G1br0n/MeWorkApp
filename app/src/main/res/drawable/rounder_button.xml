@@ -1,0 +1,11 @@
+<!-- res/drawable/button_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Farbe des Rahmens -->
+    <stroke android:width="2dp" android:color="#000000" />
+
+    <!-- Hintergrundfarbe des Buttons -->
+    <solid android:color="@color/back_ground_item" />
+
+    <!-- Eckenradius, wenn Sie abgerundete Ecken möchten -->
+    <corners android:radius="4dp" />
+</shape>

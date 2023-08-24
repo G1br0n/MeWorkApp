@@ -17,6 +17,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+            <TextView
+                android:id="@+id/tvRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Regestrirungs Processe"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <CheckBox
                 android:id="@+id/checkBoxHip"
                 android:layout_width="wrap_content"
@@ -24,6 +37,7 @@
                 android:layout_row="0"
                 android:layout_column="0"
                 android:text="Hip"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/checkBoxHib"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxHib" />
 
@@ -34,6 +48,7 @@
                 android:layout_row="0"
                 android:layout_column="1"
                 android:text="Sipo"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/checkBoxBe"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxBe" />
 
@@ -44,6 +59,7 @@
                 android:layout_row="0"
                 android:layout_column="2"
                 android:text="BM"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/checkBoxSipo"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxSipo" />
 
@@ -54,6 +70,7 @@
                 android:layout_row="1"
                 android:layout_column="0"
                 android:text="Sakra"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/checkBoxBm"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxBm" />
 
@@ -63,11 +80,12 @@
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="77dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="60dp"
                 android:text="HiB"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <CheckBox
                 android:id="@+id/checkBoxBup"
@@ -76,6 +94,7 @@
                 android:layout_row="1"
                 android:layout_column="2"
                 android:text="BuP"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/checkBoxSakra"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxSakra" />
 
@@ -86,6 +105,7 @@
                 android:layout_row="2"
                 android:layout_column="0"
                 android:text="BE"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/checkBoxHip"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxHip" />
 
@@ -96,6 +116,7 @@
                 android:layout_row="2"
                 android:layout_column="1"
                 android:text="SaS"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/checkBoxPlPf"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxPlPf" />
 
@@ -106,6 +127,7 @@
                 android:layout_row="2"
                 android:layout_column="2"
                 android:text="PlPf"
+                app:buttonIconTint="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/checkBoxBup"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxBup" />
 
@@ -113,14 +135,163 @@
                 android:id="@+id/etHiB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="32dp"
                 android:layout_marginBottom="3dp"
                 android:ems="10"
                 android:inputType="date"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxHib"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxHib" />
+                app:layout_constraintTop_toTopOf="@+id/checkBoxHib"
+                app:layout_constraintVertical_bias="0.0" />
 
+            <EditText
+                android:id="@+id/etHip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxHip"
+                app:layout_constraintEnd_toEndOf="@+id/etHiB"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxHip" />
+
+            <EditText
+                android:id="@+id/etBe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxBe"
+                app:layout_constraintEnd_toEndOf="@+id/etHiB"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxBe" />
+
+            <EditText
+                android:id="@+id/etSipo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxSipo"
+                app:layout_constraintEnd_toEndOf="@+id/etHiB"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxSipo" />
+
+            <EditText
+                android:id="@+id/etBm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxBm"
+                app:layout_constraintEnd_toEndOf="@+id/etHiB"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxBm" />
+
+            <EditText
+                android:id="@+id/etSakre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxSakra"
+                app:layout_constraintEnd_toEndOf="@+id/etHiB"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxSakra" />
+
+            <EditText
+                android:id="@+id/etBup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxBup"
+                app:layout_constraintEnd_toEndOf="@+id/etHiB"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxBup" />
+
+            <EditText
+                android:id="@+id/etPlPf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxPlPf"
+                app:layout_constraintEnd_toEndOf="@+id/etHiB"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxPlPf" />
+
+            <EditText
+                android:id="@+id/etSas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:ems="10"
+                android:textColor="@color/black"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxSaS"
+                app:layout_constraintEnd_toEndOf="@+id/etHiB"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxSaS" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Qwalifikationen und Fits eintragen"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tvRegister"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="@+id/tvRegister"
+                app:layout_constraintTop_toBottomOf="@+id/tvRegister" />
+
+            <TextView
+                android:id="@+id/tvDateInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Info: Erst datum eintragen im format tag.monat.jahr"
+                android:textColor="#ED1111"
+                app:layout_constraintBottom_toTopOf="@+id/etHiB"
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintVertical_bias="0.243" />
+
+            <TextView
+                android:id="@+id/tvDateInfo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="und dan erst den hacken setzen"
+                android:textColor="#ED1111"
+                app:layout_constraintEnd_toEndOf="@+id/tvDateInfo"
+                app:layout_constraintStart_toStartOf="@+id/tvDateInfo"
+                app:layout_constraintTop_toBottomOf="@+id/tvDateInfo" />
+
+            <Button
+                android:id="@+id/butRegEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/back_ground_item"
+                android:text="Regestrirung abschlissen"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/butBac"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/butBac" />
+
+            <Button
+                android:id="@+id/butBac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="48dp"
+                android:backgroundTint="@color/back_ground_item"
+                android:text="Zurück"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/butRegEnd"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

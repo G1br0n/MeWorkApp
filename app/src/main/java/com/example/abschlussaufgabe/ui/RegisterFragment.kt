@@ -36,6 +36,7 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.imageView3.setImageResource(R.drawable.avatar_logo)
 
         binding.butNext.setOnClickListener {
             findNavController().navigate(R.id.registerQualificationFragment)
