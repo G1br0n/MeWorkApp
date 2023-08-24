@@ -252,7 +252,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="30sp"
-                android:text="Info: Erst Datum eintragen im format Tag.Monat.Jahr(10.12.2023) und dnn erst den Hacken setzen"
+                android:text="Info: Datum eintragen im format Tag.Monat.Jahr(10.12.2023)"
                 android:textColor="#ED1111"
                 android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/etHiB"
