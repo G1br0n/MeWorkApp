@@ -5,12 +5,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.google.firebase.ktx.Firebase
 
 import com.google.firebase.firestore.ktx.firestore
 
-const val TAG = "FirestoreViewModel"
+const val TAG = "fireStore"
 
 class FireStoreViewModel : ViewModel() {
 
@@ -20,9 +21,9 @@ class FireStoreViewModel : ViewModel() {
 
 
 
-    private val _currentUser = MutableLiveData<UserTestDataModel>()
-    val currentUser: LiveData<UserTestDataModel>
-        get() = _currentUser
+    private val _currentUserStore = MutableLiveData<UserTestDataModel>()
+    val currentUserStore: LiveData<UserTestDataModel>
+        get() = _currentUserStore
 
     val db = Firebase.firestore
 
@@ -57,35 +58,40 @@ class FireStoreViewModel : ViewModel() {
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 
-    /*fun getUserData(userId: String) {
-        val docRef = db.collection("users").document(userId)
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                    _currentUser.value = UserDataModel(
+     fun getUserData(userUid: String) {
 
-                        document.data?.get("userUid").toString(),
-                        document.data?.get("userId") as Long,
-                        document.data?.get("userFirstName").toString(),
-                        document.data?.get("userLastName").toString(),
-                        document.data?.get("userBirthDate").toString(),
-                        document.data?.get("userLogIn").toString(),
-                        document.data?.get("userPassword").toString(),
-                        document.data?.get("userQualification") as Array<String>,
-                        document.data?.get("userQualification") as Array<Timestamp>,
-                        document.data?.get("userBaNumber") as Long,
-                        document.data?.get("userBupNumber") as Long,
-                        document.data?.get("haveTheCar") as Boolean,
 
-                    )
-                } else {
-                    Log.d(TAG, "No such document")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }
-    }*/
+       try {
+           val docRef = db.collection("users").document(userUid)
+           docRef.get()
+               .addOnSuccessListener { document ->
+                   if (document != null) {
+                       Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                       _currentUserStore.value = UserTestDataModel(
+
+                           document.data?.get("userUid").toString(),
+                           document.data?.get("email").toString(),
+                           document.data?.get("password").toString(),
+                           document.data?.get("firstName").toString(),
+                           document.data?.get("lastName").toString(),
+                           (document.data?.get("baNumber") as Long?)?.toInt()!!,
+                           document.data?.get("userQualification") as Map<String, String>
+
+                       )
+                       Log.d(TAG, _currentUserStore.value.toString())
+                   } else {
+                       Log.d(TAG, "No such document")
+                   }
+
+                   println(_currentUserStore)
+               }
+               .addOnFailureListener { exception ->
+                   Log.d(TAG, "get failed with ", exception)
+               }
+       }catch (ex: Exception){
+           Log.e(TAG, ex.message!!)
+       }
+
+    }
 
 }

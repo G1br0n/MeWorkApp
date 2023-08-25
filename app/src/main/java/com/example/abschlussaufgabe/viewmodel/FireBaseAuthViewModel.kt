@@ -13,9 +13,9 @@ class FireBaseAuthViewModel: ViewModel() {
 
         private val firebaseAuth = FirebaseAuth.getInstance()
 
-        private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
-        val currentUser: LiveData<FirebaseUser?>
-            get() = _currentUser
+        private val _currentUserBase = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
+        val currentUserBase : LiveData<FirebaseUser?>
+            get() = _currentUserBase
 
 
 
@@ -52,10 +52,9 @@ class FireBaseAuthViewModel: ViewModel() {
 
         fun login(email: String, password: String){
 
-
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { authResult ->
                 if (authResult.isSuccessful) {
-                    _currentUser.value = firebaseAuth.currentUser
+                    _currentUserBase.value = firebaseAuth.currentUser
 
                 } else {
 
@@ -69,7 +68,7 @@ class FireBaseAuthViewModel: ViewModel() {
 
         fun logout() {
             firebaseAuth.signOut()
-            _currentUser.value = firebaseAuth.currentUser
+            _currentUserBase.value = firebaseAuth.currentUser
         }
 
 

@@ -16,7 +16,6 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentMaterialPlacementBinding
-import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 class MaterialPlacementFragment : Fragment() {
@@ -62,11 +61,7 @@ class MaterialPlacementFragment : Fragment() {
                     //Fange den feller ab mit eine toast nachricht
                 } catch (ex: Exception) {
                     viewModel.playLockedSound(context!!)
-                    Toast.makeText(
-                        activity,
-                        "Die Id darf nur aus zahlen bestähen",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(activity, "Die Id darf nur aus zahlen bestähen", Toast.LENGTH_LONG).show()
                 }
             }
         }

@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentLogInBinding
 import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
+import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 
@@ -20,6 +22,7 @@ class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
     private val viewModel: MainViewModel by activityViewModels()
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
+    private val fireStore: FireStoreViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -35,47 +38,37 @@ class LogInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Login button wen er angeklickt wird
 
-        binding.button.setOnClickListener{
+        //Regestrirungs Processe button
+        binding.button.setOnClickListener {
             findNavController().navigate(R.id.registerFragment)
 
         }
 
-
+        //Login button
         binding.ibLogin.setOnClickListener {
 
             //Empfange eigegebenen text
             val inputUsername = binding.ettLogIn.text.toString()
             val inputPassword = binding.ettPassword.text.toString()
 
-            var isValid = false
+            //loge mich bei fireBase an
+            fireBase.login(inputUsername, inputPassword)
 
+            //beobachte die input von fireBase dan lade ich fireStore userData
+            fireBase.currentUserBase.observe(viewLifecycleOwner) {
+                fireStore.getUserData(it!!.uid)
+            }
 
-            //Hier durchsuche ich die userdaten und gleiche es mit eingegebenen daten im loginfragment ab
-            for (user in viewModel.userDataList.value!!) {
-                if (user.userLogIn.lowercase() == inputUsername.lowercase() && user.userPassword == inputPassword) {
-                    isValid = true
-                    viewModel.userData = user
-                    break
+            //beobachte die input von fireStore dan naviegire ich weiter
+            try {
+                fireStore.currentUserStore.observe(viewLifecycleOwner) {
+                    Toast.makeText(activity, "Anmeldung war erfolgreich", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.homeFragment)
                 }
-
+            } catch (ex: Exception) {
+                Toast.makeText(activity, ex.message, Toast.LENGTH_LONG).show()
             }
-
-
-
-            if (isValid) {
-                //Naviegire zum homeFragment wenn die userdaten ubereinstimmen
-                viewModel.playLogInSound(context!!)
-                Toast.makeText(requireContext(), "Sie haben sich erfolgreich Angemeldet", Toast.LENGTH_LONG).show()
-                findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
-
-            } else {
-                //Wenn die userdaten nicht ind der liste sind oder der eingegebene passwort nicht übereinstimt wirt eine Toast nachricht dem entsprechendnangezeigt
-               viewModel.playLockedSound(context!!)
-               // Toast.makeText(requireContext(), "Passwort oder Username ist falsch", Toast.LENGTH_LONG).show()
-            }
-
         }
     }
 

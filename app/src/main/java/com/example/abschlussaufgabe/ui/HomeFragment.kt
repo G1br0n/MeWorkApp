@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.adapter.QualificationItemAdapter
-import com.example.abschlussaufgabe.data.model.UserDataModel
+import com.example.abschlussaufgabe.adapter.QualificationTestItemAdapter
+import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
+import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
+import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
 
@@ -23,14 +25,19 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var userData: UserDataModel
+    private lateinit var userData: UserTestDataModel
+    private val fireBase: FireBaseAuthViewModel by activityViewModels()
+    private val fireStore: FireStoreViewModel by activityViewModels()
 
 
 
     //todo: arguments user_id
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userData = viewModel.userData
+
+
+
+
 
         //Öfne NavBar bei navigiren zum homeFragment
         (activity as? MainActivity)?.showNavigationBar()
@@ -49,18 +56,19 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        userData = fireStore.currentUserStore.value!!
 
         //CardView User
-        binding.tvUserName.text = "${userData.userFirstName} ${userData.userLastName}"
+        binding.tvUserName.text = "${userData.firstName} ${userData.lastName}"
         //binding.tvUserName.text = "${viewModel.storageMaterialDataList.value!![0].name}"
-        binding.tvUserBa.text = "BA-${userData.userBaNumber}"
-        binding.tvUserBup.text = "BüP-${userData.userBupNumber}"
+        binding.tvUserBa.text = "BA-${userData.baNumber}"
+        binding.tvUserBup.text = "BüP-${userData.baNumber}"
 
         //RecyclerView for Qualification
         binding.rvQualification.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.userDataList.observe(viewLifecycleOwner){ _ ->
-            binding.rvQualification.adapter = QualificationItemAdapter(userData)
+            binding.rvQualification.adapter = QualificationTestItemAdapter(userData)
         }
 
         //CardView Material user
