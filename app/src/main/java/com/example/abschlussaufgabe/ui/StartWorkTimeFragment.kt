@@ -17,7 +17,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.WorkRunModel
-import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentStartWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
@@ -33,7 +32,6 @@ class StartWorkTimeFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
 
-    private lateinit var userData: UserDataModel
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -58,25 +56,41 @@ class StartWorkTimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fireStore.currentUserStore.observe(viewLifecycleOwner){
-            if(it != null){
-                if(it.timerStatus){
+        fireStore.currentUserStore.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.timerStatus) {
                     findNavController().navigate(R.id.stopWorkTimeFragment)
                 }
             }
         }
 
+        var dayTimerCheck = 0
+        var previousHour = binding.myTimePicker.currentHour
+
+        binding.myTimePicker.setOnTimeChangedListener { _, hourOfDay, _ ->
+            if (hourOfDay == 0 && previousHour == 23) {
+                dayTimerCheck++  // Ein Tag hinzufügen, wenn von 23 auf 00 Uhr gewechselt wird
+                binding.tvDate.text = "${LocalDate.now().dayOfMonth.toInt() + dayTimerCheck}.${LocalDate.now().month.value}.${LocalDate.now().year}"
+            } else if (hourOfDay == 23 && previousHour == 0) {
+                dayTimerCheck--  // Ein Tag subtrahieren, wenn von 00 auf 23 Uhr gewechselt wird
+                binding.tvDate.text = "${LocalDate.now().dayOfMonth.toInt() + dayTimerCheck}.${LocalDate.now().month.value}.${LocalDate.now().year}"
+            }
+            previousHour = hourOfDay
+        }
+
+
+
         try {
 
-        if(viewModel.gpsLiveData.value!!.startHour != null ){
-            findNavController().navigate(R.id.stopWorkTimeFragment)
-        }
-        }catch (ex: Exception){
+            if (viewModel.gpsLiveData.value!!.startHour != null) {
+                findNavController().navigate(R.id.stopWorkTimeFragment)
+            }
+        } catch (ex: Exception) {
 
         }
 
 
-        var gpsData: WorkRunModel = WorkRunModel("", "","","",0,0,0,0,0,0)
+        var gpsData: WorkRunModel = WorkRunModel("", "", "", "", 0, 0, 0, 0, 0, 0)
 
 
         //Spinner ----------------------------------------------------------------------------------
@@ -116,7 +130,8 @@ class StartWorkTimeFragment : Fragment() {
 
         //datum anzeige
 
-        binding.tvDate.text = "${LocalDate.now().dayOfMonth}.${LocalDate.now().month.value}.${LocalDate.now().year}"
+        binding.tvDate.text =
+            "${LocalDate.now().dayOfMonth.toInt() + dayTimerCheck}.${LocalDate.now().month.value}.${LocalDate.now().year}"
 
         //TimePicker 24 Hour Style
         binding.myTimePicker.setIs24HourView(true)
@@ -131,10 +146,6 @@ class StartWorkTimeFragment : Fragment() {
         //TODO: Test time picker
 
 
-
-
-
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         binding.checkBoxSaveCurrentPosition.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -147,10 +158,10 @@ class StartWorkTimeFragment : Fragment() {
                     location.let {
 
 
-                       latitude = it.latitude.toString()
+                        latitude = it.latitude.toString()
                         longitude = it.longitude.toString()
 
-                        if(isChecked){
+                        if (isChecked) {
                             binding.tvSaveCurrentPosition.text = "  $latitude $longitude"
 
                         } else {
@@ -179,7 +190,7 @@ class StartWorkTimeFragment : Fragment() {
             fireStore.userData.timerStatus = true
             fireStore.userData.timerMap["startYear"] = LocalDate.now().year.toString()
             fireStore.userData.timerMap["startMonth"] = LocalDate.now().month.value.toString()
-            fireStore.userData.timerMap["startDay"] = LocalDate.now().dayOfMonth.toString()
+            fireStore.userData.timerMap["startDay"] = (LocalDate.now().dayOfMonth + dayTimerCheck).toString()
             fireStore.userData.timerMap["startHour"] = binding.myTimePicker.hour.toString()
             fireStore.userData.timerMap["startMin"] = binding.myTimePicker.minute.toString()
             fireStore.userData.timerMap["startSek"] = LocalTime.now().second.toString()
@@ -194,7 +205,6 @@ class StartWorkTimeFragment : Fragment() {
             viewModel.playActionSound(context!!)
             findNavController().navigate(R.id.stopWorkTimeFragment)
         }
-
 
 
     }
