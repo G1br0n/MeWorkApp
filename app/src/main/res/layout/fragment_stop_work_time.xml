@@ -15,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="363dp"
             android:background="@color/back_ground">
 
             <ImageButton
@@ -34,33 +34,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
-                tools:text="TextView"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/ib_start"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ib_start" />
+                app:layout_constraintTop_toBottomOf="@+id/ib_start"
+                tools:text="TextView" />
 
             <TextView
                 android:id="@+id/tvfGeoLocation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                tools:text="TextView"
+                android:layout_marginTop="16dp"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvPosition"
                 app:layout_constraintStart_toStartOf="@+id/tvPosition"
-                app:layout_constraintTop_toBottomOf="@+id/tvPosition" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPosition"
+                tools:text="TextView" />
 
             <TextView
                 android:id="@+id/tvSap"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                tools:text="TextView"
+                android:layout_marginTop="16dp"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvfGeoLocation"
                 app:layout_constraintStart_toStartOf="@+id/tvfGeoLocation"
-                app:layout_constraintTop_toBottomOf="@+id/tvfGeoLocation" />
+                app:layout_constraintTop_toBottomOf="@+id/tvfGeoLocation"
+                tools:text="TextView" />
 
             <TextView
                 android:id="@+id/textClock"
@@ -68,14 +68,12 @@
                 android:layout_height="113dp"
                 android:gravity="center"
                 android:scaleY="2.5"
-                tools:text="12:21:30"
                 android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="@+id/ib_start"
                 app:layout_constraintEnd_toStartOf="@+id/ib_start"
-                app:layout_constraintHorizontal_bias="0.359"
+                app:layout_constraintHorizontal_bias="0.397"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/ib_start"
-                app:layout_constraintVertical_bias="0.5" />
+                tools:text="12:21:30" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

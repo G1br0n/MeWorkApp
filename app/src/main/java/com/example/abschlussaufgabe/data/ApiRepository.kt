@@ -17,13 +17,11 @@ class ApiRepository(private val api: RailStationApi) {
         suspend fun getBfPhotoList(){
             try {
                 val bfPhotoList = api.retrofitService.getStationList()
-
                 _bfPhotoList.value = bfPhotoList.random()
 
-                Log.e("Test","ApiRepository: ${_bfPhotoList.value}")
 
             } catch (ex:Exception){
-                Log.e("Test","ApiRepository: ${ex.message}")
+               // Log.e("Api Repository","ApiRepository: ${ex.message}")
             }
         }
 

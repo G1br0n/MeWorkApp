@@ -140,6 +140,7 @@ class RegisterQualificationFragment : Fragment() {
             }
 try {
             fireBase.register(
+                context!!,
                 userData.email,
                 userData.password,
                 userData.firstName,

@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.google.firebase.ktx.Firebase
 
@@ -15,82 +14,140 @@ const val TAG = "fireStore"
 
 class FireStoreViewModel : ViewModel() {
 
-    var userData: UserTestDataModel = UserTestDataModel("","","","","",0, mapOf())
+    //benutze diese varieable in RegisterFragmenten
+    var userData: UserTestDataModel = UserTestDataModel(
+        "",
+        "",
+        "",
+        "",
+        "",
+        0,
+        mapOf<String,String>(),
+        false,
+        false,
+        mutableMapOf<String,String>()
+    )
 
-
-
-
-
-    private val _currentUserStore = MutableLiveData<UserTestDataModel>()
+    //Beobachte die liveData in login fragment. Zum einlogen
+    val _currentUserStore = MutableLiveData<UserTestDataModel>()
     val currentUserStore: LiveData<UserTestDataModel>
         get() = _currentUserStore
 
     val db = Firebase.firestore
 
-    fun addNewUser(
+    fun addNewUserDataStore(
         userUid: String,
         email: String,
         password: String,
         firstName: String,
         lastName: String,
-        baNumber:Int = 0,
-        userQualification: Map<String,String>,
+        baNumber: Int = 0,
+        userQualification: Map<String, String>,
 
-    ) {
+        ) {
 
         val userData = mapOf(
             "userUid" to userUid,
             "email" to email,
-           "password" to password,
+            "password" to password,
             "firstName" to firstName,
             "lastName" to lastName,
             "baNumber" to baNumber,
 
-            "userQualification" to userQualification
+            "userQualification" to userQualification,
 
+            "carStatus" to false,
+
+            "timerStatus" to false,
+            "timerMap" to mapOf(
+                "startYear" to "0",
+                "startMonth" to "0",
+                "startDay" to "0",
+                "startHour" to "0",
+                "startMin" to "0",
+                "startSek" to "0",
+
+                "latitude" to "0",
+                "longitude" to "0",
+                "sap" to "0",
+                "position" to "null"
+
+            )
         )
 
         db.collection("users").document(userUid).set(
             userData
         )
             .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
+            throw Exception("Error writing document")}
     }
 
-     fun getUserData(userUid: String) {
+
+    fun saveUserDataStore(userData:UserTestDataModel){
+
+        val userDataStore = mapOf(
+            "userUid" to userData.userUid,
+            "email" to userData.email,
+            "password" to userData.password,
+            "firstName" to userData.firstName,
+            "lastName" to userData.lastName,
+            "baNumber" to userData.baNumber,
+
+            "userQualification" to userData.userQualification,
+
+            "carStatus" to userData.carStatus ,
+
+            "timerStatus" to userData.timerStatus,
+            "timerMap" to userData.timerMap
+
+        )
+
+        db.collection("users").document(userData.userUid).set(
+            userDataStore
+        )
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
+                throw Exception("Error writing document")}
+    }
+    fun getUserDataStore(userUid: String) {
 
 
-       try {
-           val docRef = db.collection("users").document(userUid)
-           docRef.get()
-               .addOnSuccessListener { document ->
-                   if (document != null) {
-                       Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                       _currentUserStore.value = UserTestDataModel(
+        try {
+            val docRef = db.collection("users").document(userUid)
+            docRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                        _currentUserStore.value = UserTestDataModel(
 
-                           document.data?.get("userUid").toString(),
-                           document.data?.get("email").toString(),
-                           document.data?.get("password").toString(),
-                           document.data?.get("firstName").toString(),
-                           document.data?.get("lastName").toString(),
-                           (document.data?.get("baNumber") as Long?)?.toInt()!!,
-                           document.data?.get("userQualification") as Map<String, String>
+                            document.data?.get("userUid").toString(),
+                            document.data?.get("email").toString(),
+                            document.data?.get("password").toString(),
+                            document.data?.get("firstName").toString(),
+                            document.data?.get("lastName").toString(),
+                            (document.data?.get("baNumber") as Long?)?.toInt()!!,
+                            document.data?.get("userQualification") as Map<String, String>,
+                            document.data?.get("carStatus").toString().toBoolean(),
+                            document.data?.get("timerStatus").toString().toBoolean(),
+                            document.data?.get("timerMap") as MutableMap<String, String>,
 
-                       )
-                       Log.d(TAG, _currentUserStore.value.toString())
-                   } else {
-                       Log.d(TAG, "No such document")
-                   }
-
-                   println(_currentUserStore)
-               }
-               .addOnFailureListener { exception ->
-                   Log.d(TAG, "get failed with ", exception)
-               }
-       }catch (ex: Exception){
-           Log.e(TAG, ex.message!!)
-       }
+                        )
+                        Log.d(TAG, _currentUserStore.value.toString())
+                    } else {
+                        Log.d(TAG, "No such document")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
+        } catch (ex: Exception) {
+            Log.e(TAG, ex.message!!)
+        }
 
     }
 

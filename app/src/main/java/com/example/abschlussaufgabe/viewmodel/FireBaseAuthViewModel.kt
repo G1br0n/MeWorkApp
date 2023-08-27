@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.viewmodel
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -20,6 +21,7 @@ class FireBaseAuthViewModel: ViewModel() {
 
 
         fun register(
+            context: Context,
             email: String,
             password: String,
             firstName: String,
@@ -31,7 +33,7 @@ class FireBaseAuthViewModel: ViewModel() {
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { authResult ->
                 if (authResult.isSuccessful) {
 
-                    FireStoreViewModel().addNewUser(
+                    FireStoreViewModel().addNewUserDataStore(
                         authResult.result.user!!.uid,
                         email,
                         password,
@@ -44,6 +46,8 @@ class FireBaseAuthViewModel: ViewModel() {
 
                 } else {
                     Log.e("ERROR", "${authResult.exception}")
+                    Toast.makeText(context, "${authResult.exception}", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
 

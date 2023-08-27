@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+        userData = fireStore.currentUserStore.value!!
 
 
 
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         return binding.root
     }
@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userData = fireStore.currentUserStore.value!!
+
 
         //CardView User
         binding.tvUserName.text = "${userData.firstName} ${userData.lastName}"
@@ -80,6 +80,7 @@ class HomeFragment : Fragment() {
 
         }
 
+    try {
 
         viewModel.bfPhotoList.observe(viewLifecycleOwner){
             binding.tvCityTitle.text = "    ${it.title}    "
@@ -91,7 +92,9 @@ class HomeFragment : Fragment() {
         binding.imageView2.setOnClickListener {
             viewModel.loadBfPhotoList()
         }
+    } catch (ex:Exception){
 
+    }
 
 
 

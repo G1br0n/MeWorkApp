@@ -15,6 +15,7 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.UserDataModel
 
 import com.example.abschlussaufgabe.databinding.FragmentStopWorkTimeBinding
+import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import java.time.Duration
@@ -28,6 +29,9 @@ class StopWorkTimeFragment : Fragment() {
     private lateinit var userData: UserDataModel
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private val fireStore: FireStoreViewModel by activityViewModels()
+
 
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var runnable: Runnable
@@ -54,21 +58,30 @@ class StopWorkTimeFragment : Fragment() {
 
 
 
+        fireStore.currentUserStore.observe(viewLifecycleOwner){
+            binding.tvPosition.text = "Sie arbeiten als: ${it.timerMap["position"]}"
+            binding.tvfGeoLocation.text = "Ort: ${it.timerMap["latitude"]} / ${it.timerMap["longitude"]}"
+            binding.tvSap.text = "Ihre Auftragsnummer lautet: ${it.timerMap["sap"]}"
 
+            startTimer(
 
-
-        viewModel.gpsLiveData.observe(viewLifecycleOwner){
-            binding.tvPosition.text = "Sie arbeiten als: ${it.position}"
-            binding.tvfGeoLocation.text = "Ort: ${it.latitude} / ${it.longitude}"
-            binding.tvSap.text = "Ihre Auftragsnummer lautet: ${it.sap}"
-
-            startTimer(viewModel.gpsLiveData.value!!.startHour,viewModel.gpsLiveData.value!!.startMin,viewModel.gpsLiveData.value!!.startSek)
+               it.timerMap["startHour"]!!.toInt(),
+               it.timerMap["startMin"]!!.toInt(),
+               it.timerMap["startSek"]!!.toInt(),
+               )
         }
 
 
 
+
         binding.ibStart.setOnClickListener {
-            viewModel._gpsLiveData = MutableLiveData()
+            fireStore.userData = fireStore.currentUserStore.value!!
+            fireStore.userData.timerStatus = false
+
+            fireStore.saveUserDataStore(fireStore.userData)
+            fireStore.getUserDataStore(fireStore.currentUserStore.value!!.userUid)
+
+
             findNavController().navigate(R.id.inWorkTimeFragment)
         }
     }

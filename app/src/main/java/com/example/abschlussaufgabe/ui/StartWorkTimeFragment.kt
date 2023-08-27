@@ -19,9 +19,11 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.WorkRunModel
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentStartWorkTimeBinding
+import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import java.time.LocalDate
 import java.time.LocalTime
 
 
@@ -35,6 +37,7 @@ class StartWorkTimeFragment : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    private val fireStore: FireStoreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,13 +51,20 @@ class StartWorkTimeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userData = viewModel.userData
 
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fireStore.currentUserStore.observe(viewLifecycleOwner){
+            if(it != null){
+                if(it.timerStatus){
+                    findNavController().navigate(R.id.stopWorkTimeFragment)
+                }
+            }
+        }
 
         try {
 
@@ -66,11 +76,11 @@ class StartWorkTimeFragment : Fragment() {
         }
 
 
-        var gpsData: WorkRunModel = WorkRunModel("", "","","",0,0,0)
+        var gpsData: WorkRunModel = WorkRunModel("", "","","",0,0,0,0,0,0)
 
 
         //Spinner ----------------------------------------------------------------------------------
-        val positionList = userData.userQualification
+        val positionList = fireStore.currentUserStore.value!!.userQualification.keys.toList()
         val spinner: Spinner = binding.spinner
 
         var options =
@@ -81,6 +91,8 @@ class StartWorkTimeFragment : Fragment() {
             options = options.plus(positionList[i])
         }
 
+
+        var selectPosition = ""
         val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, options)
         spinner.adapter = adapter
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -90,7 +102,7 @@ class StartWorkTimeFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                gpsData.position = parent?.getItemAtPosition(position).toString()
+                selectPosition = parent?.getItemAtPosition(position).toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -100,6 +112,11 @@ class StartWorkTimeFragment : Fragment() {
         }
 
         //------------------------------------------------------------------------------------------
+
+
+        //datum anzeige
+
+        binding.tvDate.text = "${LocalDate.now().dayOfMonth}.${LocalDate.now().month.value}.${LocalDate.now().year}"
 
         //TimePicker 24 Hour Style
         binding.myTimePicker.setIs24HourView(true)
@@ -135,8 +152,11 @@ class StartWorkTimeFragment : Fragment() {
 
                         if(isChecked){
                             binding.tvSaveCurrentPosition.text = "  $latitude $longitude"
+
                         } else {
                             binding.tvSaveCurrentPosition.text = ""
+                            fireStore.userData.timerMap["latitude"] = ""
+                            fireStore.userData.timerMap["longitude"] = ""
                         }
 
 
@@ -154,16 +174,22 @@ class StartWorkTimeFragment : Fragment() {
 
 
         binding.ibStart.setOnClickListener {
-            gpsData.latitude = latitude
-            gpsData.longitude = longitude
 
-            gpsData.startHour = binding.myTimePicker.hour
-            gpsData.startMin = binding.myTimePicker.minute
-            gpsData.startSek = LocalTime.now().second
+            fireStore.userData = fireStore.currentUserStore.value!!
+            fireStore.userData.timerStatus = true
+            fireStore.userData.timerMap["startYear"] = LocalDate.now().year.toString()
+            fireStore.userData.timerMap["startMonth"] = LocalDate.now().month.value.toString()
+            fireStore.userData.timerMap["startDay"] = LocalDate.now().dayOfMonth.toString()
+            fireStore.userData.timerMap["startHour"] = binding.myTimePicker.hour.toString()
+            fireStore.userData.timerMap["startMin"] = binding.myTimePicker.minute.toString()
+            fireStore.userData.timerMap["startSek"] = LocalTime.now().second.toString()
+            fireStore.userData.timerMap["sap"] = binding.editTextNumberSigned.text.toString()
+            fireStore.userData.timerMap["latitude"] = "$latitude"
+            fireStore.userData.timerMap["longitude"] = "$longitude"
+            fireStore.userData.timerMap["position"] = selectPosition
 
-            gpsData.sap = binding.editTextNumberSigned.text.toString()
-
-            viewModel._gpsLiveData.value = gpsData
+            fireStore.saveUserDataStore(fireStore.userData)
+            fireStore.getUserDataStore(fireStore.currentUserStore.value!!.userUid)
 
             viewModel.playActionSound(context!!)
             findNavController().navigate(R.id.stopWorkTimeFragment)

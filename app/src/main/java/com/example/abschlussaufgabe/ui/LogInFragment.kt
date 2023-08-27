@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
@@ -55,20 +54,23 @@ class LogInFragment : Fragment() {
             //loge mich bei fireBase an
             fireBase.login(inputUsername, inputPassword)
 
+
             //beobachte die input von fireBase dan lade ich fireStore userData
             fireBase.currentUserBase.observe(viewLifecycleOwner) {
-                fireStore.getUserData(it!!.uid)
+                if(it != null){
+                    fireStore.getUserDataStore(it.uid)
+                }
             }
 
             //beobachte die input von fireStore dan naviegire ich weiter
-            try {
                 fireStore.currentUserStore.observe(viewLifecycleOwner) {
-                    Toast.makeText(activity, "Anmeldung war erfolgreich", Toast.LENGTH_LONG).show()
-                    findNavController().navigate(R.id.homeFragment)
+                    if(it != null) {
+                        Toast.makeText(activity, "Anmeldung war erfolgreich", Toast.LENGTH_LONG)
+                            .show()
+                        findNavController().navigate(R.id.homeFragment)
+                    }
                 }
-            } catch (ex: Exception) {
-                Toast.makeText(activity, ex.message, Toast.LENGTH_LONG).show()
-            }
+
         }
     }
 

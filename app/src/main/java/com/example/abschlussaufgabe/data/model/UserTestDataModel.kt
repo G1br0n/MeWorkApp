@@ -9,5 +9,12 @@ data class UserTestDataModel(
     var firstName: String,
     var lastName: String,
     var baNumber:Int = 0,
-    var userQualification: Map<String,String>
+    var userQualification: Map<String,String>,
+
+    var carStatus: Boolean,
+
+    var timerStatus: Boolean,
+    var timerMap: MutableMap<String,String>
+
 )
+
