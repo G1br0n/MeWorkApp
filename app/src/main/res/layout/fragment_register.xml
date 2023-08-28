@@ -117,20 +117,20 @@
 
             <EditText
                 android:id="@+id/etEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="33dp"
+                android:layout_marginEnd="52dp"
                 android:ems="10"
                 android:inputType="text"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvEmail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvEmail"
-                app:layout_constraintVertical_bias="0.571" />
+                app:layout_constraintVertical_bias="0.428" />
 
             <EditText
                 android:id="@+id/etPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
@@ -142,7 +142,7 @@
 
             <EditText
                 android:id="@+id/etVorname"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
@@ -154,7 +154,7 @@
 
             <EditText
                 android:id="@+id/etName"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
@@ -166,7 +166,7 @@
 
             <EditText
                 android:id="@+id/etBa"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number"

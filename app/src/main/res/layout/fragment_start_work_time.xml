@@ -88,16 +88,18 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_save_current_position"
                 app:layout_constraintEnd_toEndOf="@+id/spinner"
                 app:layout_constraintTop_toTopOf="@+id/tv_save_current_position"
-                app:layout_constraintVertical_bias="0.173" />
+                app:layout_constraintVertical_bias="0.608" />
 
             <TextView
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="24dp"
-                android:textColor="@color/black"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
+                android:scaleY="2.5"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/myTimePicker"
                 app:layout_constraintStart_toStartOf="@+id/myTimePicker"
                 app:layout_constraintTop_toTopOf="@+id/ib_start" />
