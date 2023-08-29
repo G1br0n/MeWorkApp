@@ -14,6 +14,8 @@ data class CarModel (
     var oilControlDate: Date,
     var oilControlMileage: Int,
 
+
+
     var refuelDate: Date,
     var refuelMileage: Int,
 

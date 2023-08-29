@@ -81,8 +81,11 @@ class StopWorkTimeFragment : Fragment() {
     }
 
     private fun startTimer(year: Int, month: Int, day: Int, hour: Int, min: Int, sek: Int) {
+
         val startTime = LocalDateTime.of(year, month, day, hour, min, sek)
+
         runnable = object : Runnable {
+
             override fun run() {
                 val duration = Duration.between(startTime, LocalDateTime.now())
 

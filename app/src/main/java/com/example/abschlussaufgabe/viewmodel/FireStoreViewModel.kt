@@ -29,7 +29,7 @@ class FireStoreViewModel : ViewModel() {
     )
 
     //Beobachte die liveData in login fragment. Zum einlogen
-    val _currentUserStore = MutableLiveData<UserTestDataModel>()
+    var _currentUserStore = MutableLiveData<UserTestDataModel>()
     val currentUserStore: LiveData<UserTestDataModel>
         get() = _currentUserStore
 

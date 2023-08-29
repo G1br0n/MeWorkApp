@@ -25,10 +25,14 @@ class LogInFragment : Fragment() {
 
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        fireBase.logout()
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_log_in, container, false)
         return binding.root
     }
@@ -46,6 +50,10 @@ class LogInFragment : Fragment() {
 
         //Login button
         binding.ibLogin.setOnClickListener {
+            //Interacktion sound
+            viewModel.playClickSound(context!!)
+            //Interacktion mesage
+            Toast.makeText(activity, "Login Check", Toast.LENGTH_SHORT).show()
 
             //Empfange eigegebenen text
             val inputUsername = binding.ettLogIn.text.toString()
@@ -54,29 +62,31 @@ class LogInFragment : Fragment() {
             //loge mich bei fireBase an
             fireBase.login(inputUsername, inputPassword)
 
-
             //beobachte die input von fireBase dan lade ich fireStore userData
             fireBase.currentUserBase.observe(viewLifecycleOwner) {
-                if(it != null){
-                    fireStore.getUserDataStore(it.uid)
-                }
-            }
+                if (it != null) {
 
-            //beobachte die input von fireStore dan naviegire ich weiter
-                fireStore.currentUserStore.observe(viewLifecycleOwner) {
-                    if(it != null) {
-                        Toast.makeText(activity, "Anmeldung war erfolgreich", Toast.LENGTH_LONG)
-                            .show()
-                        findNavController().navigate(R.id.homeFragment)
+                    //lade userTestDataModel aus fireStoreData
+                    fireStore.getUserDataStore(it.uid)
+
+                    //beobachte die input von fireStore dan naviegire ich weiter
+                    fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
+                        if (data != null) {
+                            Toast.makeText(activity, "Anmeldung war erfolgreich", Toast.LENGTH_LONG)
+                                .show()
+                            findNavController().navigate(R.id.homeFragment)
+                        }
                     }
                 }
-
+            }
         }
     }
 
-
     override fun onResume() {
         super.onResume()
+
+        fireBase.logout()
+
         //Schlisse navBar wenn loginfragment wieder geöfnet wird
         (activity as? MainActivity)?.closeNavigationBar()
     }

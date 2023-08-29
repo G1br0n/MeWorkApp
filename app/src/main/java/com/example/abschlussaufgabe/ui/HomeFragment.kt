@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.abschlussaufgabe.MainActivity
@@ -20,23 +21,21 @@ import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
+import kotlinx.coroutines.launch
 
+
+const val TAG = "HomeFragment"
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var userData: UserTestDataModel
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
-
 
 
     //todo: arguments user_id
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        userData = fireStore.currentUserStore.value!!
-
 
 
         //Öfne NavBar bei navigiren zum homeFragment
@@ -56,53 +55,50 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        //CardView User
-        binding.tvUserName.text = "${userData.firstName} ${userData.lastName}"
-        //binding.tvUserName.text = "${viewModel.storageMaterialDataList.value!![0].name}"
-        binding.tvUserBa.text = "BA-${userData.baNumber}"
-        binding.tvUserBup.text = "BüP-${userData.baNumber}"
-
-        //RecyclerView for Qualification
-        binding.rvQualification.layoutManager = LinearLayoutManager(requireContext())
-
-        viewModel.userDataList.observe(viewLifecycleOwner){ _ ->
-            binding.rvQualification.adapter = QualificationTestItemAdapter(userData)
-        }
-
-        //CardView Material user
+        //Weise den FlexBox LayoutManager für material recyclerview
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
 
-        viewModel.userMaterialList.observe(viewLifecycleOwner){
-            Log.e("Home","$it")
+
+        //Observer für UserDaten aus dem fireStore
+        fireStore.currentUserStore.observe(viewLifecycleOwner) {
+            binding.tvUserName.text = "${it.firstName} ${it.lastName}"
+            binding.tvUserBa.text = "BA-${it.baNumber}"
+            binding.tvUserBup.text = "BüP-${it.baNumber}"
+            binding.rvQualification.adapter = QualificationTestItemAdapter(it)
+        }
+
+        //Observe material liste aus dem RoomDatabase
+        viewModel.userMaterialList.observe(viewLifecycleOwner) {
+            Log.e("Home", "$it")
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
-
         }
 
-    try {
-
-        viewModel.bfPhotoList.observe(viewLifecycleOwner){
-            binding.tvCityTitle.text = "    ${it.title}    "
-            if(it.photoUrl != null){
-                binding.imageView2.load(it.photoUrl)
+        //Fange mögliche API NullPointerException ab
+        try {
+            //Beobachte die geladen Api liste
+            viewModel.bfPhotoList.observe(viewLifecycleOwner) {
+                if (it.title != null) {
+                    binding.tvCityTitle.text = "    ${it.title}    "
+                }
+                if (it.photoUrl != null) {
+                    binding.imageView2.load(it.photoUrl)
+                }
             }
+
+            binding.imageView2.setOnClickListener {
+                viewModel.playClickSound(context!!)
+                viewModel.loadBfPhotoList()
+            }
+        } catch (ex: Exception) {
+            //Fange unbekante feller ab
+            Log.e(TAG, "ImageViewSetOnClick: ${ ex.message!! }")
         }
-
-        binding.imageView2.setOnClickListener {
-            viewModel.loadBfPhotoList()
-        }
-    } catch (ex:Exception){
-
-    }
-
 
 
     }
 
     override fun onResume() {
         super.onResume()
-      // viewModel.loadUserMaterialList()
         viewModel.loadBfPhotoList()
     }
 }
