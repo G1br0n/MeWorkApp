@@ -2,16 +2,19 @@ package com.example.abschlussaufgabe.viewmodel
 
 import android.content.Context
 import android.util.Log
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.abschlussaufgabe.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class FireBaseAuthViewModel : ViewModel() {
 
+    var checkedLogin = false
 
     private val firebaseAuth = FirebaseAuth.getInstance()
 
@@ -55,16 +58,17 @@ class FireBaseAuthViewModel : ViewModel() {
 
 
     fun login(email: String, password: String): Boolean {
-        var checkedLogin = false
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { authResult ->
                 if (authResult.isSuccessful) {
                     _currentUserBase.value = firebaseAuth.currentUser
-                    checkedLogin = true
+                    checkedLogin = authResult.isSuccessful
+                    Log.e("loginTrue","${authResult.isSuccessful}")
                 } else {
-                    checkedLogin = false
-                    Log.e("ERROR", "${authResult.exception}")
+                    _currentUserBase.value = firebaseAuth.currentUser
+                    checkedLogin = authResult.isSuccessful
+                    Log.e("loginFalse","${authResult.isSuccessful}")
                 }
 
             }

@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,20 +8,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentStopWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
 import java.time.Duration
 import java.time.LocalDateTime
 
 
 class StopWorkTimeFragment : Fragment() {
     private lateinit var binding: FragmentStopWorkTimeBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val fireStore: FireStoreViewModel by activityViewModels()
 
 
@@ -48,13 +48,14 @@ class StopWorkTimeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
+        //Beobachte fireStoreData zu liveDate und passe den layout an
         fireStore.currentUserStore.observe(viewLifecycleOwner) {
             binding.tvPosition.text = "Sie arbeiten als: ${it.timerMap["position"]}"
-            binding.tvfGeoLocation.text =
-                "Ort: ${it.timerMap["latitude"]} / ${it.timerMap["longitude"]}"
+            binding.tvfGeoLocation.text = "Ort: ${it.timerMap["latitude"]} / ${it.timerMap["longitude"]}"
             binding.tvSap.text = "Ihre Auftragsnummer lautet: ${it.timerMap["sap"]}"
 
+
+            //S.u  die funktion sorgt für denflexibelen uhrzeiger lauf im ui und fürt rechen operationen durch
             startTimer(
                 it.timerMap["startYear"]!!.toInt(),
                 it.timerMap["startMonth"]!!.toInt(),
@@ -69,16 +70,11 @@ class StopWorkTimeFragment : Fragment() {
 
 
         binding.ibStart.setOnClickListener {
-            fireStore.userData = fireStore.currentUserStore.value!!
-            fireStore.userData.timerStatus = false
-
-            fireStore.saveUserDataStore(fireStore.userData)
-            fireStore.getUserDataStore(fireStore.currentUserStore.value!!.userUid)
-
-
+            showConfirmationDialog()
             findNavController().navigate(R.id.inWorkTimeFragment)
         }
     }
+
 
     private fun startTimer(year: Int, month: Int, day: Int, hour: Int, min: Int, sek: Int) {
 
@@ -87,17 +83,48 @@ class StopWorkTimeFragment : Fragment() {
         runnable = object : Runnable {
 
             override fun run() {
+               //Bekomer wert in milis zurück
                 val duration = Duration.between(startTime, LocalDateTime.now())
 
+                //benutze die duration Funktionen um zeit auszurechene
                 val totalHours = duration.toHours()
                 val minutes = duration.toMinutes() % 60
                 val seconds = duration.seconds % 60
 
+                //Passe hier das UI an
                 binding.textClock.text = "${totalHours}h ${minutes}m ${seconds}s"
 
+                //funktion takt
                 handler.postDelayed(this, 1000)
             }
         }
         handler.post(runnable)
+    }
+
+    private fun showConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())  // Ändern Sie `this@YourActivity` zu `requireContext()`
+
+        builder.setTitle("Bestätigung")
+        builder.setMessage("Sind Sie sicher?")
+
+        builder.setPositiveButton("Ja") { dialog, which ->
+            // Code, der ausgeführt wird, wenn der "Ja"-Button geklickt wird
+            Toast.makeText(requireContext(), "Schönen Feierabend", Toast.LENGTH_SHORT).show()
+
+            fireStore.userData = fireStore.currentUserStore.value!!
+            fireStore.userData.timerStatus = false
+            fireStore.saveUserDataStore(fireStore.userData)
+            fireStore.getUserDataStore(fireStore.currentUserStore.value!!.userUid)
+
+            findNavController().navigate(R.id.inWorkTimeFragment)
+        }
+
+        builder.setNegativeButton("Nein") { dialog, which ->
+            // Code, der ausgeführt wird, wenn der "Nein"-Button geklickt wird
+            Toast.makeText(requireContext(), "Nein-Button geklickt", Toast.LENGTH_SHORT).show()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }

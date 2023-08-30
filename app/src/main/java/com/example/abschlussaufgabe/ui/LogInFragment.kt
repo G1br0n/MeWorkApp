@@ -1,10 +1,13 @@
 package com.example.abschlussaufgabe.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -30,6 +33,7 @@ class LogInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
 
         fireBase.logout()
 
@@ -59,6 +63,10 @@ class LogInFragment : Fragment() {
             val inputUsername = binding.ettLogIn.text.toString()
             val inputPassword = binding.ettPassword.text.toString()
 
+
+            binding.ibLogin.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+
             //loge mich bei fireBase an
             fireBase.login(inputUsername, inputPassword)
 
@@ -69,15 +77,35 @@ class LogInFragment : Fragment() {
                     //lade userTestDataModel aus fireStoreData
                     fireStore.getUserDataStore(it.uid)
 
+
                     //beobachte die input von fireStore dan naviegire ich weiter
+
+
                     fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
                         if (data != null) {
-                            Toast.makeText(activity, "Anmeldung war erfolgreich", Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(
+                                activity,
+                                "Anmeldung war erfolgreich",
+                                Toast.LENGTH_LONG
+                            ).show()
                             findNavController().navigate(R.id.homeFragment)
                         }
                     }
+
+
                 }
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (!fireBase.checkedLogin) {
+                        binding.ibLogin.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(
+                            activity,
+                            "Email oder Passwort falsch",
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
+                }, 2000)
             }
         }
     }
@@ -87,7 +115,9 @@ class LogInFragment : Fragment() {
 
         fireBase.logout()
 
+
         //Schlisse navBar wenn loginfragment wieder geöfnet wird
         (activity as? MainActivity)?.closeNavigationBar()
     }
+
 }
