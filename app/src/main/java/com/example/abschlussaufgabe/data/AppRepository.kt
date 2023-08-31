@@ -15,7 +15,7 @@ class AppRepository(
 ) {
 
 
-    var user = UserTestDataModel("","", "", "", "",0, mapOf(), false, false, mutableMapOf())
+    var user = UserTestDataModel("","", "", "", "",234234, mutableMapOf(),   false, false, mutableMapOf())
 
 
     //UserList mit login daten passwort und anderen werten, wird aus feste liste in funktion loadUser geladen

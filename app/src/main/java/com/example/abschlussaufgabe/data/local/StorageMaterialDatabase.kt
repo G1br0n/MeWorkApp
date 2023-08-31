@@ -23,7 +23,9 @@ fun getStorageMaterialDatabase(context: Context): StorageMaterialDatabase {
                 StorageMaterialDatabase::class.java,
                 "storage_material_table"
             )
+                .fallbackToDestructiveMigration()  // Dies wurde hinzugefügt
                 .build()
+
         }
     }
     return INSTANCE

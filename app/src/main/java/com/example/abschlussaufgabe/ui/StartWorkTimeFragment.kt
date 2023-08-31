@@ -99,7 +99,7 @@ class StartWorkTimeFragment : Fragment() {
         spinner.adapter = adapter
         adapter.setDropDownViewResource(R.layout.custom_spinner_item)
         // Use ContextCompat to get the color and set it as the background color.
-        //spinner.setBackgroundColor(ContextCompat.getColor(context!!, R.color.back_ground))
+
 
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

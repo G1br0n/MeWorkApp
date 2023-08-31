@@ -1,5 +1,7 @@
 package com.example.abschlussaufgabe.data.model
 
+
+
 import java.sql.Timestamp
 
 

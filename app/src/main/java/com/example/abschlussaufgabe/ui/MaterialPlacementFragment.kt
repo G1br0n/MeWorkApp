@@ -3,12 +3,12 @@ package com.example.abschlussaufgabe.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
@@ -79,13 +79,13 @@ class MaterialPlacementFragment : Fragment() {
                 // setze id aus dem eingabe feld
                 id = binding.etMaterialId.text.toString().toInt()
 
-                var sapNumber = binding.etSapNumber.text.toString()
+                var sapNumber = binding.etSapNumber.text.toString().toInt()
 
                 //Überprüfe mit der funktion ob Id in der liste ist oder nicht, wen nicht schmeise feller raus
                 viewModel.checkMaterialId(id)
 
                 //udate StorageMaterial Model Datenbank
-                viewModel.updateMaterialLocation(id, sapNumber)
+                viewModel.updateMaterialLocation(id, sapNumber.toString())
 
                 //Update UserMaterialListe aus dem datenbank
                 viewModel.loadUserMaterialList()

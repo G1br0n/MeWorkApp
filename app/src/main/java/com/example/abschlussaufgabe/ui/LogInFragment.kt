@@ -3,12 +3,13 @@ package com.example.abschlussaufgabe.ui
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.MainActivity
@@ -73,18 +74,20 @@ class LogInFragment : Fragment() {
             fireBase.currentUserBase.observe(viewLifecycleOwner) {
                 if (it != null) {
 
+                    viewModel.userData.userUid = it.uid
+                    Log.e("Log1" ,it.uid)
                     //lade userTestDataModel aus fireStoreData
-                    fireStore.getUserDataStore(it.uid)
+                    fireStore.getUserDataStore(viewModel.userData.userUid)
 
 
                     //beobachte die input von fireStore dan naviegire ich weiter
 
-                            viewModel.userData.userUid = it.uid
 
                     fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
+
                         if (data != null) {
 
-
+                            Log.e("Log3" ,data.userUid)
                             Toast.makeText(
                                 activity,
                                 "Anmeldung war erfolgreich",

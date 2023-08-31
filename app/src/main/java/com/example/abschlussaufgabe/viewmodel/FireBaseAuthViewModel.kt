@@ -75,6 +75,7 @@ class FireBaseAuthViewModel : ViewModel() {
 
     fun logout() {
         firebaseAuth.signOut()
+
         _currentUserBase.value = null
         FireStoreViewModel()._currentUserStore.value = null
     }

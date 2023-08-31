@@ -13,7 +13,7 @@ interface StorageMaterialDao {
 
 
     //TODO: REPLACE strategy auf ABORT setzen
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>)
 
     @Query("UPDATE StorageMaterialModel SET locationId = :locationId WHERE materialId = :materialId")

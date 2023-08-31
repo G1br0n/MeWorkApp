@@ -14,10 +14,9 @@ import com.example.abschlussaufgabe.data.ApiRepository
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.local.getStorageMaterialDatabase
-import com.example.abschlussaufgabe.data.model.WorkRunModel
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
-
+import com.example.abschlussaufgabe.data.model.WorkRunModel
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -39,6 +38,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     //Einzelne User, wird im LoginFragment deklarirt
     var userData: UserTestDataModel = repository.user
+    //var userData: UserTestDataModel = repository.user
 
 
     val storageMaterialDataList: LiveData<List<StorageMaterialModel>>
@@ -63,6 +63,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
+            FireStoreViewModel().currentUserStore
             repository.insertAll(storageMaterialList.value!!)
             _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank()
             loadUserMaterialList()
@@ -89,10 +90,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             //material wird in 2 listen sortirt, materialId und lockationId zu userId abhändig
             _storageMaterialDataList.value?.let { materials ->
+                Log.e("Log4" ,materials.size.toString())
                 for (material in materials) {
-                    Log.e("loadUser","${userData.userUid.toString()} ${material.locationId.toString()}")
                     when {
-                        material.locationId.toString() == userData.userUid.toString() && material.materialId > 100000 ->
+                        material.locationId == userData.userUid && material.materialId > 100000 ->
                             psaMaterialList.add(material)
 
                         material.locationId == userData.userUid && material.materialId < 100000 ->
@@ -104,7 +105,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             //Verpacke die 2 listen in live data um UI abhändige elemente zu observen
             _userPsaMaterialList.value = psaMaterialList
+            Log.e("Log6" ,_userPsaMaterialList.value!!.size.toString())
+
             _userMaterialList.value = materialList
+            Log.e("Log7" ,_userMaterialList.value!!.size.toString())
 
         }
     }
@@ -135,6 +139,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     }
+
+
+    fun updateUserCarStatus(){
+        repository.user.carStatus = true
+    }
+
+
+
 
 
     //mediaplayer für QR

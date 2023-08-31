@@ -3,12 +3,12 @@ package com.example.abschlussaufgabe.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
@@ -16,8 +16,6 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
-import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
-import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 
@@ -26,8 +24,6 @@ class MaterialReceivedFragment : Fragment() {
     private lateinit var binding: FragmentMaterialReceivedBinding
     private val viewModel: MainViewModel by activityViewModels()
 
-    private val fireBase: FireBaseAuthViewModel by activityViewModels()
-    private val fireStore: FireStoreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,7 +89,7 @@ class MaterialReceivedFragment : Fragment() {
                 viewModel.checkMaterialId(id)
 
                 //udate StorageMaterial Model Datenbank
-                viewModel.updateMaterialLocation(id, fireBase.currentUserBase.value!!.uid)
+                viewModel.updateMaterialLocation(id, viewModel.userData.userUid )
 
                 //Spile sound ab wenn  material empfange
                 viewModel.playActionSound(context!!)

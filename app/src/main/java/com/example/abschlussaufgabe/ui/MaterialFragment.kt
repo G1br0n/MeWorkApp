@@ -1,7 +1,6 @@
 package com.example.abschlussaufgabe.ui
 
 
-import com.example.abschlussaufgabe.adapter.MaterialItemAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.adapter.MaterialItemAdapter
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.example.abschlussaufgabe.databinding.FragmentMaterialBinding
+import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
+import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
 
@@ -24,7 +26,8 @@ class MaterialFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var userData: UserTestDataModel
     private var userId: Int = 0
-
+    private val fireBase: FireBaseAuthViewModel by activityViewModels()
+    private val fireStore: FireStoreViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,7 +88,9 @@ class MaterialFragment : Fragment() {
             viewModel.playLockedSound(context!!)
         }
         binding.imageButton6.setOnClickListener{
-            viewModel.playLockedSound(context!!)
+           // viewModel.playLockedSound(context!!)
+            fireBase.logout()
+            findNavController().navigate(R.id.logInFragment)
         }
 
         viewModel.loadUserMaterialList()

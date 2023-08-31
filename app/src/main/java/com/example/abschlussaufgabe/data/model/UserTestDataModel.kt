@@ -1,6 +1,5 @@
 package com.example.abschlussaufgabe.data.model
 
-
 data class UserTestDataModel(
     var userUid: String,
     var email: String,
