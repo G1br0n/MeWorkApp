@@ -1,7 +1,7 @@
 package com.example.abschlussaufgabe.ui
 
 
-import MaterialItemAdapter
+import com.example.abschlussaufgabe.adapter.MaterialItemAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.model.UserDataModel
+import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.example.abschlussaufgabe.databinding.FragmentMaterialBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -22,7 +22,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 class MaterialFragment : Fragment() {
     private lateinit var binding: FragmentMaterialBinding
     private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var userData: UserDataModel
+    private lateinit var userData: UserTestDataModel
     private var userId: Int = 0
 
 

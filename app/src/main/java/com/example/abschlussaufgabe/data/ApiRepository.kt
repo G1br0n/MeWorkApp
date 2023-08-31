@@ -1,7 +1,6 @@
 package com.example.abschlussaufgabe.data
 
 import RailStationApi
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussaufgabe.data.model.RailStationsPhotoModel

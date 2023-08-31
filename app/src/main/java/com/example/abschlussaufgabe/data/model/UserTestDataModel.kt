@@ -1,6 +1,5 @@
 package com.example.abschlussaufgabe.data.model
 
-import java.sql.Timestamp
 
 data class UserTestDataModel(
     var userUid: String,

@@ -1,28 +1,19 @@
 package com.example.abschlussaufgabe.ui
 
-import android.Manifest
 import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
-
 import com.example.abschlussaufgabe.databinding.FragmentRegisterBinding
 import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
@@ -62,6 +53,7 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+/*
 
         binding.imageView3.setImageResource(R.drawable.avatar_logo)
 
@@ -73,6 +65,7 @@ class RegisterFragment : Fragment() {
                     openSpecificCameraApp()
                 }
             }
+*/
 
 
 
@@ -104,7 +97,7 @@ class RegisterFragment : Fragment() {
         return user
     }
 
-    private fun openSpecificCameraApp() {
+  /*  private fun openSpecificCameraApp() {
         val cameraPackageName = "com.example.camera"  // Ersetzen Sie dies durch den tatsächlichen Paketnamen der Kamera-App
 
         val intent = requireContext().packageManager.getLaunchIntentForPackage(cameraPackageName)
@@ -132,5 +125,5 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(requireContext(), "Kamera-Berechtigung wurde verweigert", Toast.LENGTH_SHORT).show()
             }
         }
-    }
+    }*/
 }

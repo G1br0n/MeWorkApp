@@ -8,11 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.abschlussaufgabe.MainActivity
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.adapter.QualificationItemAdapter
-import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.FragmentWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 

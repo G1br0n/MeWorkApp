@@ -16,7 +16,6 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentCarGetInBinding
-import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 
@@ -41,7 +40,7 @@ class CarGetInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-        if (viewModel.userData.haveTheCar){
+        if (viewModel.userData.carStatus){
             findNavController().navigate(R.id.carFragment)
         }
 
@@ -90,7 +89,7 @@ class CarGetInFragment : Fragment() {
         binding.ibGetIn.setOnClickListener {
             try {
 
-                viewModel.userData.haveTheCar = true
+                viewModel.userData.carStatus = true
                 findNavController().navigate(R.id.carFragment)
 
 

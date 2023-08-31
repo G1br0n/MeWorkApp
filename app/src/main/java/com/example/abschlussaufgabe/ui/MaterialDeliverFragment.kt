@@ -9,16 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.databinding.FragmentMaterialDeliverBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
-import kotlinx.coroutines.launch
 
 
 class MaterialDeliverFragment : Fragment() {
@@ -89,7 +86,7 @@ class MaterialDeliverFragment : Fragment() {
                 viewModel.checkMaterialId(id)
 
                 //udate StorageMaterial Model Datenbank
-                viewModel.updateMaterialLocation(id, 1)
+                viewModel.updateMaterialLocation(id, "1")
 
                 //Spile sound ab wenn  material empfange
                 viewModel.playActionSound(context!!)

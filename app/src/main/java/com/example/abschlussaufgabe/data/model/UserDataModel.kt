@@ -1,11 +1,6 @@
 package com.example.abschlussaufgabe.data.model
 
-
-
 import java.sql.Timestamp
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 
 data class UserDataModel(

@@ -79,7 +79,7 @@ class MaterialPlacementFragment : Fragment() {
                 // setze id aus dem eingabe feld
                 id = binding.etMaterialId.text.toString().toInt()
 
-                var sapNumber = binding.etSapNumber.text.toString().toInt()
+                var sapNumber = binding.etSapNumber.text.toString()
 
                 //Überprüfe mit der funktion ob Id in der liste ist oder nicht, wen nicht schmeise feller raus
                 viewModel.checkMaterialId(id)

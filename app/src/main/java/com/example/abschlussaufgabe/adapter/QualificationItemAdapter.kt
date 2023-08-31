@@ -1,9 +1,7 @@
 package com.example.abschlussaufgabe.adapter
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.databinding.QualificationItemBinding

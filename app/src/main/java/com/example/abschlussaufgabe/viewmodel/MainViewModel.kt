@@ -4,6 +4,7 @@ import RailStationApi
 import android.app.Application
 import android.content.Context
 import android.media.MediaPlayer
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +16,7 @@ import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.local.getStorageMaterialDatabase
 import com.example.abschlussaufgabe.data.model.WorkRunModel
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
-import com.example.abschlussaufgabe.data.model.UserDataModel
+import com.example.abschlussaufgabe.data.model.UserTestDataModel
 
 import kotlinx.coroutines.launch
 
@@ -37,7 +38,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val userDataList = repository.userDataList
 
     //Einzelne User, wird im LoginFragment deklarirt
-    var userData: UserDataModel = repository.user
+    var userData: UserTestDataModel = repository.user
 
 
     val storageMaterialDataList: LiveData<List<StorageMaterialModel>>
@@ -80,6 +81,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //Diese funktion checkt den daten bank und sortirt die material wenn er zu eingelogten user id past für den RecyclerView().layoutMangerFlexbox
     fun loadUserMaterialList() {
 
+
         viewModelScope.launch {
             val materialList = mutableListOf<StorageMaterialModel>()
             val psaMaterialList = mutableListOf<StorageMaterialModel>()
@@ -88,11 +90,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             //material wird in 2 listen sortirt, materialId und lockationId zu userId abhändig
             _storageMaterialDataList.value?.let { materials ->
                 for (material in materials) {
+                    Log.e("loadUser","${userData.userUid.toString()} ${material.locationId.toString()}")
                     when {
-                        material.locationId == userData.userId.toInt() && material.materialId > 100000 ->
+                        material.locationId.toString() == userData.userUid.toString() && material.materialId > 100000 ->
                             psaMaterialList.add(material)
 
-                        material.locationId == userData.userId.toInt() && material.materialId < 100000 ->
+                        material.locationId == userData.userUid && material.materialId < 100000 ->
                             materialList.add(material)
 
                     }
@@ -108,7 +111,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     //mit der funktion überschreibe ich die daten in storage_material_table RoomData
-    fun updateMaterialLocation(id: Int, newLocationId: Int) {
+    fun updateMaterialLocation(id: Int, newLocationId: String) {
         viewModelScope.launch {
             repository.updateStorageMaterial(id, newLocationId)
             _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank()
@@ -132,14 +135,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     }
-
-
-    fun updateUserCarStatus(){
-        repository.user.haveTheCar = true
-    }
-
-
-
 
 
     //mediaplayer für QR

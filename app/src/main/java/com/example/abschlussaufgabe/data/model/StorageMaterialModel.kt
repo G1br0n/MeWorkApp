@@ -11,5 +11,5 @@ data class StorageMaterialModel(
     val materialId: Int,
 
     val name: String,
-    var locationId: Int
+    var locationId: String
 )

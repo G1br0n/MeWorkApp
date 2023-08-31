@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -80,9 +79,12 @@ class LogInFragment : Fragment() {
 
                     //beobachte die input von fireStore dan naviegire ich weiter
 
+                            viewModel.userData.userUid = it.uid
 
                     fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
                         if (data != null) {
+
+
                             Toast.makeText(
                                 activity,
                                 "Anmeldung war erfolgreich",
