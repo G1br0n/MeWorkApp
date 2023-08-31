@@ -85,6 +85,7 @@ class LogInFragment : Fragment() {
 
                     fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
 
+                        viewModel.loadUserMaterialList()
                         if (data != null) {
 
                             Log.e("Log3" ,data.userUid)

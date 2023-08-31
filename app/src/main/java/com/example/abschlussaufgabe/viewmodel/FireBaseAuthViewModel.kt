@@ -61,11 +61,11 @@ class FireBaseAuthViewModel : ViewModel() {
                 if (authResult.isSuccessful) {
                     _currentUserBase.value = firebaseAuth.currentUser
                     checkedLogin = authResult.isSuccessful
-                    Log.e("loginTrue","${authResult.isSuccessful}")
+                    Log.e("loginTrue", "${authResult.isSuccessful}")
                 } else {
                     _currentUserBase.value = firebaseAuth.currentUser
                     checkedLogin = authResult.isSuccessful
-                    Log.e("loginFalse","${authResult.isSuccessful}")
+                    Log.e("loginFalse", "${authResult.isSuccessful}")
                 }
 
             }

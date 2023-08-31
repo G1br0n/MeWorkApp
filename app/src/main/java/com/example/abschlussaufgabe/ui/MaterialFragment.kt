@@ -51,7 +51,6 @@ class MaterialFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
         binding.rvMaterialA.layoutManager = FlexboxLayoutManager(requireContext())
 
@@ -99,8 +98,6 @@ class MaterialFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-       viewModel.loadUserMaterialList()
     }
 
 

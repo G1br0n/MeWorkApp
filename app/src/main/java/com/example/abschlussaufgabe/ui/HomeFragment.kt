@@ -51,7 +51,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadUserMaterialList()
 
         //Weise den FlexBox LayoutManager für material recyclerview
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())

@@ -53,9 +53,6 @@ class AppRepository(
                 "Eugen",
                 "Lange",
                 "12.08.1989",
-
-
-
                 "Gibron",
                 "password",
                 arrayOf("Sakra","SIPO", "BüP", "SAS", "BE", "HIB"),
@@ -80,7 +77,6 @@ class AppRepository(
                 "Lucas",
                 "Hard",
                 "21.06.1986",
-
                 "Biebr",
                 "password",
                 arrayOf("SIPO", "BüP", "SAS", "BE", "HIB"),
@@ -207,7 +203,7 @@ class AppRepository(
 
 
 
-    //TODO:--------------------------------- Nicht genutzte funktionen ---------------------------------
+//TODO:--------------------------------- Nicht genutzte funktionen ---------------------------------
     suspend fun insert(storageMaterial: StorageMaterialModel) {
         try {
             storageMaterialDatabase.storageMaterialDao.insert(storageMaterial)
