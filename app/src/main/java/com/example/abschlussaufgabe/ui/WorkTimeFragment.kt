@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
@@ -33,8 +34,8 @@ class WorkTimeFragment : Fragment() {
 
 //Inacktive buttons spilen loked sound ab und zeigen toasst nachricht an
         binding.ibMeWorkTime.setOnClickListener{
-            Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
-            viewModel.playLockedSound(context!!)
+            viewModel.playClickSound(context!!)
+            findNavController().navigate(R.id.userWorkTimeListFragment)
         }
         binding.ibMeWorkPlan.setOnClickListener{
             Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()

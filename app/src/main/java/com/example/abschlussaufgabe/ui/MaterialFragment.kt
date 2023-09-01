@@ -84,7 +84,8 @@ class MaterialFragment : Fragment() {
             viewModel.playLockedSound(context!!)
         }
         binding.imageButton5.setOnClickListener{
-            viewModel.playLockedSound(context!!)
+            //viewModel.playLockedSound(context!!)
+            fireStore.addNewUserWorkTimeListStore()
         }
         binding.imageButton6.setOnClickListener{
            // viewModel.playLockedSound(context!!)

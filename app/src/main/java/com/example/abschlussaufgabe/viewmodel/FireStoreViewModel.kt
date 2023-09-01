@@ -6,9 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
-import com.google.firebase.ktx.Firebase
-
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 const val TAG = "fireStore"
 
@@ -28,12 +27,37 @@ class FireStoreViewModel : ViewModel() {
         mutableMapOf<String,String>()
     )
 
+
+    var _currentTimWorkList = MutableLiveData<MutableList<String>>()
+
     //Beobachte die liveData in login fragment. Zum einlogen
     var _currentUserStore = MutableLiveData<UserTestDataModel>()
     val currentUserStore: LiveData<UserTestDataModel>
         get() = _currentUserStore
 
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
+
+
+
+
+    fun addNewUserWorkTimeListStore(){
+
+
+            val userWorkTimeLis: Map<String,Any> = mapOf(
+                "workTimeLog" to listOf<String>()
+            )
+
+            db.collection("userWorkTimeLogList").document(currentUserStore.value!!.userUid).set(
+                userWorkTimeLis
+            )
+                .addOnSuccessListener {
+                    Log.d(TAG, "DocumentSnapshot successfully written!")
+                }
+                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
+                    throw Exception("Error writing document")}
+        }
+
+
 
     fun addNewUserDataStore(
         userUid: String,
@@ -114,6 +138,22 @@ class FireStoreViewModel : ViewModel() {
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
                 throw Exception("Error writing document")}
     }
+
+
+    fun saveUserWorkTimeLogStore(workTimeLogList: List<String>){
+
+
+        db.collection("workTimeLog").document(userData.userUid).set(
+            "userWorkTimeLogList" to workTimeLogList
+        )
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
+                throw Exception("Error writing document")}
+    }
+
+
     fun getUserDataStore(userUid: String) {
 
 
@@ -150,5 +190,32 @@ class FireStoreViewModel : ViewModel() {
         }
 
     }
-
+    fun getWorkTimeListStore(userUid: String): MutableList<String> {
+        var returnTimeWorkList = mutableListOf<String>()
+        try {
+            val docRef = db.collection("workTimeLog").document(userUid)
+            docRef.get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                        val workTimeList = document.data?.get("userWorkTimeLogList")
+                        if (workTimeList is List<*>) {
+                            _currentTimWorkList.value = workTimeList.filterIsInstance<String>().toMutableList()
+                            returnTimeWorkList = workTimeList.filterIsInstance<String>().toMutableList()
+                            Log.d(TAG, _currentTimWorkList.toString())
+                        } else {
+                            Log.d(TAG, "Data type mismatch or null")
+                        }
+                    } else {
+                        Log.d(TAG, "No such document")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
+        } catch (ex: Exception) {
+            Log.e(TAG, ex.message!!)
+        }
+        return returnTimeWorkList
+    }
 }

@@ -25,9 +25,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_marginTop="8dp"
+                android:outlineSpotShadowColor="@color/back_ground_ramen"
                 android:outlineAmbientShadowColor="@color/back_ground_ramen"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="8dp"
+                app:cardMaxElevation="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

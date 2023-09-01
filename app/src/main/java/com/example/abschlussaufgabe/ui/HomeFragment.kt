@@ -51,6 +51,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fireStore.getUserDataStore(viewModel.userData.userUid)
 
         //Weise den FlexBox LayoutManager für material recyclerview
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())

@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.model.WorkRunModel
 import com.example.abschlussaufgabe.databinding.FragmentStartWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
@@ -31,11 +30,10 @@ class StartWorkTimeFragment : Fragment() {
     private lateinit var binding: FragmentStartWorkTimeBinding
 
     private val viewModel: MainViewModel by activityViewModels()
-
+    private val fireStore: FireStoreViewModel by activityViewModels()
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    private val fireStore: FireStoreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,7 +76,6 @@ class StartWorkTimeFragment : Fragment() {
         }
 
 
-        var gpsData: WorkRunModel = WorkRunModel("", "", "", "", 0, 0, 0, 0, 0, 0)
 
 
         //Spinner ----------------------------------------------------------------------------------
@@ -145,8 +142,8 @@ class StartWorkTimeFragment : Fragment() {
         //GPS
         val REQUEST_LOCATION_PERMISSION_CODE = 0
 
-        var latitude = ""
-        var longitude = ""
+        var latitude = "0"
+        var longitude = "0"
         //TODO: Test time picker
 
 

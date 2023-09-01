@@ -46,6 +46,7 @@ class LogInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
         //Regestrirungs Processe button
         binding.button.setOnClickListener {
             findNavController().navigate(R.id.registerFragment)
@@ -77,24 +78,26 @@ class LogInFragment : Fragment() {
                     viewModel.userData.userUid = it.uid
                     Log.e("Log1" ,it.uid)
                     //lade userTestDataModel aus fireStoreData
-                    fireStore.getUserDataStore(viewModel.userData.userUid)
-
+                    fireStore.getUserDataStore(it.uid)
 
                     //beobachte die input von fireStore dan naviegire ich weiter
 
 
                     fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
 
+                    fireStore._currentTimWorkList.value = fireStore.getWorkTimeListStore(it.uid)
                         viewModel.loadUserMaterialList()
                         if (data != null) {
+                            if (fireStore._currentTimWorkList != null){
 
-                            Log.e("Log3" ,data.userUid)
-                            Toast.makeText(
-                                activity,
-                                "Anmeldung war erfolgreich",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            findNavController().navigate(R.id.homeFragment)
+                                Log.e("Log3", data.userUid)
+                                Toast.makeText(
+                                    activity,
+                                    "Anmeldung war erfolgreich",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                findNavController().navigate(R.id.homeFragment)
+                            }
                         }
                     }
 
@@ -111,7 +114,7 @@ class LogInFragment : Fragment() {
                         )
                             .show()
                     }
-                }, 2000)
+                }, 5000)
             }
         }
     }
