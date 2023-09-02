@@ -98,10 +98,10 @@
                         android:text="Einträge"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/textView13"
-                        app:layout_constraintEnd_toEndOf="@+id/textView13"
+                        app:layout_constraintBottom_toTopOf="@+id/tvListCounter"
+                        app:layout_constraintEnd_toEndOf="@+id/tvListCounter"
                         app:layout_constraintHorizontal_bias="0.462"
-                        app:layout_constraintStart_toStartOf="@+id/textView13" />
+                        app:layout_constraintStart_toStartOf="@+id/tvListCounter" />
 
                     <TextView
                         android:id="@+id/textView12"
@@ -111,30 +111,30 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView11"
-                        app:layout_constraintEnd_toEndOf="@+id/textView16"
+                        app:layout_constraintEnd_toEndOf="@+id/tvHourCounter"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/textView16" />
+                        app:layout_constraintStart_toStartOf="@+id/tvHourCounter" />
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:id="@+id/tvHourCounter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="120:30h"
                         android:textSize="40sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvListCounter"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView13"
+                        app:layout_constraintStart_toEndOf="@+id/tvListCounter"
                         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/tvListCounter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="11"
                         android:textSize="40sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/textView16"
+                        app:layout_constraintEnd_toStartOf="@+id/tvHourCounter"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView10"

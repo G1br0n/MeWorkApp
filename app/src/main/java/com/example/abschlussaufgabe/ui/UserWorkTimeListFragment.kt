@@ -35,7 +35,12 @@ class UserWorkTimeListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_work_time_list, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_user_work_time_list,
+            container,
+            false
+        )
         return binding.root
 
 
@@ -45,15 +50,52 @@ class UserWorkTimeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        fireStore._currentTimWorkList.observe(viewLifecycleOwner) {
+            binding.tvListCounter.text = it.size.toString()
+            binding.tvHourCounter.text = hourCounter(it)
+        }
+
+
         binding.rvWorkTime.adapter = UserWorkTimeListAdapter(fireStore._currentTimWorkList.value!!)
 
-    }
 
+
+
+    }
 
 
     override fun onResume() {
         super.onResume()
     }
 
+    private fun hourCounter(logList: MutableList<String>): String {
+
+        var hour = 0
+        var min = 0
+        var sek = 0
+
+        for (i in logList) {
+            hour += i.split(" ")[6].split(".")[0].toInt()
+            min += i.split(" ")[6].split(".")[1].toInt()
+            sek += i.split(" ")[6].split(".")[2].toInt()
+        }
+
+        var totalSeconds = hour * 3600 + min * 60 + sek
+
+        // Stunden berechnen
+        val hoursResult = totalSeconds / 3600
+        totalSeconds %= 3600
+        // Minuten berechnen
+        val minutesResult = totalSeconds / 60
+        // Verbleibende Sekunden
+        var secondsResult = totalSeconds % 60
+
+        // Wenn Sekunden oder Minuten nur eine Stelle haben, füge eine führende "0" hinzu
+        val formattedMinutes = if(minutesResult < 10) "0$minutesResult" else "$minutesResult"
+        val formattedSeconds = if(secondsResult < 10) "0$secondsResult" else "$secondsResult"
+
+        return "$hoursResult:$formattedMinutes:$formattedSeconds"
+    }
 
 }
