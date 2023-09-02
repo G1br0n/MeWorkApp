@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 
@@ -50,7 +52,6 @@ class StartWorkTimeFragment : Fragment() {
 
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -63,19 +64,15 @@ class StartWorkTimeFragment : Fragment() {
         }
 
 
-
-
-
         try {
 
             if (viewModel.gpsLiveData.value!!.startHour != null) {
                 findNavController().navigate(R.id.stopWorkTimeFragment)
             }
+
         } catch (ex: Exception) {
 
         }
-
-
 
 
         //Spinner ----------------------------------------------------------------------------------
@@ -83,7 +80,7 @@ class StartWorkTimeFragment : Fragment() {
         val spinner: Spinner = binding.spinner
 
         var options =
-            arrayOf("Wäle deine Position")//Optionsliste für dropdownmenü(spinner) mit startwert
+            arrayOf("Wäle_deine_Position")//Optionsliste für dropdownmenü(spinner) mit startwert
 
         //füle die dropdown list mit list aus UserModel.qwalifikation
         for (i in positionList.indices) {
@@ -95,8 +92,8 @@ class StartWorkTimeFragment : Fragment() {
         val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, options)
         spinner.adapter = adapter
         adapter.setDropDownViewResource(R.layout.custom_spinner_item)
-        // Use ContextCompat to get the color and set it as the background color.
 
+        // Use ContextCompat to get the color and set it as the background color.
 
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -117,21 +114,41 @@ class StartWorkTimeFragment : Fragment() {
         //------------------------------------------------------------------------------------------
 
 
-        //datum anzeige
+        //Datum anzeige
+        var adjustedDateString = ""
+        var weekName = "${LocalDateTime.now().dayOfWeek.name.split("")[1]}${
+            LocalDateTime.now().dayOfWeek.name.split("")[2]
+        }"
         var dayTimerCheck = 0
+        var adjustedDate: LocalDate = LocalDate.now().plusDays(dayTimerCheck.toLong())
         var previousHour = binding.myTimePicker.currentHour
-        binding.tvDate.text = "${LocalDate.now().dayOfMonth.toInt() + dayTimerCheck}.${LocalDate.now().month.value}.${LocalDate.now().year}"
+        binding.tvDate.text =
+            "$weekName ${LocalDate.now().dayOfMonth.toInt() + dayTimerCheck}.${LocalDate.now().month.value}.${LocalDate.now().year}"
 
         //TimePicke und datum anzeige anpassung
         binding.myTimePicker.setOnTimeChangedListener { _, hourOfDay, _ ->
+
+            adjustedDate = LocalDate.now().plusDays(dayTimerCheck.toLong())
+
             if (hourOfDay == 0 && previousHour == 23) {
-                dayTimerCheck++  // Ein Tag hinzufügen, wenn von 23 auf 00 Uhr gewechselt wird
-                binding.tvDate.text = "${LocalDate.now().dayOfMonth.toInt() + dayTimerCheck}.${LocalDate.now().month.value}.${LocalDate.now().year}"
+                dayTimerCheck++  // Add a day when switching from 23 to 00 hour
             } else if (hourOfDay == 23 && previousHour == 0) {
-                dayTimerCheck--  // Ein Tag subtrahieren, wenn von 00 auf 23 Uhr gewechselt wird
-                binding.tvDate.text = "${LocalDate.now().dayOfMonth.toInt() + dayTimerCheck}.${LocalDate.now().month.value}.${LocalDate.now().year}"
+                dayTimerCheck--  // Subtract a day when switching from 00 to 23 hour
             }
             previousHour = hourOfDay
+            weekName =
+                adjustedDate.dayOfWeek.name.split("")[1] + adjustedDate.dayOfWeek.name.split("")[2]
+
+            // Update date display
+            adjustedDateString =
+                "$weekName ${adjustedDate.dayOfMonth}.${adjustedDate.monthValue}.${adjustedDate.year}"
+            binding.tvDate.text = adjustedDateString
+
+            // todo LOG:
+            Log.e(TAG, "$adjustedDate")
+
+
+            // Use the weekName wherever you need it
         }
 
 
@@ -189,9 +206,10 @@ class StartWorkTimeFragment : Fragment() {
 
             fireStore.userData = fireStore.currentUserStore.value!!
             fireStore.userData.timerStatus = true
-            fireStore.userData.timerMap["startYear"] = LocalDate.now().year.toString()
-            fireStore.userData.timerMap["startMonth"] = LocalDate.now().month.value.toString()
-            fireStore.userData.timerMap["startDay"] = (LocalDate.now().dayOfMonth + dayTimerCheck).toString()
+            fireStore.userData.timerMap["startYear"] = adjustedDate.year.toString()
+            fireStore.userData.timerMap["startMonth"] = adjustedDate.month.value.toString()
+            fireStore.userData.timerMap["startWeek"] = weekName
+            fireStore.userData.timerMap["startDay"] = (adjustedDate.dayOfMonth).toString()
             fireStore.userData.timerMap["startHour"] = binding.myTimePicker.hour.toString()
             fireStore.userData.timerMap["startMin"] = binding.myTimePicker.minute.toString()
             fireStore.userData.timerMap["startSek"] = LocalTime.now().second.toString()

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.UserWorkTimeListAdapter
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
@@ -48,9 +47,6 @@ class UserWorkTimeListFragment : Fragment() {
 
         binding.rvWorkTime.adapter = UserWorkTimeListAdapter(fireStore._currentTimWorkList.value!!)
 
-        binding.imageButton.setOnClickListener{
-            findNavController().navigate(R.id.workTimeFragment)
-        }
     }
 
 
