@@ -9,7 +9,7 @@ import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-const val TAG = "fireStore"
+const val TAG = "fireStoreTest"
 
 class FireStoreViewModel : ViewModel() {
 
@@ -21,14 +21,16 @@ class FireStoreViewModel : ViewModel() {
         "",
         "",
         0,
-        mapOf<String,String>(),
+        mapOf<String, String>(),
         false,
         false,
-        mutableMapOf<String,String>()
+        mutableMapOf<String, String>()
     )
 
 
     var _currentTimWorkList = MutableLiveData<MutableList<String>>()
+    val currentTimWorkList: LiveData<MutableList<String>>
+        get() = _currentTimWorkList
 
     //Beobachte die liveData in login fragment. Zum einlogen
     var _currentUserStore = MutableLiveData<UserTestDataModel>()
@@ -38,25 +40,24 @@ class FireStoreViewModel : ViewModel() {
     private val db = Firebase.firestore
 
 
+    fun addNewUserWorkTimeListStore() {
 
 
-    fun addNewUserWorkTimeListStore(){
+        val userWorkTimeLis: Map<String, Any> = mapOf(
+            "workTimeLog" to listOf<String>()
+        )
 
-
-            val userWorkTimeLis: Map<String,Any> = mapOf(
-                "workTimeLog" to listOf<String>()
-            )
-
-            db.collection("userWorkTimeLogList").document(currentUserStore.value!!.userUid).set(
-                userWorkTimeLis
-            )
-                .addOnSuccessListener {
-                    Log.d(TAG, "DocumentSnapshot successfully written!")
-                }
-                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
-                    throw Exception("Error writing document")}
-        }
-
+        db.collection("userWorkTimeLogList").document(currentUserStore.value!!.userUid).set(
+            userWorkTimeLis
+        )
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document", e)
+                throw Exception("Error writing document")
+            }
+    }
 
 
     fun addNewUserDataStore(
@@ -105,12 +106,14 @@ class FireStoreViewModel : ViewModel() {
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
             }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
-            throw Exception("Error writing document")}
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document", e)
+                throw Exception("Error writing document")
+            }
     }
 
 
-    fun saveUserDataStore(userData:UserTestDataModel){
+    fun saveUserDataStore(userData: UserTestDataModel) {
 
         val userDataStore = mapOf(
             "userUid" to userData.userUid,
@@ -122,7 +125,7 @@ class FireStoreViewModel : ViewModel() {
 
             "userQualification" to userData.userQualification,
 
-            "carStatus" to userData.carStatus ,
+            "carStatus" to userData.carStatus,
 
             "timerStatus" to userData.timerStatus,
             "timerMap" to userData.timerMap
@@ -135,12 +138,14 @@ class FireStoreViewModel : ViewModel() {
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
             }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
-                throw Exception("Error writing document")}
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document", e)
+                throw Exception("Error writing document")
+            }
     }
 
 
-    fun saveUserWorkTimeLogStore(workTimeLogList: List<String>){
+    fun saveUserWorkTimeLogStore(workTimeLogList: List<String>) {
 
 
         db.collection("workTimeLog").document(userData.userUid).set(
@@ -149,8 +154,10 @@ class FireStoreViewModel : ViewModel() {
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
             }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e)
-                throw Exception("Error writing document")}
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document", e)
+                throw Exception("Error writing document")
+            }
     }
 
 
@@ -176,7 +183,7 @@ class FireStoreViewModel : ViewModel() {
                             document.data?.get("timerStatus").toString().toBoolean(),
                             document.data?.get("timerMap") as MutableMap<String, String>,
 
-                        )
+                            )
                         Log.d(TAG, _currentUserStore.value.toString())
                     } else {
                         Log.d(TAG, "No such document")
@@ -190,22 +197,18 @@ class FireStoreViewModel : ViewModel() {
         }
 
     }
-    fun getWorkTimeListStore(userUid: String): MutableList<String> {
-        var returnTimeWorkList = mutableListOf<String>()
+
+    fun getWorkTimeListStore(userUid: String) {
         try {
             val docRef = db.collection("workTimeLog").document(userUid)
             docRef.get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                        val workTimeList = document.data?.get("userWorkTimeLogList")
-                        if (workTimeList is List<*>) {
-                            _currentTimWorkList.value = workTimeList.filterIsInstance<String>().toMutableList()
-                            returnTimeWorkList = workTimeList.filterIsInstance<String>().toMutableList()
-                            Log.d(TAG, _currentTimWorkList.toString())
-                        } else {
-                            Log.d(TAG, "Data type mismatch or null")
-                        }
+                        val workTimeList = document.data!!["second"] as? MutableList<String> ?: emptyList()
+                        _currentTimWorkList.value = workTimeList.toMutableList()
+
+
                     } else {
                         Log.d(TAG, "No such document")
                     }
@@ -216,6 +219,5 @@ class FireStoreViewModel : ViewModel() {
         } catch (ex: Exception) {
             Log.e(TAG, ex.message!!)
         }
-        return returnTimeWorkList
     }
 }

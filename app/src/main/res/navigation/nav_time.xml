@@ -13,5 +13,6 @@
     <fragment
         android:id="@+id/stopWorkTimeFragment"
         android:name="com.example.abschlussaufgabe.ui.StopWorkTimeFragment"
-        android:label="StopWorkTimeFragment" />
+        android:label="StopWorkTimeFragment"
+        tools:layout="@layout/fragment_stop_work_time"/>
 </navigation>

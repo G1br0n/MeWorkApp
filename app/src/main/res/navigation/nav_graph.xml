@@ -39,23 +39,23 @@
     <fragment
         android:id="@+id/materialReceivedFragment"
         android:name="com.example.abschlussaufgabe.ui.MaterialReceivedFragment"
-        android:label="MaterialReceivedFragment" />
+        android:label="MaterialReceivedFragment"
+        tools:layout="@layout/fragment_material_received"/>
     <fragment
         android:id="@+id/materialDeliverFragment"
         android:name="com.example.abschlussaufgabe.ui.MaterialDeliverFragment"
-        android:label="MaterialDeliverFragment" />
+        android:label="MaterialDeliverFragment"
+        tools:layout="@layout/fragment_material_deliver"/>
     <fragment
         android:id="@+id/materialPlacementFragment"
         android:name="com.example.abschlussaufgabe.ui.MaterialPlacementFragment"
-        android:label="MaterialPlacementFragment" />
+        android:label="MaterialPlacementFragment"
+        tools:layout="@layout/fragment_material_placement"/>
     <fragment
         android:id="@+id/carGetInFragment"
         android:name="com.example.abschlussaufgabe.ui.CarGetInFragment"
-        android:label="CarGetInFragment" />
-    <fragment
-        android:id="@+id/startWorkTimeFragment"
-        android:name="com.example.abschlussaufgabe.ui.StartWorkTimeFragment"
-        android:label="StartWorkTimeFragment" />
+        android:label="CarGetInFragment"
+        tools:layout="@layout/fragment_car_get_in"/>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.abschlussaufgabe.ui.RegisterFragment"
@@ -68,9 +68,11 @@
     <fragment
         android:id="@+id/registerQualificationFragment"
         android:name="com.example.abschlussaufgabe.ui.RegisterQualificationFragment"
-        android:label="RegisterQualificationFragment" />
+        android:label="RegisterQualificationFragment"
+        tools:layout="@layout/fragment_register_qualification"/>
     <fragment
         android:id="@+id/userWorkTimeListFragment"
         android:name="com.example.abschlussaufgabe.ui.UserWorkTimeListFragment"
-        android:label="UserWorkTimeListFragment" />
+        android:label="UserWorkTimeListFragment"
+        tools:layout="@layout/fragment_user_work_time_list"/>
 </navigation>

@@ -46,7 +46,6 @@ class LogInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         //Regestrirungs Processe button
         binding.button.setOnClickListener {
             findNavController().navigate(R.id.registerFragment)
@@ -76,27 +75,33 @@ class LogInFragment : Fragment() {
                 if (it != null) {
 
                     viewModel.userData.userUid = it.uid
-                    Log.e("Log1" ,it.uid)
+                    Log.e("Log1", it.uid)
                     //lade userTestDataModel aus fireStoreData
                     fireStore.getUserDataStore(it.uid)
+                    fireStore.getWorkTimeListStore(it.uid)
 
                     //beobachte die input von fireStore dan naviegire ich weiter
 
 
-                    fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
+                    val test = fireStore.getWorkTimeListStore(it.uid)
+                    println("test = $test")
 
-                    fireStore._currentTimWorkList.value = fireStore.getWorkTimeListStore(it.uid)
+                    fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
+                        fireStore.getWorkTimeListStore(it.uid)
+
                         viewModel.loadUserMaterialList()
                         if (data != null) {
-                            if (fireStore._currentTimWorkList != null){
 
-                                Log.e("Log3", data.userUid)
-                                Toast.makeText(
-                                    activity,
-                                    "Anmeldung war erfolgreich",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                findNavController().navigate(R.id.homeFragment)
+
+                            fireStore.currentTimWorkList.observe(viewLifecycleOwner) { list ->
+
+                                    Toast.makeText(
+                                        activity,
+                                        "Anmeldung war erfolgreich",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    findNavController().navigate(R.id.homeFragment)
+
                             }
                         }
                     }

@@ -116,9 +116,7 @@ class StartWorkTimeFragment : Fragment() {
 
         //Datum anzeige
         var adjustedDateString = ""
-        var weekName = "${LocalDateTime.now().dayOfWeek.name.split("")[1]}${
-            LocalDateTime.now().dayOfWeek.name.split("")[2]
-        }"
+        var weekName = "${LocalDateTime.now().dayOfWeek.name.split("")[1]}${LocalDateTime.now().dayOfWeek.name.split("")[2]}"
         var dayTimerCheck = 0
         var adjustedDate: LocalDate = LocalDate.now().plusDays(dayTimerCheck.toLong())
         var previousHour = binding.myTimePicker.currentHour

@@ -33,6 +33,7 @@ class UserWorkTimeListAdapter(private val workTimeLogList: List<String>): Recycl
         var startMonth = objectList[4].split(".")[2]
         var startDay = objectList[4].split(".")[3]
         var startHour = objectList[4].split(".")[4]
+
         if(startHour.toList().size < 2){
             startHour = ("0$startHour")
         }

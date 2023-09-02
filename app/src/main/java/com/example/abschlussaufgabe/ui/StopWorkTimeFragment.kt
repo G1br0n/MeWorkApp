@@ -174,7 +174,9 @@ class StopWorkTimeFragment : Fragment() {
             workReportString = "${fireStore.currentUserStore.value!!.timerMap["latitude"]} ${fireStore.currentUserStore.value!!.timerMap["longitude"]} ${latitude} ${longitude} ${fireStore.currentUserStore.value!!.timerMap["startWeek"]}.${fireStore.currentUserStore.value!!.timerMap["startYear"]!!}.${fireStore.currentUserStore.value!!.timerMap["startMonth"]!!}.${fireStore.currentUserStore.value!!.timerMap["startDay"]!!}.${fireStore.currentUserStore.value!!.timerMap["startHour"]!!}.${fireStore.currentUserStore.value!!.timerMap["startMin"]!!}.${fireStore.currentUserStore.value!!.timerMap["startSek"]!!} ${time.dayOfWeek.name.split("")[1]}${time.dayOfWeek.name.split("")[2]}.${time.year}.${time.month.value}.${time.dayOfMonth}.${time.hour}.${time.minute}.${time.second} ${workTimeResult} ${fireStore.currentUserStore.value!!.timerMap["position"]}"
 
             fireStore.getWorkTimeListStore(viewModel.userData.userUid)
+
             fireStore._currentTimWorkList.value!!.add(workReportString)
+
             fireStore.saveUserWorkTimeLogStore(fireStore._currentTimWorkList.value!!)
 
 

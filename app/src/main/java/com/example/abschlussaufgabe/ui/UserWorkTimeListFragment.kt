@@ -15,6 +15,7 @@ import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
+val TAG1 = "fragmentWorkTimeList"
 
 class UserWorkTimeListFragment : Fragment() {
     private lateinit var binding: FragmentUserWorkTimeListBinding
@@ -50,14 +51,16 @@ class UserWorkTimeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+       fireStore.getWorkTimeListStore(viewModel.userData.userUid)
 
-        fireStore._currentTimWorkList.observe(viewLifecycleOwner) {
+
+        fireStore.currentTimWorkList.observe(viewLifecycleOwner) {
+            binding.rvWorkTime.adapter = UserWorkTimeListAdapter(fireStore._currentTimWorkList.value!!)
             binding.tvListCounter.text = it.size.toString()
             binding.tvHourCounter.text = hourCounter(it)
         }
 
 
-        binding.rvWorkTime.adapter = UserWorkTimeListAdapter(fireStore._currentTimWorkList.value!!)
 
 
 
