@@ -11,8 +11,19 @@ import com.google.firebase.ktx.Firebase
 const val TAG = "fireStoreTest"
 
 /**
+ * ## Information
  * ViewModel-Klasse zur Interaktion mit Firebase Firestore.
  * Diese Klasse dient als Schnittstelle für alle Firestore-spezifischen Vorgänge.
+ *
+ * ###
+ * ## Funktionen
+ * - [addNewUserWorkTimeListStore] - Neue Arbeitszeitliste für den Benutzer im Firestore erstellen.
+ * - [addNewUserDataStore] - Neue Benutzerdaten im Firestore speichern.
+ * - [saveUserDataStore] - Aktualisierte Benutzerdaten im Firestore speichern.
+ * - [saveUserWorkTimeLogStore] - Arbeitszeitliste eines Benutzers im Firestore speichern.
+ * - [getUserDataStore] - Benutzerdaten eines bestimmten Benutzers aus dem Firestore abrufen.
+ * - [getWorkTimeListStore] - Arbeitszeitliste eines bestimmten Benutzers aus dem Firestore abrufen.
+ *
  */
 class FireStoreViewModel : ViewModel() {
 

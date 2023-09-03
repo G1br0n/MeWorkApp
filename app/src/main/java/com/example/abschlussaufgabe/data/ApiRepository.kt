@@ -7,7 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.abschlussaufgabe.data.model.RailStationsPhotoModel
 
 /**
- * Die ApiRepository Klasse verwaltet Dateninteraktionen im Zusammenhang mit RailStationApi.
+ * ## Information
+ * `ApiRepository` - Klasse, die Dateninteraktionen im Zusammenhang mit RailStationApi verwaltet.
+ * ###
+ * ## Funktionen
+ * - [getBfPhotoList](#getbfphotolist): Verwendet den RailStationApi Service, um eine Liste von Bahnhofsfotos abzurufen und speichert ein zufälliges Foto davon.
  *
  * @param api Eine Instanz von RailStationApi, die Methoden zum Zugriff auf Bahnhof-bezogene APIs bereitstellt.
  */

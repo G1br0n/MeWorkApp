@@ -1,11 +1,9 @@
 package com.example.abschlussaufgabe.ui
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,7 +12,7 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentRegisterQualificationBinding
 import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
-import java.util.Calendar
+import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
 * Ein Fragment zur Eingabe und Registrierung von Benutzerqualifikationen.
@@ -25,6 +23,7 @@ class RegisterQualificationFragment : Fragment() {
     private lateinit var binding: FragmentRegisterQualificationBinding
 
     // ViewModel-Instanzen
+    private val viewModel: MainViewModel by activityViewModels()
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
 
@@ -150,35 +149,31 @@ class RegisterQualificationFragment : Fragment() {
 
         // Hinzufügen von Listeners für Datums-Eingabefelder, um DatePickerDialog anzuzeigen.
         binding.etHiB.setOnClickListener {
-            showDatePicker( binding.etHiB)
+            viewModel.showDatePicker(binding.etHiB, context!!)
         }
         binding.etHip.setOnClickListener {
-            showDatePicker( binding.etHip)
+            viewModel.showDatePicker(binding.etHip, context!!)
         }
         binding.etSipo.setOnClickListener {
-           showDatePicker(binding.etSipo)
+            viewModel.showDatePicker(binding.etSipo, context!!)
         }
         binding.etBm.setOnClickListener {
-            showDatePicker(binding.etBm)
+            viewModel.showDatePicker(binding.etBm, context!!)
         }
         binding.etSakre.setOnClickListener {
-            showDatePicker(binding.etSakre)
-
+            viewModel.showDatePicker(binding.etSakre, context!!)
         }
         binding.etBup.setOnClickListener {
-            showDatePicker(binding.etBup)
-
+            viewModel.showDatePicker(binding.etBup, context!!)
         }
         binding.etBe.setOnClickListener {
-            showDatePicker(binding.etBe)
-
+            viewModel.showDatePicker(binding.etBe, context!!)
         }
         binding.etSas.setOnClickListener {
-            showDatePicker(binding.etSas)
-
+            viewModel.showDatePicker(binding.etSas, context!!)
         }
         binding.etPlPf.setOnClickListener {
-            showDatePicker(binding.etPlPf)
+            viewModel.showDatePicker(binding.etPlPf, context!!)
         }
 
         // Listener für den Zurück-Button
@@ -238,29 +233,6 @@ class RegisterQualificationFragment : Fragment() {
         }
     }
 
-    /**
-     * Zeigt einen DatePickerDialog an, um ein Datum auszuwählen und in ein TextView zu setzen.
-     *
-     * @param textView Das TextView, in das wo das ausgewählte Datum eingefügt wird.
-     */
-    private fun showDatePicker(textView: TextView) {
-        val calendar = Calendar.getInstance()
 
-        // Aktuelles Datum holen
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Erstellen und Anzeigen eines DatePickerDialogs
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            R.style.MyDatePickerDialogTheme,
-            { _, selectedYear, selectedMonth, selectedDay ->
-                val selectedDate = "$selectedDay.${selectedMonth + 1}.$selectedYear"
-                textView.text = selectedDate
-            },
-            year, month, dayOfMonth
-        )
-        datePickerDialog.show()
-    }
 }

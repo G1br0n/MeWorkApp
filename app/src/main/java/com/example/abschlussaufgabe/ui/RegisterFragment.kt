@@ -22,6 +22,7 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
+
     private val viewModel: MainViewModel by activityViewModels()
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
@@ -55,10 +56,13 @@ class RegisterFragment : Fragment() {
         // Button, um zum nächsten Bildschirm (Registrierungsqualifikation) zu navigieren.
         binding.butNext.setOnClickListener {
             try {
+                viewModel.isValidEmail(binding.etEmail.text.toString().replace(" ",""))
+                viewModel.isValidPassword(binding.etPassword.text.toString().replace(" ",""))
+
                 fireStore.userData = updateUser(fireStore.userData)
                 findNavController().navigate(R.id.registerQualificationFragment)
             } catch (ex: Exception) {
-                Toast.makeText(requireContext(), "Unerwarteter Fehler", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), ex.message , Toast.LENGTH_SHORT).show()
             }
         }
     }

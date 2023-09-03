@@ -7,7 +7,18 @@ import androidx.room.Query
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 
 /**
- * Das Datenzugriffsobjekt (DAO) `StorageMaterialDao` definiert Methoden für den Zugriff auf die Lagermaterialien-Tabelle.
+ * ## Information
+ * `StorageMaterialDao` - Datenzugriffsobjekt, das Methoden für den Zugriff auf die Lagermaterialien-Tabelle definiert.
+ * ###
+ * ## Funktionen
+ * - [insert]: Fügt ein Lagermaterial in die Datenbank ein oder aktualisiert es.
+ * - [insertAll]: Fügt eine Liste von Lagermaterialien in die Datenbank ein oder bricht den Vorgang bei Konflikten ab.
+ * - [updateStorage]: Aktualisiert die Lokations-ID eines Lagermaterials basierend auf der Material-ID.
+ * - [getAll]: Ruft alle Lagermaterialien aus der Datenbank ab.
+ * - [getById]: Ruft ein bestimmtes Lagermaterial basierend auf seiner Material-ID ab.
+ * - [deleteAll]: Löscht alle Lagermaterialien aus der Datenbank.
+ * - [getMaterialsByUserId]: Ruft alle Lagermaterialien ab, die sich an einer bestimmten Lokation befinden.
+ * - [getCount]: Ruft die Gesamtanzahl der Lagermaterialien in der Datenbank ab.
  */
 @Dao
 interface StorageMaterialDao {
@@ -35,7 +46,7 @@ interface StorageMaterialDao {
 
     /**
      * Ruft alle Lagermaterialien aus der Datenbank ab.
-     * @return Eine Liste der Lagermaterialien.
+     * @return List<StorageMaterialModel>.
      */
     @Query("SELECT * FROM StorageMaterialModel")
     suspend fun getAll(): List<StorageMaterialModel>
@@ -43,7 +54,7 @@ interface StorageMaterialDao {
     /**
      * Ruft ein Lagermaterial anhand seiner Material-ID ab.
      * @param materialId Die ID des gesuchten Lagermaterials.
-     * @return Eine Liste des gefundenen Lagermaterials.
+     * @return Eine List<StorageMaterialModel> des gefundenen Lagermaterials.
      */
     @Query("SELECT * FROM StorageMaterialModel WHERE materialId = :materialId")
     suspend fun getById(materialId: Int): List<StorageMaterialModel>
@@ -57,14 +68,14 @@ interface StorageMaterialDao {
     /**
      * Ruft alle Lagermaterialien ab, die sich an einer bestimmten Lokation befinden.
      * @param userId Die ID der Lokation.
-     * @return Eine Liste der Lagermaterialien an der angegebenen Lokation.
+     * @return List<StorageMaterialModel>.
      */
     @Query("SELECT * FROM StorageMaterialModel WHERE locationId = :userId")
     suspend fun getMaterialsByUserId(userId: String): List<StorageMaterialModel>
 
     /**
      * Ruft die Anzahl der Lagermaterialien in der Datenbank ab.
-     * @return Die Anzahl der Lagermaterialien.
+     * @return Int. Die Anzahl der Lagermaterialien.
      */
     @Query("SELECT COUNT(*) FROM StorageMaterialModel")
     suspend fun getCount(): Int

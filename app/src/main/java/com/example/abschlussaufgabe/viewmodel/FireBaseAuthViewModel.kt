@@ -11,8 +11,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 /**
- * ViewModel-Klasse für die Firebase-Authentifizierung. Diese Klasse verwaltet die Firebase-Authentifizierungsoperationen
- * wie Registrierung, Anmeldung und Abmeldung.
+ * ## Information
+ * `FireBaseAuthViewModel`: Eine ViewModel-Klasse für die Firebase-Authentifizierung.
+ *
+ * Diese Klasse verwaltet die Firebase-Authentifizierungsoperationen wie Registrierung, Anmeldung und Abmeldung.
+ * ###
+ * ## Funktionen
+ * - [checkedLogin] - Variable, um den Login-Status zu überprüfen.
+ * - [firebaseAuth] - Instanz von FirebaseAuth.
+ * - [_currentUserBase] - MutableLiveData, das den aktuellen Firebase-Benutzer speichert.
+ * - [currentUserBase] - LiveData des aktuellen Firebase-Benutzers.
+ * - [register] - Funktion zur Registrierung eines neuen Benutzers mit Firebase Authentication.
+ * - [login] - Funktion zum Einloggen eines Benutzers mit Firebase Authentication.
+ * - [logout] - Funktion zum Abmelden des aktuellen Benutzers von Firebase Authentication.
  */
 class FireBaseAuthViewModel : ViewModel() {
 

@@ -6,13 +6,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussaufgabe.data.local.StorageMaterialDatabase
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
-import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
-import java.sql.Timestamp
 
 /**
- * Repository-Klasse, die als Zwischenschicht zwischen der Datenbank und der UI dient.
+ * ## Information
+ *
+ * `AppRepository` - Repository-Klasse, die als Zwischenschicht zwischen der Datenbank und der UI dient.
  * Hier werden Datenbank-Operationen ausgeführt und Daten für die UI bereitgestellt.
+ * ###
+ * ## Funktionen
+ * - [loadStorageMaterial]: Lädt fest definierte Lagermaterialdaten.
+ * - [insertAll]: Fügt eine Liste von Lagermaterialien in die Datenbank ein.
+ * - [getAllStorageMaterialFromDataBank]: Holt alle Lagermaterialdaten aus der Datenbank.
+ * - [updateStorageMaterial]: Aktualisiert den Standort eines bestimmten Materials.
+ * - [insert (Nicht genutzt)]: Fügt ein einzelnes Lagermaterial in die Datenbank ein.
+ * - [getCountStorageMaterial (Nicht genutzt): Gibt die Anzahl der Lagermaterialien in der Datenbank zurück.
+ * - [getMaterialsByUserIdLiveData (Nicht genutzt)]
+ * - [getById (Nicht genutzt)]: Holt Lagermaterialdaten nach Material-ID.
  */
 class AppRepository(
     private val storageMaterialDatabase: StorageMaterialDatabase
@@ -20,11 +30,6 @@ class AppRepository(
 
     // Beispiel für ein Benutzermodell.
     var user = UserTestDataModel("","", "", "", "",234234, mutableMapOf(),   false, false, mutableMapOf())
-
-    // LiveData-Liste, die Benutzerdaten enthält.
-    private val _userDataList = MutableLiveData<List<UserDataModel>>()
-    val userDataList: LiveData<List<UserDataModel>>
-        get() = _userDataList
 
     // LiveData-Liste, die grundlegende Lagermaterialdaten enthält.
     private val _storageMaterialGroundList = MutableLiveData<List<StorageMaterialModel>>()
@@ -38,61 +43,7 @@ class AppRepository(
 
     // Initialisierung, die Benutzer und Lagermaterialdaten lädt.
     init {
-        loadUser()
         loadStorageMaterial()
-    }
-
-    /**
-     * Funktion, die fest definierte Benutzerdaten lädt.
-     */
-    fun loadUser() {
-        _userDataList.value = listOf(
-            // Beispielbenutzer 1
-            UserDataModel(
-                "",
-                1001,
-                "Eugen",
-                "Lange",
-                "12.08.1989",
-                "Gibron",
-                "password",
-                arrayOf("Sakra","SIPO", "BüP", "SAS", "BE", "HIB"),
-                arrayOf(
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                ),
-                102030,
-                152535,
-
-                false
-            ),
-
-            // Beispielbenutzer 2
-            UserDataModel(
-                "",
-                1002,
-                "Lucas",
-                "Hard",
-                "21.06.1986",
-                "Biebr",
-                "password",
-                arrayOf("SIPO", "BüP", "SAS", "BE", "HIB"),
-                arrayOf(
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                    Timestamp(2023, 5, 22,12,0,0,1),
-                ),
-                112030,
-                162535,
-                false
-            )
-        )
     }
 
     /**

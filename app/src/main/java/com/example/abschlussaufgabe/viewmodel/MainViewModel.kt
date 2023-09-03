@@ -3,6 +3,7 @@ package com.example.abschlussaufgabe.viewmodel
 import RailStationApi
 import android.Manifest
 import android.app.Application
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -10,6 +11,7 @@ import android.media.MediaPlayer
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -28,9 +30,29 @@ import com.example.abschlussaufgabe.data.model.WorkRunModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 /**
+ * ## Information
  * Haupt-ViewModel der App, verantwortlich für die Interaktion zwischen der Benutzeroberfläche und den Datenquellen.
+ *
+ * ###
+ * ## Funktionen
+ * - [loadBfPhotoList] - Holt eine Liste von Fotos aus der API.
+ * - [loadUserMaterialList] - Lädt Benutzermaterialien und sortiert sie.
+ * - [updateMaterialLocation] - Aktualisiert den Ort des Materials in der Room-Datenbank.
+ * - [checkMaterialId] - Überprüft das Vorhandensein einer Material-ID in der Liste.
+ * - [playQrSound] - Spielt den QR-Sound ab.
+ * - [playClickSound] - Spielt den Klick-Sound ab.
+ * - [playActionSound] - Spielt den Action-Sound ab.
+ * - [playLockedSound] - Spielt den Locked-Sound ab.
+ * - [playLogInSound] - Spielt den Login-Sound ab.
+ * - [showDatePicker] - Zeigt einen DatePickerDialog.
+ * - [getGPSLocation] - Holt den letzten bekannten GPS-Standort des Geräts.
+ * - [isValidEmail] - Überprüft, ob ein String ein gültiges E-Mail-Format hat.
+ * - [isValidPassword] - Überprüft die Anforderungen eines Passworts.
+ * - [internetCheck] - Überprüft, ob eine Internetverbindung vorhanden ist.
+ * - [isInternetAvailable] - Bestimmt, ob eine aktive Internetverbindung besteht.
  */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -143,7 +165,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
     /**
      * Überprüft, ob eine bestimmte Material-ID in der storageMaterialDataList vorhanden ist.
      *
@@ -251,6 +272,31 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         mediaPlayer.start()
     }
 
+    /**
+     * Zeigt einen DatePickerDialog an, um ein Datum auszuwählen und in ein TextView zu setzen.
+     *
+     * @param textView Das TextView, in das wo das ausgewählte Datum eingefügt wird.
+     */
+    fun showDatePicker(textView: TextView, context: Context) {
+        val calendar = Calendar.getInstance()
+
+        // Aktuelles Datum holen
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+        // Erstellen und Anzeigen eines DatePickerDialogs
+        val datePickerDialog = DatePickerDialog(
+            context,
+            R.style.MyDatePickerDialogTheme,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate = "$selectedDay.${selectedMonth + 1}.$selectedYear"
+                textView.text = selectedDate
+            },
+            year, month, dayOfMonth
+        )
+        datePickerDialog.show()
+    }
 
     /**
      * Holt den letzten bekannten GPS-Standort des Geräts. Wenn die Standortberechtigung nicht gewährt wurde,
