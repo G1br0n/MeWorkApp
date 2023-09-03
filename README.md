@@ -1,10 +1,10 @@
 # Abschlussaufgabe App - README
 
-![App Screenshot](src/main/res/drawable/readme_image1.png) ![App Screenshot](src/main/res/drawable/readme_image2.png) ![App Screenshot](src/main/res/drawable/readme_image3.png)
+![App Screenshot](app/src/main/res/drawable/readme_image1.png) ![App Screenshot](app/src/main/res/drawable/readme_image2.png) ![App Screenshot](app/src/main/res/drawable/readme_image3.png)
 
-![App Screenshot](src/main/res/drawable/readme_image4.png) ![App Screenshot](src/main/res/drawable/readme_image5.png) ![App Screenshot](src/main/res/drawable/readme_image6.png)
+![App Screenshot](app/src/main/res/drawable/readme_image4.png) ![App Screenshot](app/src/main/res/drawable/readme_image5.png) ![App Screenshot](app/src/main/res/drawable/readme_image6.png)
 
-![App Screenshot](src/main/res/drawable/readme_image7.png)
+![App Screenshot](app/src/main/res/drawable/readme_image7.png)
 
 
 
