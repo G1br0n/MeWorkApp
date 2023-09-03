@@ -55,68 +55,98 @@ class LogInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         // Event-Listener für den Registrierungsbutton, um zum Registrierungs-Fragment zu navigieren.
         binding.button.setOnClickListener {
             findNavController().navigate(R.id.registerFragment)
         }
 
+
         // Event-Listener für den Login-Button.
         binding.ibLogin.setOnClickListener {
-            // Spielt einen Sound ab, wenn der Button geklickt wird.
-            viewModel.playClickSound(context!!)
-            // Zeigt eine kurze Toast-Nachricht an, die den Benutzer über den Login-Vorgang informiert.
-            Toast.makeText(activity, "Login Check", Toast.LENGTH_SHORT).show()
+            try {
+                // Spielt einen Sound ab, wenn der Button geklickt wird.
+                viewModel.playClickSound(context!!)
 
-            // Liest den Benutzernamen und das Passwort aus den Eingabefeldern.
-            val inputUsername = binding.ettLogIn.text.toString()
-            val inputPassword = binding.ettPassword.text.toString()
+                // Überprüft den Internetstatus und wirft eine Exception, wenn keine Verbindung besteht.
+                viewModel.internetCheck(context!!)
 
-            // Ändert die Sichtbarkeit des Login-Buttons und des Ladebalkens während des Login-Vorgangs.
-            binding.ibLogin.visibility = View.GONE
-            binding.progressBar.visibility = View.VISIBLE
+                // Liest den Benutzernamen und das Passwort aus den Eingabefeldern und entfernt dabei Leerzeichen.
+                val inputUsername = binding.ettLogIn.text.toString().replace(" ", "")
+                val inputPassword = binding.ettPassword.text.toString().replace(" ", "")
 
-            // Startet den Login-Vorgang mit Firebase.
-            fireBase.login(inputUsername, inputPassword)
+                // Überprüft die Gültigkeit der E-Mail-Adresse und wirft eine Exception bei einem ungültigen Format.
+                viewModel.isValidEmail(inputUsername)
 
-            // Überwacht den aktuellen Benutzerstatus in Firebase.
-            fireBase.currentUserBase.observe(viewLifecycleOwner) { user ->
-                user?.let {
-                    viewModel.userData.userUid = it.uid
-                    // Lädt zusätzliche Benutzerdaten und Arbeitszeiten aus Firestore.
-                    fireStore.getUserDataStore(it.uid)
-                    fireStore.getWorkTimeListStore(it.uid)
+                // Überprüft das Passwort auf Gültigkeit und wirft eine Exception, wenn es nicht den Anforderungen entspricht.
+                viewModel.isValidPassword(inputPassword)
 
-                    // Überwacht Änderungen in den Firestore-Benutzerdaten.
-                    fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
-                        data?.let {
-                            fireStore.getWorkTimeListStore(user.uid)
-                            viewModel.loadUserMaterialList()
-                            Toast.makeText(
-                                activity,
-                                "Anmeldung war erfolgreich",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            // Navigiert zum Haupt-Fragment nach erfolgreichem Login.
-                            findNavController().navigate(R.id.homeFragment)
+                // Zeigt eine kurze Toast-Nachricht an, die den Benutzer über den Start des Login-Vorgangs informiert.
+                Toast.makeText(activity, "Login Check", Toast.LENGTH_SHORT).show()
+
+                // Ändert die Sichtbarkeit des Login-Buttons und des Ladebalkens, um den Login-Vorgang anzuzeigen.
+                binding.ibLogin.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+
+                // Startet den Login-Vorgang mit der Firebase-Authentifizierung.
+                fireBase.login(inputUsername, inputPassword)
+
+                // Überwacht den aktuellen Benutzerstatus in Firebase.
+                fireBase.currentUserBase.observe(viewLifecycleOwner) { user ->
+                    user?.let {
+                        // Speichert die Benutzer-ID im ViewModel.
+                        viewModel.userData.userUid = it.uid
+
+                        // Lädt zusätzliche Benutzerdaten und Arbeitszeiten aus der Firestore-Datenbank.
+                        fireStore.getUserDataStore(it.uid)
+                        fireStore.getWorkTimeListStore(it.uid)
+
+                        // Überwacht Änderungen in den Firestore-Benutzerdaten.
+                        fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
+                            data?.let {
+                                // Bei Änderungen der Benutzerdaten werden die Arbeitszeiten erneut aus Firestore geladen.
+                                fireStore.getWorkTimeListStore(user.uid)
+
+                                // Lädt zusätzliche Materialien für den Benutzer.
+                                viewModel.loadUserMaterialList()
+
+                                // Informiert den Benutzer über den erfolgreichen Login.
+                                Toast.makeText(
+                                    activity,
+                                    "Anmeldung war erfolgreich",
+                                    Toast.LENGTH_LONG
+                                ).show()
+
+                                // Navigiert zum Haupt-Fragment nach erfolgreichem Login.
+                                findNavController().navigate(R.id.homeFragment)
+                            }
                         }
                     }
-                }
 
-                // Wenn nach 5 Sekunden kein Login-Erfolg erkannt wurde, wird eine Fehlermeldung angezeigt.
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if (!fireBase.checkedLogin) {
-                        binding.ibLogin.visibility = View.VISIBLE
-                        binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
-                            activity,
-                            "Email oder Passwort falsch",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }, 5000)
+                    // Wenn nach 10 Sekunden kein erfolgreicher Login festgestellt wurde, informiert der Benutzer darüber.
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (!fireBase.checkedLogin) {
+                            binding.ibLogin.visibility = View.VISIBLE
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                activity,
+                                "Email oder Passwort falsch",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }, 10000)
+                }
+            } catch (ex: Exception) {
+                // Zeigt eine Fehlermeldung an, wenn während des Login-Vorgangs eine Ausnahme auftritt.
+                Toast.makeText(
+                    activity,
+                    ex.message,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
+
 
     /**
      * Konfiguriert bestimmte UI-Elemente, wenn das Fragment wieder im Vordergrund ist.

@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.media.MediaPlayer
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -294,4 +296,82 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Überprüft, ob der gegebene String ein gültiges E-Mail-Format hat.
+     *
+     * Ein gültiges E-Mail-Format besteht aus:
+     * 1. Ein oder mehrere Zeichen vor dem @-Zeichen, die Buchstaben, Zahlen, Punkte, Unterstriche, Prozent- oder Minuszeichen sein können.
+     * 2. Ein @-Zeichen.
+     * 3. Ein oder mehrere Zeichen nach dem @-Zeichen, die Buchstaben, Zahlen oder Punkte sein können.
+     * 4. Ein Punkt.
+     * 5. Zwei bis vier Zeichen am Ende, die den Domain-Teil darstellen.
+     *
+     * @param email Der zu überprüfende String.
+     * @throws Exception Wenn der String nicht dem E-Mail-Format entspricht.
+     */
+    fun isValidEmail(email: String) {
+        val emailRegex = "[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}".toRegex()
+        if (!emailRegex.matches(email)) {
+            throw Exception("Eingabe muss E-mail sein")
+        }
+    }
+
+    /**
+     * Überprüft, ob das gegebene Passwort den Anforderungen entspricht.
+     *
+     * Die Anforderungen für das Passwort sind:
+     * 1. Es muss mindestens 6 Zeichen lang sein.
+     *
+     * Diese Funktion kann erweitert werden, um zusätzliche Anforderungen, wie z.B. das Vorhandensein von Großbuchstaben, Zahlen oder Sonderzeichen zu überprüfen.
+     *
+     * @param password Das zu überprüfende Passwort.
+     * @throws Exception Wenn das Passwort nicht den Anforderungen entspricht.
+     */
+    fun isValidPassword(password: String) {
+        if (password.length < 6) {
+            throw Exception("Passwort muss mindestens 6 Zeichen haben.")
+        }
+    }
+
+
+    /**
+     * Diese Funktion prüft, ob eine Internetverbindung verfügbar ist.
+     * Wenn keine Internetverbindung vorhanden ist, wird eine Exception ausgelöst.
+     *
+     * @param context Kontext, um Zugriff auf das System Connectivity Service zu erhalten.
+     * @throws Exception wenn keine Internetverbindung vorhanden ist.
+     */
+    fun internetCheck(context: Context){
+        if(!isInternetAvailable(context)){
+            throw Exception("Kein Internet verbindung!")
+        }
+    }
+
+    /**
+     * Überprüft, ob eine aktive Internetverbindung vorhanden ist.
+     *
+     * @param context Kontext, um Zugriff auf das System Connectivity Service zu erhalten.
+     * @return `true`, wenn eine aktive Internetverbindung vorhanden ist, sonst `false`.
+     */
+    private fun isInternetAvailable(context: Context): Boolean {
+        // Hole sich den ConnectivityManager aus dem Kontext, um den Netzwerkstatus abzufragen.
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        // Überprüfe das aktive Netzwerk; wenn keines aktiv ist, geben Sie `false` zurück.
+        val activeNetwork = connectivityManager.activeNetwork ?: return false
+        // Ermittel die Fähigkeiten des aktiven Netzwerks. Wenn keine Fähigkeiten ermittelt werden können, geben Sie `false` zurück.
+        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+
+        // Überprüfen Sie, ob das aktive Netzwerk über eine der folgenden Verbindungsarten verfügt:
+        return when {
+            // Überprüfe, ob das Netzwerk über eine WLAN-Verbindung verfügt.
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            // Überprüfe, ob das Netzwerk über eine Mobilfunkverbindung verfügt.
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            // Überprüfe, ob das Netzwerk über eine Ethernet-Verbindung verfügt.
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+
+            // Wenn keine der obigen Verbindungen vorhanden ist, gebe `false` zurück.
+            else -> false
+        }
+    }
 }
