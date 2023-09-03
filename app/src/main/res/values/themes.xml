@@ -14,4 +14,21 @@
     </style>
 
     <style name="Theme.AbschlussAufgabe" parent="Base.Theme.AbschlussAufgabe" />
+
+    <style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Farbe des Titels und des Aktionsbuttons -->
+        <item name="colorAccent">@color/back_ground_item</item>
+        <!-- Hintergrundfarbe des Dialogs -->
+        <item name="android:windowBackground">@color/back_ground</item>
+        <!-- Schriftfarbe des Dialogs -->
+        <item name="android:buttonBarButtonStyle">@style/CustomButtonStyle</item>
+        <!-- Andere Farben, die Sie anpassen möchten -->
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/back_ground_item</item>
+
+    </style>
+
 </resources>

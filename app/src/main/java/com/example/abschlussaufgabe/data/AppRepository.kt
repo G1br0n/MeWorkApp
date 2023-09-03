@@ -10,43 +10,44 @@ import com.example.abschlussaufgabe.data.model.UserDataModel
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import java.sql.Timestamp
 
+/**
+ * Repository-Klasse, die als Zwischenschicht zwischen der Datenbank und der UI dient.
+ * Hier werden Datenbank-Operationen ausgeführt und Daten für die UI bereitgestellt.
+ */
 class AppRepository(
     private val storageMaterialDatabase: StorageMaterialDatabase
 ) {
 
-
+    // Beispiel für ein Benutzermodell.
     var user = UserTestDataModel("","", "", "", "",234234, mutableMapOf(),   false, false, mutableMapOf())
 
-
-    //UserList mit login daten passwort und anderen werten, wird aus feste liste in funktion loadUser geladen
+    // LiveData-Liste, die Benutzerdaten enthält.
     private val _userDataList = MutableLiveData<List<UserDataModel>>()
     val userDataList: LiveData<List<UserDataModel>>
         get() = _userDataList
 
-
-    //TODO: Diese wariable kann mann zu standarte Lise umbauen
-    //Variable für grund Datenbank  wird aus loadStorageMaterial() gefült, wenn das app erste mal instalirt wird damit der daten bank gefült wird
+    // LiveData-Liste, die grundlegende Lagermaterialdaten enthält.
     private val _storageMaterialGroundList = MutableLiveData<List<StorageMaterialModel>>()
     val storageMaterialGroundList: LiveData<List<StorageMaterialModel>>
         get() = _storageMaterialGroundList
 
-
-    //Diese variable wird aus dem daten bank geladen auch nach dem eine objeckt geändert wurde,
+    // LiveData-Liste, die aktuelle Lagermaterialdaten aus der Datenbank enthält.
     private val _storageMaterialDataList = MutableLiveData<List<StorageMaterialModel>>()
     val storageMaterialDataList: LiveData<List<StorageMaterialModel>>
         get() = _storageMaterialDataList
 
-
+    // Initialisierung, die Benutzer und Lagermaterialdaten lädt.
     init {
         loadUser()
         loadStorageMaterial()
     }
 
-
-    //feste user liste
+    /**
+     * Funktion, die fest definierte Benutzerdaten lädt.
+     */
     fun loadUser() {
         _userDataList.value = listOf(
-            //User 1
+            // Beispielbenutzer 1
             UserDataModel(
                 "",
                 1001,
@@ -70,7 +71,7 @@ class AppRepository(
                 false
             ),
 
-            //User 2
+            // Beispielbenutzer 2
             UserDataModel(
                 "",
                 1002,
@@ -94,9 +95,9 @@ class AppRepository(
         )
     }
 
-    //feste datensatz mit material liste für lager und psa material, id bis 100.000 ist lager bestand ab 100.000 psa ausrüstung
-    //Beachte es gibt material id die zeigt material nummer und lockationId die zeigen sol wo sich der material gerade befindet
-    fun loadStorageMaterial() {
+    /**
+     * Funktion, die fest definierte Lagermaterialdaten lädt.
+     */ fun loadStorageMaterial() {
         _storageMaterialGroundList.value = listOf(
             StorageMaterialModel(1, "GSMR-1", "1"),
             StorageMaterialModel(2, "BahnErdeGarnitur-1", "1"),
@@ -169,19 +170,21 @@ class AppRepository(
 
     }
 
-
-    //Die funktion initialiesirt den daten banck bei onconflicktStrategy.Abort damit der datenbank sich nicht auf grund wert setzt sonder verändert bleibt
+    /**
+     * Fügt alle Lagermaterialien in die Datenbank ein.
+     */
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>) {
         try {
             storageMaterialDatabase.storageMaterialDao.insertAll(_storageMaterialGroundList.value!!)
-
-
         } catch (e: Exception) {
             Log.e("TAG", "Failed to insert into database: $e")
         }
     }
 
-    //Diese funktion befült  die LiveData Aus dem datenbank
+    /**
+     * Holt alle Lagermaterialdaten aus der Datenbank.
+     * @return Liste von Lagermaterialdaten.
+     */
     suspend fun getAllStorageMaterialFromDataBank(): List<StorageMaterialModel> {
         try {
             return storageMaterialDatabase.storageMaterialDao.getAll()
@@ -191,15 +194,14 @@ class AppRepository(
         return emptyList()
     }
 
-    //Mit diese funktion verändere ich die lokationId von einem betimtimten material
+    /**
+     * Aktualisiert den Standort eines bestimmten Materials.
+     */
     suspend fun updateStorageMaterial(materialId: Int, userId: String) {
-
         storageMaterialDatabase.storageMaterialDao.updateStorage(materialId, userId)
-
-        var test = _storageMaterialGroundList.value!!.indexOfFirst { it.materialId == materialId }
-        _storageMaterialGroundList.value!![test].locationId = userId
+        val index = _storageMaterialGroundList.value!!.indexOfFirst { it.materialId == materialId }
+        _storageMaterialGroundList.value!![index].locationId = userId
     }
-
 
 
 

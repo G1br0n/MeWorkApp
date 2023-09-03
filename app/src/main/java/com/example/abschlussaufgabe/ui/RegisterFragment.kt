@@ -16,6 +16,9 @@ import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
+/**
+ * Fragment zur Benutzerregistrierung.
+ */
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
@@ -23,6 +26,9 @@ class RegisterFragment : Fragment() {
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
 
+    /**
+     * Erstellt die View für das Fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,40 +38,44 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
-
+    /**
+     * Wird aufgerufen, nachdem die View erstellt wurde.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        // Setzt das Profilbild des Benutzers.
         binding.imageView3.setImageResource(R.drawable.avatar_logo)
 
+        // Button, um zum vorherigen Bildschirm zurückzukehren.
         binding.butBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        // Button, um zum nächsten Bildschirm (Registrierungsqualifikation) zu navigieren.
         binding.butNext.setOnClickListener {
-           try {
-
-           fireStore.userData = updateUser(fireStore.userData)
-            findNavController().navigate(R.id.registerQualificationFragment)
-           } catch (ex:Exception){
-               Toast.makeText(requireContext(), "Unerwartete feller", Toast.LENGTH_LONG).show()
-
-           }
-
+            try {
+                fireStore.userData = updateUser(fireStore.userData)
+                findNavController().navigate(R.id.registerQualificationFragment)
+            } catch (ex: Exception) {
+                Toast.makeText(requireContext(), "Unerwarteter Fehler", Toast.LENGTH_LONG).show()
+            }
         }
-
-
     }
 
-    fun updateUser(user:UserTestDataModel): UserTestDataModel{
-        user.email = binding.etEmail.text.toString()
-        user.password = binding.etPassword.text.toString()
-        user.firstName = binding.etVorname.text.toString()
-        user.lastName = binding.etName.text.toString()
-        user.baNumber = binding.etBa.text.toString().toInt()
+    /**
+     * Aktualisiert die Benutzerdaten basierend auf den Eingabefeldern.
+     *
+     * @param user Das aktuelle UserTestDataModel-Objekt.
+     * @return Das aktualisierte UserTestDataModel-Objekt.
+     */
+    fun updateUser(user: UserTestDataModel): UserTestDataModel {
+        user.email = binding.etEmail.text.toString().replace(" ","")
+        user.password = binding.etPassword.text.toString().replace(" ","")
+        user.firstName = binding.etVorname.text.toString().replace(" ","")
+        user.lastName = binding.etName.text.toString().replace(" ","")
+        user.baNumber = binding.etBa.text.toString().replace(" ","").toInt()
         user.userQualification = mapOf()
         return user
     }
-
-
 }

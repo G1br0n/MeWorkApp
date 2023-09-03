@@ -1,6 +1,5 @@
 package com.example.abschlussaufgabe.viewmodel
 
-
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,9 +10,13 @@ import com.google.firebase.ktx.Firebase
 
 const val TAG = "fireStoreTest"
 
+/**
+ * ViewModel-Klasse zur Interaktion mit Firebase Firestore.
+ * Diese Klasse dient als Schnittstelle für alle Firestore-spezifischen Vorgänge.
+ */
 class FireStoreViewModel : ViewModel() {
 
-    //benutze diese varieable in RegisterFragmenten
+    // Initialisierung von Benutzerdatenmodell
     var userData: UserTestDataModel = UserTestDataModel(
         "",
         "",
@@ -27,28 +30,28 @@ class FireStoreViewModel : ViewModel() {
         mutableMapOf<String, String>()
     )
 
-
+    // MutableLiveData für die Arbeitszeitliste des Benutzers
     var _currentTimWorkList = MutableLiveData<MutableList<String>>()
     val currentTimWorkList: LiveData<MutableList<String>>
         get() = _currentTimWorkList
 
-    //Beobachte die liveData in login fragment. Zum einlogen
+    // MutableLiveData zur Speicherung und Überwachung des aktuellen Benutzers
     var _currentUserStore = MutableLiveData<UserTestDataModel>()
     val currentUserStore: LiveData<UserTestDataModel>
         get() = _currentUserStore
 
+    // Firebase Firestore Instanz erhalten
     private val db = Firebase.firestore
 
-
-    fun addNewUserWorkTimeListStore() {
-
-
-        val userWorkTimeLis: Map<String, Any> = mapOf(
-            "workTimeLog" to listOf<String>()
-        )
-
-        db.collection("userWorkTimeLogList").document(currentUserStore.value!!.userUid).set(
-            userWorkTimeLis
+    /**
+     * Funktion, um eine neue Arbeitszeitliste für den Benutzer im Firestore zu erstellen.
+     *
+     * @param newUserUid Benutzer-UID.
+     * @param list Arbeitszeitliste (Standardwert ist eine leere Liste).
+     */
+    fun addNewUserWorkTimeListStore(newUserUid: String, list: List<String> = listOf()) {
+        db.collection("workTimeLog").document(newUserUid).set(
+            "userWorkTimeLogList" to list
         )
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
@@ -59,7 +62,17 @@ class FireStoreViewModel : ViewModel() {
             }
     }
 
-
+    /**
+     * Funktion, um neue Benutzerdaten im Firestore zu speichern.
+     *
+     * @param userUid Benutzer-UID.
+     * @param email E-Mail des Benutzers.
+     * @param password Passwort des Benutzers.
+     * @param firstName Vorname des Benutzers.
+     * @param lastName Nachname des Benutzers.
+     * @param baNumber BA-Nummer des Benutzers.
+     * @param userQualification Qualifikation des Benutzers.
+     */
     fun addNewUserDataStore(
         userUid: String,
         email: String,
@@ -67,10 +80,8 @@ class FireStoreViewModel : ViewModel() {
         firstName: String,
         lastName: String,
         baNumber: Int = 0,
-        userQualification: Map<String, String>,
-
-        ) {
-
+        userQualification: Map<String, String>
+    ) {
         val userData = mapOf(
             "userUid" to userUid,
             "email" to email,
@@ -78,11 +89,8 @@ class FireStoreViewModel : ViewModel() {
             "firstName" to firstName,
             "lastName" to lastName,
             "baNumber" to baNumber,
-
             "userQualification" to userQualification,
-
             "carStatus" to false,
-
             "timerStatus" to false,
             "timerMap" to mapOf(
                 "startYear" to "0",
@@ -91,18 +99,13 @@ class FireStoreViewModel : ViewModel() {
                 "startHour" to "0",
                 "startMin" to "0",
                 "startSek" to "0",
-
                 "latitude" to "0",
                 "longitude" to "0",
                 "sap" to "0",
                 "position" to "null"
-
             )
         )
-
-        db.collection("users").document(userUid).set(
-            userData
-        )
+        db.collection("users").document(userUid).set(userData)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
             }
@@ -112,9 +115,12 @@ class FireStoreViewModel : ViewModel() {
             }
     }
 
-
+    /**
+     * Funktion, um aktualisierte Benutzerdaten im Firestore zu speichern.
+     *
+     * @param userData Benutzerdatenmodell.
+     */
     fun saveUserDataStore(userData: UserTestDataModel) {
-
         val userDataStore = mapOf(
             "userUid" to userData.userUid,
             "email" to userData.email,
@@ -122,19 +128,12 @@ class FireStoreViewModel : ViewModel() {
             "firstName" to userData.firstName,
             "lastName" to userData.lastName,
             "baNumber" to userData.baNumber,
-
             "userQualification" to userData.userQualification,
-
             "carStatus" to userData.carStatus,
-
             "timerStatus" to userData.timerStatus,
             "timerMap" to userData.timerMap
-
         )
-
-        db.collection("users").document(userData.userUid).set(
-            userDataStore
-        )
+        db.collection("users").document(userData.userUid).set(userDataStore)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
             }
@@ -144,10 +143,12 @@ class FireStoreViewModel : ViewModel() {
             }
     }
 
-
+    /**
+     * Funktion, um die Arbeitszeitliste eines Benutzers im Firestore zu speichern.
+     *
+     * @param workTimeLogList Arbeitszeitliste.
+     */
     fun saveUserWorkTimeLogStore(workTimeLogList: List<String>) {
-
-
         db.collection("workTimeLog").document(userData.userUid).set(
             "userWorkTimeLogList" to workTimeLogList
         )
@@ -160,10 +161,12 @@ class FireStoreViewModel : ViewModel() {
             }
     }
 
-
+    /**
+     * Funktion, um die Benutzerdaten eines bestimmten Benutzers aus dem Firestore abzurufen.
+     *
+     * @param userUid Benutzer-UID.
+     */
     fun getUserDataStore(userUid: String) {
-
-
         try {
             val docRef = db.collection("users").document(userUid)
             docRef.get()
@@ -171,7 +174,6 @@ class FireStoreViewModel : ViewModel() {
                     if (document != null) {
                         Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                         _currentUserStore.value = UserTestDataModel(
-
                             document.data?.get("userUid").toString(),
                             document.data?.get("email").toString(),
                             document.data?.get("password").toString(),
@@ -181,9 +183,8 @@ class FireStoreViewModel : ViewModel() {
                             document.data?.get("userQualification") as Map<String, String>,
                             document.data?.get("carStatus").toString().toBoolean(),
                             document.data?.get("timerStatus").toString().toBoolean(),
-                            document.data?.get("timerMap") as MutableMap<String, String>,
-
-                            )
+                            document.data?.get("timerMap") as MutableMap<String, String>
+                        )
                         Log.d(TAG, _currentUserStore.value.toString())
                     } else {
                         Log.d(TAG, "No such document")
@@ -195,9 +196,13 @@ class FireStoreViewModel : ViewModel() {
         } catch (ex: Exception) {
             Log.e(TAG, ex.message!!)
         }
-
     }
 
+    /**
+     * Funktion, um die Arbeitszeitliste eines bestimmten Benutzers aus dem Firestore abzurufen.
+     *
+     * @param userUid Benutzer-UID.
+     */
     fun getWorkTimeListStore(userUid: String) {
         try {
             val docRef = db.collection("workTimeLog").document(userUid)
@@ -205,10 +210,8 @@ class FireStoreViewModel : ViewModel() {
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                        val workTimeList = document.data!!["second"] as? MutableList<String> ?: emptyList()
+                        val workTimeList = document.data!!["second"] as MutableList<String>
                         _currentTimWorkList.value = workTimeList.toMutableList()
-
-
                     } else {
                         Log.d(TAG, "No such document")
                     }

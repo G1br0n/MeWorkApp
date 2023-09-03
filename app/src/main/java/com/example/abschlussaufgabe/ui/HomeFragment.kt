@@ -20,44 +20,57 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
 
 
-const val TAG = "HomeFragment"
+const val TAG = "HomeFragment"/**
+ * HomeFragment repräsentiert den Hauptbildschirm der App nachdem sich der Benutzer angemeldet hat.
+ * Es zeigt verschiedene Benutzerinformationen sowie Materialien und Qualifikationstests an.
+ */
 class HomeFragment : Fragment() {
 
+    // Data Binding-Instanz für das zugehörige XML-Layout dieses Fragments.
     private lateinit var binding: FragmentHomeBinding
+
+    // ViewModels, die für verschiedene Daten- und UI-Operationen innerhalb dieses Fragments verwendet werden.
     private val viewModel: MainViewModel by activityViewModels()
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
 
-
-    //todo: arguments user_id
+    /**
+     * Wird aufgerufen, wenn das Fragment zum ersten Mal erstellt wird.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        //Öfne NavBar bei navigiren zum homeFragment
+        // Zeigt die Navigationsleiste an, wenn zum HomeFragment navigiert wird.
         (activity as? MainActivity)?.showNavigationBar()
     }
 
+    /**
+     * Wird aufgerufen, um die Benutzeroberfläche für das Fragment zu erstellen.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Initialisiert die Datenbindung für dieses Fragment.
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         return binding.root
     }
 
-
+    /**
+     * Wird aufgerufen, nachdem die Benutzeroberfläche des Fragments erstellt wurde.
+     * Hier werden Daten von Firestore abgerufen und verschiedene UI-Elemente konfiguriert.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Benutzerdaten aus Firestore abrufen.
         fireStore.getUserDataStore(viewModel.userData.userUid)
 
-        //Weise den FlexBox LayoutManager für material recyclerview
+        // FlexboxLayoutManager wird für den RecyclerView der Materialien festgelegt.
         binding.rvMaterial.layoutManager = FlexboxLayoutManager(requireContext())
 
-
-        //Observer für UserDaten aus dem fireStore
+        // Observer für Benutzerdaten aus Firestore. Hier werden UI-Elemente mit den abgerufenen Daten aktualisiert.
         fireStore.currentUserStore.observe(viewLifecycleOwner) {
             binding.tvUserName.text = "${it.firstName} ${it.lastName}"
             binding.tvUserBa.text = "BA-${it.baNumber}"
@@ -65,36 +78,39 @@ class HomeFragment : Fragment() {
             binding.rvQualification.adapter = QualificationTestItemAdapter(it)
         }
 
-        //Observe material liste aus dem RoomDatabase
+        // Observer für die Materialliste aus der Room-Datenbank. Der RecyclerView wird mit den Materialdaten aktualisiert.
         viewModel.userMaterialList.observe(viewLifecycleOwner) {
             Log.e("Home", "$it")
             binding.rvMaterial.adapter = MaterialItemAdapter(it)
         }
 
-        //Fange mögliche API NullPointerException ab
         try {
-            //Beobachte die geladen Api liste
+            // Beobachtet die Liste der Fotos, die von einer API geladen wurden.
             viewModel.bfPhotoList.observe(viewLifecycleOwner) {
                 if (it.title != null) {
                     binding.tvCityTitle.text = "    ${it.title}    "
                 }
                 if (it.photoUrl != null) {
+                    // Lädt und zeigt das Foto aus der URL mit Hilfe der Coil-Bibliothek an.
                     binding.imageView2.load(it.photoUrl)
                 }
             }
 
+            // OnClickListener für das ImageView-Element.
             binding.imageView2.setOnClickListener {
                 viewModel.playClickSound(context!!)
                 viewModel.loadBfPhotoList()
             }
         } catch (ex: Exception) {
-            //Fange unbekante feller ab
+            // Loggt Fehler, die während des Setzens des OnClickListeners für das ImageView auftreten können.
             Log.e(TAG, "ImageViewSetOnClick: ${ ex.message!! }")
         }
-
-
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
+     * Hier wird eine Liste von Fotos von der API geladen.
+     */
     override fun onResume() {
         super.onResume()
         viewModel.loadBfPhotoList()

@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.ui
 
+// Importe der notwendigen Bibliotheken und Klassen
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
@@ -18,105 +19,113 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
-
+/**
+ * Dieses Fragment ist für das Scannen von QR-Codes zuständig und
+ * verarbeitet die gescannte Information, um das Material zu verwalten.
+ */
 class MaterialReceivedFragment : Fragment() {
+
+    // Deklaration von Mitgliedervariablen für den CodeScanner, Datenbindung und ViewModel
     private lateinit var codeScanner: CodeScanner
     private lateinit var binding: FragmentMaterialReceivedBinding
     private val viewModel: MainViewModel by activityViewModels()
 
-
+    /**
+     * Wird aufgerufen, um die Benutzeroberfläche des Fragments zu erstellen.
+     */
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_material_received, container, false)
+        // Initialisierung der Datenbindung
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_material_received, container, false)
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    /**
+     * Wird aufgerufen, um die Benutzeroberfläche des Fragments zu erstellen, nachdem die
+     * View erstellt wurde.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
-
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
-
         var id = 0
 
-        //QR Code decoder
+        // Initialisierung des QR-Code-Scanners
         codeScanner = CodeScanner(activity, scannerView)
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
-                //löse bewust feller aus wenn die eingegebene ID kein zahl ist
                 try {
+                    // Versuche, den gescannten Text in eine Zahl umzuwandeln
                     val text = it.text.toInt()
 
-                    //Spile sound ab wenn  qr geskent wurde
+                    // Abspielen eines Sounds, wenn QR-Code gescannt wurde
                     viewModel.playQrSound(context!!)
 
-
                     id = text
-                    binding.etMaterialId.text =
-                        Editable.Factory.getInstance().newEditable(text.toString())
-                    //Fange den feller ab mit eine toast nachricht
+                    // Setzen des gescannten Texts in ein Eingabefeld
+                    binding.etMaterialId.text = Editable.Factory.getInstance().newEditable(text.toString())
                 } catch (ex: Exception) {
+                    // Abspielen eines Fehler-Sounds
                     viewModel.playLockedSound(context!!)
-                    Toast.makeText(
-                        activity,
-                        "Die Id darf nur aus zahlen bestähen",
-                        Toast.LENGTH_LONG
-                    ).show()
+
+                    // Anzeigen einer Fehlermeldung, wenn der gescannte Code nicht nur Zahlen enthält
+                    Toast.makeText(activity, "Die Id darf nur aus zahlen bestähen", Toast.LENGTH_LONG).show()
                 }
             }
         }
 
-        //starte camera preview
+        // Starten der Kamera-Vorschau
         codeScanner.startPreview()
 
+        // Listener, um die Kamera-Vorschau erneut zu starten, wenn auf die Ansicht geklickt wird
         binding.scannerView.setOnClickListener {
             codeScanner.startPreview()
         }
 
-        //Button empfangen wen er angeklickt  wird
+        // Listener für den "Empfangen"-Button
         binding.ibReceived.setOnClickListener {
             try {
-                // setze id aus dem eingabe feld
+                // Holen der ID aus dem Eingabefeld
                 id = binding.etMaterialId.text.toString().toInt()
 
-                //Überprüfe mit der funktion ob Id in der liste ist oder nicht, wen nicht schmeise feller raus
+                // Überprüfung, ob die ID in einer Liste vorhanden ist
                 viewModel.checkMaterialId(id)
 
-                //udate StorageMaterial Model Datenbank
-                viewModel.updateMaterialLocation(id, viewModel.userData.userUid )
+                // Aktualisierung der Materialposition in der Datenbank
+                viewModel.updateMaterialLocation(id, viewModel.userData.userUid)
 
-                //Spile sound ab wenn  material empfange
+                // Abspielen eines Aktions-Sounds
                 viewModel.playActionSound(context!!)
 
-                //Benachrichtige user über die erfolgreiche action
+                // Benachrichtigen des Benutzers über den erfolgreichen Vorgang
                 Toast.makeText(activity, "Material erfolgreich empfangen", Toast.LENGTH_LONG).show()
 
-                //Naviegire zurück zu MaterialFragment
+                // Navigation zurück zum MaterialFragment
                 findNavController().navigate(R.id.materialFragment)
-                //Fange Mögliche Feller ab
             } catch (ex: Exception) {
-                //Benachritige mit Toast über den feller
+                // Anzeigen einer Fehlermeldung
                 Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
             }
-
-
         }
-
-
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment fortgesetzt wird.
+     */
     override fun onResume() {
         super.onResume()
+        // Fortsetzen der Kamera-Vorschau, wenn das Fragment fortgesetzt wird
         codeScanner.startPreview()
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment pausiert wird.
+     */
     override fun onPause() {
+        // Freigeben von Ressourcen, wenn das Fragment pausiert wird
         codeScanner.releaseResources()
         super.onPause()
     }

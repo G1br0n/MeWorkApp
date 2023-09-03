@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.viewmodel
 
+// Importieren Sie die erforderlichen Android- und Firebase-Bibliotheken
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -9,17 +10,34 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
+/**
+ * ViewModel-Klasse für die Firebase-Authentifizierung. Diese Klasse verwaltet die Firebase-Authentifizierungsoperationen
+ * wie Registrierung, Anmeldung und Abmeldung.
+ */
 class FireBaseAuthViewModel : ViewModel() {
 
+    // Variable, um den Login-Status zu überprüfen
     var checkedLogin = false
 
+    // Instanz von FirebaseAuth erhalten
     private val firebaseAuth = FirebaseAuth.getInstance()
 
+    // MutableLiveData, das den aktuellen Firebase-Benutzer speichert
     private val _currentUserBase = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
     val currentUserBase: LiveData<FirebaseUser?>
         get() = _currentUserBase
 
-
+    /**
+     * Funktion zur Registrierung eines neuen Benutzers mit Firebase Authentication.
+     *
+     * @param context Kontext für die Erstellung von Toast-Meldungen.
+     * @param email E-Mail-Adresse des Benutzers.
+     * @param password Passwort des Benutzers.
+     * @param firstName Vorname des Benutzers.
+     * @param lastName Nachname des Benutzers.
+     * @param baNumber BA-Nummer des Benutzers (Standardwert ist 0).
+     * @param userQualification Qualifikation des Benutzers.
+     */
     fun register(
         context: Context,
         email: String,
@@ -27,13 +45,14 @@ class FireBaseAuthViewModel : ViewModel() {
         firstName: String,
         lastName: String,
         baNumber: Int = 0,
-        userQualification: Map<String, String>,
+        userQualification: Map<String, String>
     ) {
 
+        // Versuch, den Benutzer mit Firebase zu registrieren
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { authResult ->
                 if (authResult.isSuccessful) {
-
+                    // Bei erfolgreicher Registrierung neue Benutzerdaten in Firestore speichern
                     FireStoreViewModel().addNewUserDataStore(
                         authResult.result.user!!.uid,
                         email,
@@ -44,41 +63,47 @@ class FireBaseAuthViewModel : ViewModel() {
                         userQualification
                     )
 
-
+                    // Neue Arbeitzeittabelle für den Benutzer in Firestore hinzufügen
+                    FireStoreViewModel().addNewUserWorkTimeListStore(
+                        authResult.result.user!!.uid
+                    )
                 } else {
+                    // Bei Fehler Log und Toast mit Fehlermeldung anzeigen
                     Log.e("ERROR", "${authResult.exception}")
-                    Toast.makeText(context, "${authResult.exception}", Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(context, "${authResult.exception}", Toast.LENGTH_LONG).show()
                 }
             }
     }
 
-
+    /**
+     * Funktion zum Einloggen eines Benutzers mit Firebase Authentication.
+     *
+     * @param email E-Mail-Adresse des Benutzers.
+     * @param password Passwort des Benutzers.
+     * @return Boolean, der den Login-Status angibt.
+     */
     fun login(email: String, password: String): Boolean {
-
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { authResult ->
+                _currentUserBase.value = firebaseAuth.currentUser
+                checkedLogin = authResult.isSuccessful
+
+                // Log-Eintrag je nach Ergebnis des Login-Vorgangs
                 if (authResult.isSuccessful) {
-                    _currentUserBase.value = firebaseAuth.currentUser
-                    checkedLogin = authResult.isSuccessful
                     Log.e("loginTrue", "${authResult.isSuccessful}")
                 } else {
-                    _currentUserBase.value = firebaseAuth.currentUser
-                    checkedLogin = authResult.isSuccessful
                     Log.e("loginFalse", "${authResult.isSuccessful}")
                 }
-
             }
         return checkedLogin
     }
 
-
+    /**
+     * Funktion zum Abmelden des aktuellen Benutzers von Firebase Authentication.
+     */
     fun logout() {
         firebaseAuth.signOut()
-
         _currentUserBase.value = null
         FireStoreViewModel()._currentUserStore.value = null
     }
-
-
 }

@@ -17,6 +17,9 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 val TAG1 = "fragmentWorkTimeList"
 
+/**
+ * Fragment, das die Arbeitszeitliste eines Benutzers anzeigt.
+ */
 class UserWorkTimeListFragment : Fragment() {
     private lateinit var binding: FragmentUserWorkTimeListBinding
     private val viewModel: MainViewModel by activityViewModels()
@@ -24,13 +27,18 @@ class UserWorkTimeListFragment : Fragment() {
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
 
+    /**
+     * Initialisierung vor Erstellung der View.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         userData = viewModel.userData
     }
 
-
+    /**
+     * Erstellt die View für das Fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,41 +51,42 @@ class UserWorkTimeListFragment : Fragment() {
             false
         )
         return binding.root
-
-
     }
 
-
+    /**
+     * Wird aufgerufen, nachdem die View erstellt wurde.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       fireStore.getWorkTimeListStore(viewModel.userData.userUid)
+        // Abrufen der Arbeitszeitenliste des Benutzers aus Firestore
+        fireStore.getWorkTimeListStore(viewModel.userData.userUid)
 
-
+        // Beobachtet die Änderungen in der Arbeitszeitenliste und aktualisiert die UI entsprechend
         fireStore.currentTimWorkList.observe(viewLifecycleOwner) {
             binding.rvWorkTime.adapter = UserWorkTimeListAdapter(fireStore._currentTimWorkList.value!!)
             binding.tvListCounter.text = it.size.toString()
             binding.tvHourCounter.text = hourCounter(it)
         }
-
-
-
-
-
-
     }
 
-
+    /**
+     * Zusätzliche Logik bei Wiederaufnahme des Fragments (derzeit leer).
+     */
     override fun onResume() {
         super.onResume()
     }
 
+    /**
+     * Berechnet die gesamte Arbeitszeit in Stunden, Minuten und Sekunden.
+     */
     private fun hourCounter(logList: MutableList<String>): String {
 
         var hour = 0
         var min = 0
         var sek = 0
 
+        // Iteriert durch die Liste und summiert Stunden, Minuten und Sekunden
         for (i in logList) {
             hour += i.split(" ")[6].split(".")[0].toInt()
             min += i.split(" ")[6].split(".")[1].toInt()
@@ -91,14 +100,13 @@ class UserWorkTimeListFragment : Fragment() {
         totalSeconds %= 3600
         // Minuten berechnen
         val minutesResult = totalSeconds / 60
-        // Verbleibende Sekunden
+        // Verbleibende Sekunden berechnen
         var secondsResult = totalSeconds % 60
 
-        // Wenn Sekunden oder Minuten nur eine Stelle haben, füge eine führende "0" hinzu
+        // Formatierung von Minuten und Sekunden
         val formattedMinutes = if(minutesResult < 10) "0$minutesResult" else "$minutesResult"
         val formattedSeconds = if(secondsResult < 10) "0$secondsResult" else "$secondsResult"
 
         return "$hoursResult:$formattedMinutes:$formattedSeconds"
     }
-
 }

@@ -6,13 +6,26 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 
-
+/**
+ * Die Datenbankklasse `StorageMaterialDatabase` repräsentiert die Raumdatenbank für Lagermaterialien.
+ *
+ * Diese Datenbank enthält eine Tabelle für Lagermaterialien und verwendet das [StorageMaterialModel] als Entity.
+ *
+ * @property storageMaterialDao Das Data Access Object (DAO) für den Zugriff auf die Lagermaterialien-Tabelle.
+ */
 @Database(entities = [StorageMaterialModel::class], version = 2)
-abstract class StorageMaterialDatabase: RoomDatabase() {
+abstract class StorageMaterialDatabase : RoomDatabase() {
     abstract val storageMaterialDao: StorageMaterialDao
-
 }
 
+/**
+ * Die [getStorageMaterialDatabase] Funktion erstellt oder gibt eine Instanz der [StorageMaterialDatabase] zurück.
+ *
+ * Diese Funktion stellt sicher, dass nur eine Instanz der Datenbank in der App vorhanden ist.
+ *
+ * @param context Der Anwendungskontext.
+ * @return Eine Instanz der [StorageMaterialDatabase].
+ */
 private lateinit var INSTANCE: StorageMaterialDatabase
 
 fun getStorageMaterialDatabase(context: Context): StorageMaterialDatabase {
@@ -23,9 +36,8 @@ fun getStorageMaterialDatabase(context: Context): StorageMaterialDatabase {
                 StorageMaterialDatabase::class.java,
                 "storage_material_table"
             )
-                .fallbackToDestructiveMigration()  // Dies wurde hinzugefügt
+                .fallbackToDestructiveMigration()  // Fügt eine destruktive Migration hinzu, um Datenbankänderungen durchzuführen.
                 .build()
-
         }
     }
     return INSTANCE

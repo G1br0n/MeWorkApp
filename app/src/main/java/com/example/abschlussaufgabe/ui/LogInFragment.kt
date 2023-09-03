@@ -3,7 +3,6 @@ package com.example.abschlussaufgabe.ui
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,95 +18,91 @@ import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
-
+/**
+ * LogInFragment repräsentiert ein Benutzeroberflächen-Element, in dem sich Benutzer anmelden können.
+ * Es bietet auch die Möglichkeit, zum Registrierungsbildschirm zu navigieren.
+ */
 class LogInFragment : Fragment() {
+
+    // Verwendet Data Binding, um die XML-Layout-Datei mit dieser Klasse zu verknüpfen.
     private lateinit var binding: FragmentLogInBinding
+
+    // Instanzen von ViewModels für verschiedene Zwecke.
     private val viewModel: MainViewModel by activityViewModels()
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
 
-
+    /**
+     * Wird aufgerufen, um die Benutzeroberfläche für das Fragment zu erstellen.
+     */
     override fun onCreateView(
-
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-
+        // Benutzer wird bei jedem Laden des Fragments abgemeldet.
         fireBase.logout()
 
+        // Initialisiert die Datenbindung für das Fragment.
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_log_in, container, false)
         return binding.root
     }
 
-
+    /**
+     * Konfiguriert UI-Interaktionen und -Logik nach der Erstellung der Ansicht.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        //Regestrirungs Processe button
+        // Event-Listener für den Registrierungsbutton, um zum Registrierungs-Fragment zu navigieren.
         binding.button.setOnClickListener {
             findNavController().navigate(R.id.registerFragment)
-
         }
 
-        //Login button
+        // Event-Listener für den Login-Button.
         binding.ibLogin.setOnClickListener {
-            //Interacktion sound
+            // Spielt einen Sound ab, wenn der Button geklickt wird.
             viewModel.playClickSound(context!!)
-            //Interacktion mesage
+            // Zeigt eine kurze Toast-Nachricht an, die den Benutzer über den Login-Vorgang informiert.
             Toast.makeText(activity, "Login Check", Toast.LENGTH_SHORT).show()
 
-            //Empfange eigegebenen text
+            // Liest den Benutzernamen und das Passwort aus den Eingabefeldern.
             val inputUsername = binding.ettLogIn.text.toString()
             val inputPassword = binding.ettPassword.text.toString()
 
-
+            // Ändert die Sichtbarkeit des Login-Buttons und des Ladebalkens während des Login-Vorgangs.
             binding.ibLogin.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
 
-            //loge mich bei fireBase an
+            // Startet den Login-Vorgang mit Firebase.
             fireBase.login(inputUsername, inputPassword)
 
-            //beobachte die input von fireBase dan lade ich fireStore userData
-            fireBase.currentUserBase.observe(viewLifecycleOwner) {
-                if (it != null) {
-
+            // Überwacht den aktuellen Benutzerstatus in Firebase.
+            fireBase.currentUserBase.observe(viewLifecycleOwner) { user ->
+                user?.let {
                     viewModel.userData.userUid = it.uid
-                    Log.e("Log1", it.uid)
-                    //lade userTestDataModel aus fireStoreData
+                    // Lädt zusätzliche Benutzerdaten und Arbeitszeiten aus Firestore.
                     fireStore.getUserDataStore(it.uid)
                     fireStore.getWorkTimeListStore(it.uid)
 
-                    //beobachte die input von fireStore dan naviegire ich weiter
-
-
-                    val test = fireStore.getWorkTimeListStore(it.uid)
-                    println("test = $test")
-
+                    // Überwacht Änderungen in den Firestore-Benutzerdaten.
                     fireStore.currentUserStore.observe(viewLifecycleOwner) { data ->
-                        fireStore.getWorkTimeListStore(it.uid)
-
-                        viewModel.loadUserMaterialList()
-                        if (data != null) {
-
-
-                            fireStore.currentTimWorkList.observe(viewLifecycleOwner) { list ->
-
-                                    Toast.makeText(
-                                        activity,
-                                        "Anmeldung war erfolgreich",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                    findNavController().navigate(R.id.homeFragment)
-
-                            }
+                        data?.let {
+                            fireStore.getWorkTimeListStore(user.uid)
+                            viewModel.loadUserMaterialList()
+                            Toast.makeText(
+                                activity,
+                                "Anmeldung war erfolgreich",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            // Navigiert zum Haupt-Fragment nach erfolgreichem Login.
+                            findNavController().navigate(R.id.homeFragment)
                         }
                     }
-
-
                 }
+
+                // Wenn nach 5 Sekunden kein Login-Erfolg erkannt wurde, wird eine Fehlermeldung angezeigt.
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (!fireBase.checkedLogin) {
                         binding.ibLogin.visibility = View.VISIBLE
@@ -116,22 +111,23 @@ class LogInFragment : Fragment() {
                             activity,
                             "Email oder Passwort falsch",
                             Toast.LENGTH_LONG
-                        )
-                            .show()
+                        ).show()
                     }
                 }, 5000)
             }
         }
     }
 
+    /**
+     * Konfiguriert bestimmte UI-Elemente, wenn das Fragment wieder im Vordergrund ist.
+     */
     override fun onResume() {
         super.onResume()
 
+        // Loggt den Benutzer erneut aus, wenn das Fragment wieder aufgerufen wird.
         fireBase.logout()
 
-
-        //Schlisse navBar wenn loginfragment wieder geöfnet wird
+        // Schließt die Navigationsleiste, wenn das LoginFragment erneut geöffnet wird.
         (activity as? MainActivity)?.closeNavigationBar()
     }
-
 }

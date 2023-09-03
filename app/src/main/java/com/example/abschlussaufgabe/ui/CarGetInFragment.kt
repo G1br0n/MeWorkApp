@@ -18,14 +18,21 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentCarGetInBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
-
+/**
+ * CarGetInFragment ermöglicht es Benutzern, durch Scannen eines QR-Codes Zugang zu einem Auto zu erhalten.
+ */
 class CarGetInFragment : Fragment() {
 
+    // Instanz des QR-Code-Scanners.
     private lateinit var codeScanner: CodeScanner
+    // Data Binding-Instanz für das zugehörige XML-Layout dieses Fragments.
     private lateinit var binding: FragmentCarGetInBinding
+    // Haupt-ViewModel für dieses Fragment.
     private val viewModel: MainViewModel by activityViewModels()
 
-
+    /**
+     * Wird aufgerufen, um die Benutzeroberfläche für das Fragment zu erstellen.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,37 +43,38 @@ class CarGetInFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Wird aufgerufen, nachdem die Benutzeroberfläche des Fragments erstellt wurde.
+     * Hier wird der QR-Code-Scanner konfiguriert und verschiedene UI-Interaktionen eingerichtet.
+     */
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-        if (viewModel.userData.carStatus){
+        // Wenn der Benutzer bereits Zugang zum Auto hat, navigiere direkt zum CarFragment.
+        if (viewModel.userData.carStatus) {
             findNavController().navigate(R.id.carFragment)
         }
 
-
+        // Initialisiere den QR-Code-Scanner.
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
 
         var id = 0
 
-        //QR Code decoder
         codeScanner = CodeScanner(activity, scannerView)
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
-                //löse bewust feller aus wenn die eingegebene ID kein zahl ist
                 try {
                     val text = it.text.toInt()
 
-                    //Spile sound ab wenn  qr geskent wurde
+                    // Spile einen Sound ab, wenn ein QR-Code gescannt wurde.
                     viewModel.playQrSound(context!!)
-
 
                     id = text
                     binding.etCarId.text =
                         Editable.Factory.getInstance().newEditable(text.toString())
 
-                //Fange den feller ab mit eine toast nachricht
+                    // Bei einem Fehler (z. B. wenn der gescannte Text keine Zahl ist) zeige eine Toast-Nachricht an.
                 } catch (ex: Exception) {
                     viewModel.playLockedSound(context!!)
                     Toast.makeText(
@@ -78,38 +86,38 @@ class CarGetInFragment : Fragment() {
             }
         }
 
-        //starte camera preview
+        // Starte die Kamera-Vorschau.
         codeScanner.startPreview()
 
+        // Bei einem Klick auf die Scanner-Ansicht, starte die Kamera-Vorschau erneut.
         binding.scannerView.setOnClickListener {
             codeScanner.startPreview()
         }
 
-        //Button empfangen wen er angeklickt  wird
+        // Bei einem Klick auf den "Einsteigen"-Button, aktualisiere den carStatus und navigiere zum CarFragment.
         binding.ibGetIn.setOnClickListener {
             try {
-
                 viewModel.userData.carStatus = true
                 findNavController().navigate(R.id.carFragment)
-
-
-
             } catch (ex: Exception) {
-                //Benachritige mit Toast über den feller
                 Toast.makeText(activity, "${ex.message}", Toast.LENGTH_LONG).show()
             }
-
-
         }
-
-
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
+     * Hier wird die Kamera-Vorschau erneut gestartet.
+     */
     override fun onResume() {
         super.onResume()
         codeScanner.startPreview()
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment pausiert wird.
+     * Hier werden Ressourcen des QR-Code-Scanners freigegeben.
+     */
     override fun onPause() {
         codeScanner.releaseResources()
         super.onPause()

@@ -13,47 +13,65 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
+/**
+ * Haupt-Fragment für die Arbeitserfassung des Benutzers.
+ */
 class WorkTimeFragment : Fragment() {
     private lateinit var binding: FragmentWorkTimeBinding
     private val viewModel: MainViewModel by activityViewModels()
 
-
+    /**
+     * Erstellt die View für das Fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        //FragmentContainerView 2 von 2 , zuständig für die neben fragmete für start stop fragment, arbeitet mit nav_time
+        // FragmentContainerView 2 von 2, zuständig für die Nebenfragmente für Start/Stop.
+        // Arbeitet mit nav_time.
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_work_time, container, false)
         return binding.root
     }
 
+    /**
+     * Wird aufgerufen, nachdem die View erstellt wurde.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//Inacktive buttons spilen loked sound ab und zeigen toasst nachricht an
-        binding.ibMeWorkTime.setOnClickListener{
+        // Klick auf den "MeWorkTime"-Button
+        // Spielt einen Klick-Sound ab und navigiert zum UserWorkTimeListFragment.
+        binding.ibMeWorkTime.setOnClickListener {
             viewModel.playClickSound(context!!)
             findNavController().navigate(R.id.userWorkTimeListFragment)
         }
-        binding.ibMeWorkPlan.setOnClickListener{
+
+        // Die folgenden Buttons sind derzeit inaktiv.
+        // Bei einem Klick darauf wird ein "Locked"-Sound abgespielt und eine Toast-Nachricht angezeigt.
+
+        binding.ibMeWorkPlan.setOnClickListener {
             Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
             viewModel.playLockedSound(context!!)
         }
-        binding.ibReportSick.setOnClickListener{
+
+        binding.ibReportSick.setOnClickListener {
             Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
             viewModel.playLockedSound(context!!)
         }
-        binding.imageButton10.setOnClickListener{
+
+        binding.imageButton10.setOnClickListener {
             Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
             viewModel.playLockedSound(context!!)
         }
-        binding.imageButton11.setOnClickListener{
+
+        binding.imageButton11.setOnClickListener {
             Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
             viewModel.playLockedSound(context!!)
         }
-        binding.imageButton12.setOnClickListener{
+
+        binding.imageButton12.setOnClickListener {
             Toast.makeText(requireContext(), "BUTTON INACTIVE", Toast.LENGTH_SHORT).show()
             viewModel.playLockedSound(context!!)
         }

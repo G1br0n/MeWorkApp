@@ -130,108 +130,124 @@
                 app:layout_constraintStart_toStartOf="@+id/checkBoxBup"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxBup" />
 
-            <EditText
+            <TextView
                 android:id="@+id/etHiB"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxHib"
-                app:layout_constraintEnd_toEndOf="@+id/tvDateInfo"
-                app:layout_constraintHorizontal_bias="0.776"
-                app:layout_constraintStart_toEndOf="@+id/checkBoxHib"
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
                 app:layout_constraintTop_toTopOf="@+id/checkBoxHib"
-                app:layout_constraintVertical_bias="0.0" />
+                android:visibility="gone"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/etHip"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
-                app:layout_constraintBottom_toBottomOf="@+id/checkBoxHip"
-                app:layout_constraintEnd_toEndOf="@+id/etHiB"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxHip" />
+                android:gravity="center"
 
-            <EditText
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxHip"
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxHip"
+                android:visibility="gone"/>
+
+            <TextView
                 android:id="@+id/etBe"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxBe"
-                app:layout_constraintEnd_toEndOf="@+id/etHiB"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxBe" />
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxBe"
+                android:visibility="gone"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/etSipo"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxSipo"
-                app:layout_constraintEnd_toEndOf="@+id/etHiB"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxSipo" />
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxSipo"
+                android:visibility="gone"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/etBm"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxBm"
-                app:layout_constraintEnd_toEndOf="@+id/etHiB"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxBm" />
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxBm"
+                android:visibility="gone"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/etSakre"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxSakra"
-                app:layout_constraintEnd_toEndOf="@+id/etHiB"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxSakra" />
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxSakra"
+                android:visibility="gone"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/etBup"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxBup"
-                app:layout_constraintEnd_toEndOf="@+id/etHiB"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxBup" />
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxBup"
+                android:visibility="gone"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/etPlPf"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxPlPf"
-                app:layout_constraintEnd_toEndOf="@+id/etHiB"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxPlPf" />
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxPlPf"
+                android:visibility="gone"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/etSas"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:background="@color/back_ground_item"
                 android:ems="10"
-                android:inputType="date"
+                android:gravity="center"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/checkBoxSaS"
-                app:layout_constraintEnd_toEndOf="@+id/etHiB"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxSaS" />
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxSaS"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/textView4"
@@ -245,21 +261,6 @@
                 app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="@+id/tvRegister"
                 app:layout_constraintTop_toBottomOf="@+id/tvRegister" />
-
-            <TextView
-                android:id="@+id/tvDateInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30sp"
-                android:layout_marginEnd="30sp"
-                android:text="Info: Datum eintragen im format Tag.Monat.Jahr(10.12.2023)"
-                android:textColor="#ED1111"
-                android:gravity="center"
-                app:layout_constraintBottom_toTopOf="@+id/etHiB"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                app:layout_constraintVertical_bias="0.243" />
 
 
             <Button
