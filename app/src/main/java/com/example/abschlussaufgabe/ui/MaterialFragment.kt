@@ -20,6 +20,7 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
 
 /**
+ * ## Information
  * Dieses Fragment zeigt eine Liste von Materialien an und bietet dem Benutzer verschiedene
  * Optionen zur Interaktion mit diesen Materialien.
  */
@@ -32,6 +33,7 @@ class MaterialFragment : Fragment() {
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Wird aufgerufen, wenn das Fragment erstmals erstellt wird.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +43,7 @@ class MaterialFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Erzeugt die Benutzeroberfläche des Fragments.
      */
     override fun onCreateView(
@@ -54,6 +57,7 @@ class MaterialFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Initialisiert UI-Elemente und Ereignishandler, nachdem die Ansicht erstellt wurde.
      */
     @SuppressLint("NotifyDataSetChanged")
@@ -103,11 +107,4 @@ class MaterialFragment : Fragment() {
         viewModel.loadUserMaterialList()
     }
 
-    /**
-     * Wird aufgerufen, wenn das Fragment fortgesetzt wird.
-     * Momentan hat es keine spezifischen Implementierungen.
-     */
-    override fun onResume() {
-        super.onResume()
-    }
 }

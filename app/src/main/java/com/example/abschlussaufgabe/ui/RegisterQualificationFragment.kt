@@ -15,6 +15,7 @@ import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
+ * ## Information
 * Ein Fragment zur Eingabe und Registrierung von Benutzerqualifikationen.
 */
 class RegisterQualificationFragment : Fragment() {
@@ -28,6 +29,7 @@ class RegisterQualificationFragment : Fragment() {
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Erstellt die View für das Fragment.
      */
     override fun onCreateView(
@@ -45,6 +47,7 @@ class RegisterQualificationFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Initialisiert die View, nachdem sie erstellt wurde.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

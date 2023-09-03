@@ -17,6 +17,7 @@ import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
+ * ## Information
  * Fragment zur Benutzerregistrierung.
  */
 class RegisterFragment : Fragment() {
@@ -28,6 +29,7 @@ class RegisterFragment : Fragment() {
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Erstellt die View für das Fragment.
      */
     override fun onCreateView(
@@ -40,6 +42,7 @@ class RegisterFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, nachdem die View erstellt wurde.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,6 +71,7 @@ class RegisterFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Aktualisiert die Benutzerdaten basierend auf den Eingabefeldern.
      *
      * @param user Das aktuelle UserTestDataModel-Objekt.

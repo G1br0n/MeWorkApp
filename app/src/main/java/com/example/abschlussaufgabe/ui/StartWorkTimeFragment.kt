@@ -20,6 +20,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 /**
+ * ## Information
  * Dieses Fragment dient zum Starten der Arbeitszeit des Benutzers.
  */
 class StartWorkTimeFragment : Fragment() {
@@ -30,6 +31,7 @@ class StartWorkTimeFragment : Fragment() {
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Erstellt die View für das Fragment.
      */
     override fun onCreateView(
@@ -43,6 +45,7 @@ class StartWorkTimeFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, nachdem die View erstellt wurde.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

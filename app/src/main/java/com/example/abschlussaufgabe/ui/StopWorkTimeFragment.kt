@@ -20,6 +20,7 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 /**
+ * ## Information
  * Dieses Fragment dient zum Stoppen der Arbeitszeit des Benutzers.
  */
 class StopWorkTimeFragment : Fragment() {
@@ -39,6 +40,7 @@ class StopWorkTimeFragment : Fragment() {
     private lateinit var runnable: Runnable
 
     /**
+     * ## Information
      * Erstellt die View für das Fragment.
      */
     override fun onCreateView(
@@ -53,6 +55,7 @@ class StopWorkTimeFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, nachdem die View erstellt wurde.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -94,6 +97,7 @@ class StopWorkTimeFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Startet einen Timer, der die verstrichene Arbeitszeit seit dem Startzeitpunkt anzeigt.
      */
     private fun startTimer(year: Int, month: Int, day: Int, hour: Int, min: Int, sek: Int) {
@@ -125,6 +129,7 @@ class StopWorkTimeFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Zeigt einen Dialog zur Bestätigung des Arbeitszeitendes.
      */
     private fun showConfirmationDialog() {

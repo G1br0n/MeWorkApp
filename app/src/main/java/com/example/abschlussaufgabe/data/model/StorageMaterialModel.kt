@@ -4,7 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Die Datenklasse `StorageMaterialModel` repräsentiert ein Material, das im Lager gespeichert ist.
+ * ## Information
+ * ### Die Datenklasse `StorageMaterialModel` repräsentiert ein Material, das im Lager gespeichert ist.
  *
  * Diese Datenklasse enthält Informationen über ein spezifisches Material, das im Lager vorhanden ist.
  *

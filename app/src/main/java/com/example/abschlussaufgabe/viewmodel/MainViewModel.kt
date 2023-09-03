@@ -34,9 +34,7 @@ import java.util.Calendar
 
 /**
  * ## Information
- * Haupt-ViewModel der App, verantwortlich für die Interaktion zwischen der Benutzeroberfläche und den Datenquellen.
- *
- * ###
+ * ### Haupt-ViewModel der App, verantwortlich für die Interaktion zwischen der Benutzeroberfläche und den Datenquellen.
  * ## Funktionen
  * - [loadBfPhotoList] - Holt eine Liste von Fotos aus der API.
  * - [loadUserMaterialList] - Lädt Benutzermaterialien und sortiert sie.
@@ -52,9 +50,12 @@ import java.util.Calendar
  * - [isValidEmail] - Überprüft, ob ein String ein gültiges E-Mail-Format hat.
  * - [isValidPassword] - Überprüft die Anforderungen eines Passworts.
  * - [internetCheck] - Überprüft, ob eine Internetverbindung vorhanden ist.
- * - [isInternetAvailable] - Bestimmt, ob eine aktive Internetverbindung besteht.
+ * - private [isInternetAvailable] - Bestimmt, ob eine aktive Internetverbindung besteht.
  */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    // Globale Variable zum Halten des MediaPlayer-Objekts, das zur Wiedergabe von Tönen verwendet wird.
+    private lateinit var mediaPlayer: MediaPlayer
 
     // Instanz der Materialdatenbank.
     var storageMaterialDatabase: StorageMaterialDatabase = getStorageMaterialDatabase(application)
@@ -107,6 +108,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * ## Information
      * Holt eine Liste von Fotos aus der API.
      */
     fun loadBfPhotoList() {
@@ -116,6 +118,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * ## Information
      * Lädt Benutzermaterialien und sortiert sie basierend auf Benutzer-IDs und Material-IDs.
      * Es werden zwei separate Listen erstellt:
      * - Eine Liste für PSA-Materialien (Persönliche Schutzausrüstung oder ähnliches, angenommen aufgrund der Material-ID-Prüfung)
@@ -156,7 +159,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    //mit der funktion überschreibe ich die daten in storage_material_table RoomData
+    /**
+     * ## Information
+     * ### Aktualisiert die Lokation eines bestimmten Lagermaterials und lädt anschließend die Liste der Lagermaterialien neu.
+     *
+     * Diese Methode nimmt die ID eines Lagermaterials und eine neue Lokations-ID als Parameter.
+     * Sie ruft die `updateStorageMaterial` Methode des zugehörigen Repositories auf, um die Lokation des
+     * Lagermaterials in der Datenbank zu aktualisieren. Nach der Aktualisierung wird die komplette Liste
+     * der Lagermaterialien neu geladen und die Benutzer-Materialliste durch die Methode `loadUserMaterialList` aktualisiert.
+     *
+     * @param id Die ID des zu aktualisierenden Lagermaterials.
+     * @param newLocationId Die neue Lokations-ID, die dem Lagermaterial zugewiesen werden soll.
+     */
     fun updateMaterialLocation(id: Int, newLocationId: String) {
         viewModelScope.launch {
             repository.updateStorageMaterial(id, newLocationId)
@@ -166,10 +180,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Überprüft, ob eine bestimmte Material-ID in der storageMaterialDataList vorhanden ist.
+     * ## Information
+     * ### Überprüft, ob ein Lagermaterial mit einer bestimmten ID in der `storageMaterialDataList` existiert.
      *
-     * @param id Die zu überprüfende Material-ID.
-     * @throws Exception Wenn die Material-ID nicht in der Liste gefunden wird.
+     * Diese Methode durchläuft alle Materialien in `storageMaterialDataList` und sucht nach einem
+     * Lagermaterial mit einer bestimmten ID. Wenn ein solches Material gefunden wird, wird es zu einer
+     * temporären Liste `checkIdList` hinzugefügt. Am Ende der Überprüfung wird überprüft, ob die `checkIdList`
+     * leer ist. Wenn sie leer ist, wird eine Ausnahme geworfen, um anzuzeigen, dass kein Material mit der
+     * gesuchten ID gefunden wurde.
+     *
+     * @param id Die zu überprüfende ID des Lagermaterials.
+     * @throws Exception Wenn kein Material mit der angegebenen ID gefunden wird.
      */
     fun checkMaterialId(id: Int) {
 
@@ -193,11 +214,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
-    // Globale Variable zum Halten des MediaPlayer-Objekts, das zur Wiedergabe von Tönen verwendet wird.
-    private lateinit var mediaPlayer: MediaPlayer
-
     /**
+     * ## Information
      * Spielt den QR-Sound ab.
      * @param context Kontext, der benötigt wird, um auf die Ressourcen zuzugreifen und den MediaPlayer zu initialisieren.
      */
@@ -213,6 +231,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * ## Information
      * Spielt den Klick-Sound ab.
      * @param context Kontext, der benötigt wird, um auf die Ressourcen zuzugreifen und den MediaPlayer zu initialisieren.
      */
@@ -228,6 +247,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * ## Information
      * Spielt den Action-Sound ab.
      * @param context Kontext, der benötigt wird, um auf die Ressourcen zuzugreifen und den MediaPlayer zu initialisieren.
      */
@@ -243,6 +263,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * ## Information
      * Spielt den Locked-Sound ab.
      * @param context Kontext, der benötigt wird, um auf die Ressourcen zuzugreifen und den MediaPlayer zu initialisieren.
      */
@@ -258,6 +279,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * ## Information
      * Spielt den Login-Sound ab.
      * @param context Kontext, der benötigt wird, um auf die Ressourcen zuzugreifen und den MediaPlayer zu initialisieren.
      */
@@ -273,9 +295,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Zeigt einen DatePickerDialog an, um ein Datum auszuwählen und in ein TextView zu setzen.
+     * ## Information
+     * ### Zeigt einen DatePickerDialog an und setzt das ausgewählte Datum als Text in den übergebenen TextView.
      *
-     * @param textView Das TextView, in das wo das ausgewählte Datum eingefügt wird.
+     * Diese Methode initialisiert und zeigt einen DatePickerDialog mit dem aktuellen Datum als Standardwert an.
+     * Nachdem der Benutzer ein Datum ausgewählt hat, wird dieses Datum im Format "Tag.Monat.Jahr" in den
+     * übergebenen TextView eingefügt.
+     *
+     * @param textView Der TextView, in den das ausgewählte Datum eingefügt werden soll.
+     * @param context Der Kontext, in dem der DatePickerDialog angezeigt wird (üblicherweise die Aktivität oder der Fragment-Kontext).
      */
     fun showDatePicker(textView: TextView, context: Context) {
         val calendar = Calendar.getInstance()
@@ -299,13 +327,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Holt den letzten bekannten GPS-Standort des Geräts. Wenn die Standortberechtigung nicht gewährt wurde,
-     * wird diese beim Benutzer angefordert.
+     * ## Information
+     * ### Ermittelt den letzten bekannten GPS-Standort des Geräts und ruft einen Callback mit diesen Informationen auf.
      *
-     * @param activity Die FragmentActivity-Instanz, in der diese Funktion aufgerufen wird. Wird verwendet,
-     *                 um auf Ressourcen und Dienste zuzugreifen.
-     * @param onLocationReceived Ein Callback, der aufgerufen wird, sobald der Standort erfolgreich abgerufen wurde.
-     *                           Es gibt eine Liste zurück mit zwei Double-Werten: Breitengrad und Längengrad.
+     * Die Methode versucht, den letzten bekannten Standort mithilfe des FusedLocationProviderClients zu erhalten.
+     * Wenn die Standortberechtigung nicht gewährt wurde, wird sie beim Benutzer angefordert.
+     * Nachdem der Standort erfolgreich abgerufen wurde, wird der bereitgestellte Callback `onLocationReceived` mit
+     * den GPS-Koordinaten (Breitengrad und Längengrad) aufgerufen.
+     *
+     * @param activity Die FragmentActivity, von der aus diese Methode aufgerufen wird und die für den Kontext und die
+     *                 Berechtigungsanfrage benötigt wird.
+     * @param onLocationReceived Ein Callback, der aufgerufen wird, sobald die GPS-Position erfolgreich ermittelt wurde.
+     *                           Er gibt eine Liste mit zwei Werten zurück: [Breitengrad, Längengrad].
      */
     fun getGPSLocation(activity: FragmentActivity, onLocationReceived: (List<Double>) -> Unit) {
 
@@ -343,7 +376,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Überprüft, ob der gegebene String ein gültiges E-Mail-Format hat.
+     * ## Informationen
+     * ### Überprüft, ob der gegebene String ein gültiges E-Mail-Format hat.
      *
      * Ein gültiges E-Mail-Format besteht aus:
      * 1. Ein oder mehrere Zeichen vor dem @-Zeichen, die Buchstaben, Zahlen, Punkte, Unterstriche, Prozent- oder Minuszeichen sein können.
@@ -363,7 +397,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Überprüft, ob das gegebene Passwort den Anforderungen entspricht.
+     * ## Information
+     * ### Überprüft, ob das gegebene Passwort den Anforderungen entspricht.
      *
      * Die Anforderungen für das Passwort sind:
      * 1. Es muss mindestens 6 Zeichen lang sein.
@@ -381,7 +416,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     /**
-     * Diese Funktion prüft, ob eine Internetverbindung verfügbar ist.
+     * ## Information
+     * ### Diese Funktion prüft, ob eine Internetverbindung verfügbar ist.
      * Wenn keine Internetverbindung vorhanden ist, wird eine Exception ausgelöst.
      *
      * @param context Kontext, um Zugriff auf das System Connectivity Service zu erhalten.
@@ -394,6 +430,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
+     * ## Information
      * Überprüft, ob eine aktive Internetverbindung vorhanden ist.
      *
      * @param context Kontext, um Zugriff auf das System Connectivity Service zu erhalten.

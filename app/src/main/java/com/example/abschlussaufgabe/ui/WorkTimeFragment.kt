@@ -14,6 +14,7 @@ import com.example.abschlussaufgabe.databinding.FragmentWorkTimeBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
+ * ## Information
  * Haupt-Fragment für die Arbeitserfassung des Benutzers.
  */
 class WorkTimeFragment : Fragment() {
@@ -21,6 +22,7 @@ class WorkTimeFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Erstellt die View für das Fragment.
      */
     override fun onCreateView(
@@ -36,6 +38,7 @@ class WorkTimeFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, nachdem die View erstellt wurde.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

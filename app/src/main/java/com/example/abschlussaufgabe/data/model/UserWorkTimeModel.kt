@@ -4,6 +4,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 /**
+ * ## Information
  * Die Datenklasse `UserWorkTimeModel` repräsentiert die Arbeitszeit eines Benutzers.
  *
  * @property userId Die ID des Benutzers.

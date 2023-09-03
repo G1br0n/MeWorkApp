@@ -23,6 +23,7 @@ import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 @Dao
 interface StorageMaterialDao {
     /**
+     * ## Information
      * Fügt ein Lagermaterial in die Datenbank ein oder aktualisiert es, falls bereits vorhanden.
      * @param storageMaterial Das einzufügende oder zu aktualisierende Lagermaterial.
      */
@@ -30,6 +31,7 @@ interface StorageMaterialDao {
     suspend fun insert(storageMaterial: StorageMaterialModel)
 
     /**
+     * ## Information
      * Fügt eine Liste von Lagermaterialien in die Datenbank ein oder bricht den Vorgang ab, wenn ein Konflikt auftritt.
      * @param storageMaterialList Die Liste der einzufügenden Lagermaterialien.
      */
@@ -37,6 +39,7 @@ interface StorageMaterialDao {
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>)
 
     /**
+     * ## Information
      * Aktualisiert die Lokations-ID eines Lagermaterials anhand der Material-ID.
      * @param materialId Die ID des Lagermaterials.
      * @param locationId Die neue Lokations-ID.
@@ -45,6 +48,7 @@ interface StorageMaterialDao {
     suspend fun updateStorage(materialId: Int, locationId: String)
 
     /**
+     * ## Information
      * Ruft alle Lagermaterialien aus der Datenbank ab.
      * @return List<StorageMaterialModel>.
      */
@@ -52,6 +56,7 @@ interface StorageMaterialDao {
     suspend fun getAll(): List<StorageMaterialModel>
 
     /**
+     * ## Information
      * Ruft ein Lagermaterial anhand seiner Material-ID ab.
      * @param materialId Die ID des gesuchten Lagermaterials.
      * @return Eine List<StorageMaterialModel> des gefundenen Lagermaterials.
@@ -60,12 +65,14 @@ interface StorageMaterialDao {
     suspend fun getById(materialId: Int): List<StorageMaterialModel>
 
     /**
+     * ## Information
      * Löscht alle Lagermaterialien aus der Datenbank.
      */
     @Query("DELETE FROM StorageMaterialModel")
     suspend fun deleteAll()
 
     /**
+     * ## Information
      * Ruft alle Lagermaterialien ab, die sich an einer bestimmten Lokation befinden.
      * @param userId Die ID der Lokation.
      * @return List<StorageMaterialModel>.
@@ -74,6 +81,7 @@ interface StorageMaterialDao {
     suspend fun getMaterialsByUserId(userId: String): List<StorageMaterialModel>
 
     /**
+     * ## Information
      * Ruft die Anzahl der Lagermaterialien in der Datenbank ab.
      * @return Int. Die Anzahl der Lagermaterialien.
      */

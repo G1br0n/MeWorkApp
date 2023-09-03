@@ -19,8 +19,9 @@ import com.example.abschlussaufgabe.databinding.FragmentMaterialPlacementBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
- * Dieses Fragment ist verantwortlich für das Platzieren von Materialien, indem es
- * QR-Codes scannt und die entsprechenden Informationen im ViewModel und der Datenbank verarbeitet.
+ * ## Information
+ * ### Dieses Fragment ist verantwortlich für das Platzieren von Materialien, indem es
+ * ### QR-Codes scannt und die entsprechenden Informationen im ViewModel und der Datenbank verarbeitet.
  */
 class MaterialPlacementFragment : Fragment() {
 
@@ -30,6 +31,7 @@ class MaterialPlacementFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Erzeugt die Benutzeroberfläche des Fragments.
      */
     override fun onCreateView(
@@ -43,6 +45,7 @@ class MaterialPlacementFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Initialisiert UI-Elemente und Ereignishandler, nachdem die Ansicht erstellt wurde.
      */
     @SuppressLint("NotifyDataSetChanged")
@@ -112,6 +115,7 @@ class MaterialPlacementFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, wenn das Fragment fortgesetzt wird.
      */
     override fun onResume() {
@@ -120,6 +124,7 @@ class MaterialPlacementFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, wenn das Fragment pausiert wird.
      */
     override fun onPause() {

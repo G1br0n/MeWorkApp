@@ -20,7 +20,9 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
 
 
-const val TAG = "HomeFragment"/**
+const val TAG = "HomeFragment"
+/**
+ * ## Information
  * HomeFragment repräsentiert den Hauptbildschirm der App nachdem sich der Benutzer angemeldet hat.
  * Es zeigt verschiedene Benutzerinformationen sowie Materialien und Qualifikationstests an.
  */
@@ -35,6 +37,7 @@ class HomeFragment : Fragment() {
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Wird aufgerufen, wenn das Fragment zum ersten Mal erstellt wird.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,7 @@ class HomeFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, um die Benutzeroberfläche für das Fragment zu erstellen.
      */
     override fun onCreateView(
@@ -58,8 +62,9 @@ class HomeFragment : Fragment() {
     }
 
     /**
-     * Wird aufgerufen, nachdem die Benutzeroberfläche des Fragments erstellt wurde.
-     * Hier werden Daten von Firestore abgerufen und verschiedene UI-Elemente konfiguriert.
+     * ## Information
+     * ### Wird aufgerufen, nachdem die Benutzeroberfläche des Fragments erstellt wurde.
+     * ### Hier werden Daten von Firestore abgerufen und verschiedene UI-Elemente konfiguriert.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -108,8 +113,9 @@ class HomeFragment : Fragment() {
     }
 
     /**
-     * Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
-     * Hier wird eine Liste von Fotos von der API geladen.
+     * ## Information
+     * ### Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
+     * ### Hier wird eine Liste von Fotos von der API geladen.
      */
     override fun onResume() {
         super.onResume()

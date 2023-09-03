@@ -11,29 +11,32 @@ import com.example.abschlussaufgabe.data.model.RailStationsPhotoModel
  * `ApiRepository` - Klasse, die Dateninteraktionen im Zusammenhang mit RailStationApi verwaltet.
  * ###
  * ## Funktionen
- * - [getBfPhotoList](#getbfphotolist): Verwendet den RailStationApi Service, um eine Liste von Bahnhofsfotos abzurufen und speichert ein zufälliges Foto davon.
+ * - [getBfPhotoList]: Verwendet den RailStationApi Service, um eine Liste von Bahnhofsfotos abzurufen und speichert ein zufälliges Foto davon.
  *
  * @param api Eine Instanz von RailStationApi, die Methoden zum Zugriff auf Bahnhof-bezogene APIs bereitstellt.
  */
 class ApiRepository(private val api: RailStationApi) {
 
     /**
-     * Eine private Mutable LiveData, die ein Modell von RailStationsPhotoModel speichert.
-     * Sie wird intern innerhalb der Klasse verwendet, um Daten zu aktualisieren.
+     * ## Information
+     * ### Eine private Mutable LiveData, die ein Modell von RailStationsPhotoModel speichert.
+     * ### Sie wird intern innerhalb der Klasse verwendet, um Daten zu aktualisieren.
      */
     private var _bfPhotoList = MutableLiveData<RailStationsPhotoModel>()
 
     /**
-     * Eine öffentliche LiveData, die Daten vom Typ RailStationsPhotoModel bereitstellt.
-     * Externe Klassen können diese LiveData beobachten, um auf Datenänderungen zu reagieren.
+     * ## Information
+     * ### Eine öffentliche LiveData, die Daten vom Typ RailStationsPhotoModel bereitstellt.
+     * ### Externe Klassen können diese LiveData beobachten, um auf Datenänderungen zu reagieren.
      */
     val bfPhotoList: LiveData<RailStationsPhotoModel>
         get() = _bfPhotoList
 
     /**
-     * Diese Funktion verwendet den RailStationApi Service, um eine Liste von Bahnhofsfotos abzurufen.
-     * Ein zufälliges Foto aus dieser Liste wird anschließend in _bfPhotoList gespeichert.
-     * Falls während des Abrufvorgangs ein Fehler auftritt, wird ein Fehlerprotokoll generiert.
+     * ## Information
+     * ### Diese Funktion verwendet den RailStationApi Service, um eine Liste von Bahnhofsfotos abzurufen.
+     * ### Ein zufälliges Foto aus dieser Liste wird anschließend in _bfPhotoList gespeichert.
+     * ### Falls während des Abrufvorgangs ein Fehler auftritt, wird ein Fehlerprotokoll generiert.
      */
     suspend fun getBfPhotoList() {
         try {

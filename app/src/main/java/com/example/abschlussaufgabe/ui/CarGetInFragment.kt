@@ -19,6 +19,7 @@ import com.example.abschlussaufgabe.databinding.FragmentCarGetInBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
+ * ## Information
  * CarGetInFragment ermöglicht es Benutzern, durch Scannen eines QR-Codes Zugang zu einem Auto zu erhalten.
  */
 class CarGetInFragment : Fragment() {
@@ -31,6 +32,7 @@ class CarGetInFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Wird aufgerufen, um die Benutzeroberfläche für das Fragment zu erstellen.
      */
     override fun onCreateView(
@@ -44,8 +46,9 @@ class CarGetInFragment : Fragment() {
     }
 
     /**
-     * Wird aufgerufen, nachdem die Benutzeroberfläche des Fragments erstellt wurde.
-     * Hier wird der QR-Code-Scanner konfiguriert und verschiedene UI-Interaktionen eingerichtet.
+     * ## Information
+     * ### Wird aufgerufen, nachdem die Benutzeroberfläche des Fragments erstellt wurde.
+     * ### Hier wird der QR-Code-Scanner konfiguriert und verschiedene UI-Interaktionen eingerichtet.
      */
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,8 +109,9 @@ class CarGetInFragment : Fragment() {
     }
 
     /**
-     * Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
-     * Hier wird die Kamera-Vorschau erneut gestartet.
+     * ## Information
+     * ### Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
+     * ### Hier wird die Kamera-Vorschau erneut gestartet.
      */
     override fun onResume() {
         super.onResume()
@@ -115,8 +119,9 @@ class CarGetInFragment : Fragment() {
     }
 
     /**
-     * Wird aufgerufen, wenn das Fragment pausiert wird.
-     * Hier werden Ressourcen des QR-Code-Scanners freigegeben.
+     * ## Information
+     * ### Wird aufgerufen, wenn das Fragment pausiert wird.
+     * ### Hier werden Ressourcen des QR-Code-Scanners freigegeben.
      */
     override fun onPause() {
         codeScanner.releaseResources()

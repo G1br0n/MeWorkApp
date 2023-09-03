@@ -12,15 +12,15 @@ const val TAG = "fireStoreTest"
 
 /**
  * ## Information
- * ViewModel-Klasse zur Interaktion mit Firebase Firestore.
+ * ### ViewModel-Klasse zur Interaktion mit Firebase Firestore.
  * Diese Klasse dient als Schnittstelle für alle Firestore-spezifischen Vorgänge.
  *
  * ###
  * ## Funktionen
  * - [addNewUserWorkTimeListStore] - Neue Arbeitszeitliste für den Benutzer im Firestore erstellen.
- * - [addNewUserDataStore] - Neue Benutzerdaten im Firestore speichern.
+ * - [addNewUserDataStore] - Neue Benutzerdaten im Firestore erstellen.
  * - [saveUserDataStore] - Aktualisierte Benutzerdaten im Firestore speichern.
- * - [saveUserWorkTimeLogStore] - Arbeitszeitliste eines Benutzers im Firestore speichern.
+ * - [saveUserWorkTimeLogStore] -Aktualisierte Arbeitszeitliste eines Benutzers im Firestore speichern.
  * - [getUserDataStore] - Benutzerdaten eines bestimmten Benutzers aus dem Firestore abrufen.
  * - [getWorkTimeListStore] - Arbeitszeitliste eines bestimmten Benutzers aus dem Firestore abrufen.
  *
@@ -55,6 +55,7 @@ class FireStoreViewModel : ViewModel() {
     private val db = Firebase.firestore
 
     /**
+     * ## Information
      * Funktion, um eine neue Arbeitszeitliste für den Benutzer im Firestore zu erstellen.
      *
      * @param newUserUid Benutzer-UID.
@@ -74,6 +75,7 @@ class FireStoreViewModel : ViewModel() {
     }
 
     /**
+     * ## Information
      * Funktion, um neue Benutzerdaten im Firestore zu speichern.
      *
      * @param userUid Benutzer-UID.
@@ -127,6 +129,7 @@ class FireStoreViewModel : ViewModel() {
     }
 
     /**
+     * ## Information
      * Funktion, um aktualisierte Benutzerdaten im Firestore zu speichern.
      *
      * @param userData Benutzerdatenmodell.
@@ -155,6 +158,7 @@ class FireStoreViewModel : ViewModel() {
     }
 
     /**
+     * ## Information
      * Funktion, um die Arbeitszeitliste eines Benutzers im Firestore zu speichern.
      *
      * @param workTimeLogList Arbeitszeitliste.
@@ -173,6 +177,7 @@ class FireStoreViewModel : ViewModel() {
     }
 
     /**
+     * ## Information
      * Funktion, um die Benutzerdaten eines bestimmten Benutzers aus dem Firestore abzurufen.
      *
      * @param userUid Benutzer-UID.
@@ -210,6 +215,7 @@ class FireStoreViewModel : ViewModel() {
     }
 
     /**
+     * ## Information
      * Funktion, um die Arbeitszeitliste eines bestimmten Benutzers aus dem Firestore abzurufen.
      *
      * @param userUid Benutzer-UID.

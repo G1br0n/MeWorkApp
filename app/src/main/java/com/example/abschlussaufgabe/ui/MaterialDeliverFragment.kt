@@ -19,6 +19,7 @@ import com.example.abschlussaufgabe.databinding.FragmentMaterialDeliverBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
+ * ## Information
  * Ein Fragment, das dem Benutzer erlaubt, Material durch das Scannen eines QR-Codes abzugeben.
  */
 class MaterialDeliverFragment : Fragment() {
@@ -29,6 +30,7 @@ class MaterialDeliverFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Erzeugt die Benutzeroberfläche des Fragments.
      */
     override fun onCreateView(
@@ -41,6 +43,7 @@ class MaterialDeliverFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Initialisiert UI-Elemente und Ereignishandler, nachdem die Ansicht erstellt wurde.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -95,6 +98,7 @@ class MaterialDeliverFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, wenn das Fragment fortgesetzt wird.
      */
     override fun onResume() {
@@ -103,6 +107,7 @@ class MaterialDeliverFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, wenn das Fragment pausiert wird.
      */
     override fun onPause() {

@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.data.model
 
 /**
+ * ## Information
  * Die Datenklasse `WorkRunModel` repräsentiert Informationen über einen Arbeitslauf.
  *
  * @property latitude Die Breitengradkoordinate des Arbeitslaufs.

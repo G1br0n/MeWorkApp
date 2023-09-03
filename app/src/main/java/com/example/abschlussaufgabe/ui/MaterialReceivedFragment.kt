@@ -20,6 +20,7 @@ import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
+ * ## Information
  * Dieses Fragment ist für das Scannen von QR-Codes zuständig und
  * verarbeitet die gescannte Information, um das Material zu verwalten.
  */
@@ -31,6 +32,7 @@ class MaterialReceivedFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Wird aufgerufen, um die Benutzeroberfläche des Fragments zu erstellen.
      */
     @SuppressLint("NotifyDataSetChanged")
@@ -45,6 +47,7 @@ class MaterialReceivedFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, um die Benutzeroberfläche des Fragments zu erstellen, nachdem die
      * View erstellt wurde.
      */
@@ -113,6 +116,7 @@ class MaterialReceivedFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, wenn das Fragment fortgesetzt wird.
      */
     override fun onResume() {
@@ -122,6 +126,7 @@ class MaterialReceivedFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, wenn das Fragment pausiert wird.
      */
     override fun onPause() {

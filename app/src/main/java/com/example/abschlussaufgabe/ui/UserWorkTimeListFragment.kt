@@ -18,6 +18,7 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 val TAG1 = "fragmentWorkTimeList"
 
 /**
+ * ## Information
  * Fragment, das die Arbeitszeitliste eines Benutzers anzeigt.
  */
 class UserWorkTimeListFragment : Fragment() {
@@ -28,6 +29,7 @@ class UserWorkTimeListFragment : Fragment() {
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Initialisierung vor Erstellung der View.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,7 @@ class UserWorkTimeListFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Erstellt die View für das Fragment.
      */
     override fun onCreateView(
@@ -54,6 +57,7 @@ class UserWorkTimeListFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Wird aufgerufen, nachdem die View erstellt wurde.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,6 +75,7 @@ class UserWorkTimeListFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Zusätzliche Logik bei Wiederaufnahme des Fragments (derzeit leer).
      */
     override fun onResume() {
@@ -78,6 +83,7 @@ class UserWorkTimeListFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Berechnet die gesamte Arbeitszeit in Stunden, Minuten und Sekunden.
      */
     private fun hourCounter(logList: MutableList<String>): String {

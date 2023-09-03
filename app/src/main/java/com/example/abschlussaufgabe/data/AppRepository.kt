@@ -10,8 +10,7 @@ import com.example.abschlussaufgabe.data.model.UserTestDataModel
 
 /**
  * ## Information
- *
- * `AppRepository` - Repository-Klasse, die als Zwischenschicht zwischen der Datenbank und der UI dient.
+ * ### `AppRepository` - Repository-Klasse, die als Zwischenschicht zwischen der Datenbank und der UI dient.
  * Hier werden Datenbank-Operationen ausgeführt und Daten für die UI bereitgestellt.
  * ###
  * ## Funktionen
@@ -47,6 +46,7 @@ class AppRepository(
     }
 
     /**
+     * ## Information
      * Funktion, die fest definierte Lagermaterialdaten lädt.
      */ fun loadStorageMaterial() {
         _storageMaterialGroundList.value = listOf(
@@ -122,6 +122,7 @@ class AppRepository(
     }
 
     /**
+     * ## Information
      * Fügt alle Lagermaterialien in die Datenbank ein.
      */
     suspend fun insertAll(storageMaterialList: List<StorageMaterialModel>) {
@@ -133,6 +134,7 @@ class AppRepository(
     }
 
     /**
+     * ## Information
      * Holt alle Lagermaterialdaten aus der Datenbank.
      * @return Liste von Lagermaterialdaten.
      */
@@ -146,6 +148,7 @@ class AppRepository(
     }
 
     /**
+     * ## Information
      * Aktualisiert den Standort eines bestimmten Materials.
      */
     suspend fun updateStorageMaterial(materialId: Int, userId: String) {

@@ -12,8 +12,7 @@ import com.google.firebase.auth.FirebaseUser
 
 /**
  * ## Information
- * `FireBaseAuthViewModel`: Eine ViewModel-Klasse für die Firebase-Authentifizierung.
- *
+ * ### `FireBaseAuthViewModel`: Eine ViewModel-Klasse für die Firebase-Authentifizierung.
  * Diese Klasse verwaltet die Firebase-Authentifizierungsoperationen wie Registrierung, Anmeldung und Abmeldung.
  * ###
  * ## Funktionen
@@ -39,6 +38,7 @@ class FireBaseAuthViewModel : ViewModel() {
         get() = _currentUserBase
 
     /**
+     * ## Information
      * Funktion zur Registrierung eines neuen Benutzers mit Firebase Authentication.
      *
      * @param context Kontext für die Erstellung von Toast-Meldungen.
@@ -87,6 +87,7 @@ class FireBaseAuthViewModel : ViewModel() {
     }
 
     /**
+     * ## Information
      * Funktion zum Einloggen eines Benutzers mit Firebase Authentication.
      *
      * @param email E-Mail-Adresse des Benutzers.
@@ -110,6 +111,7 @@ class FireBaseAuthViewModel : ViewModel() {
     }
 
     /**
+     * ## Information
      * Funktion zum Abmelden des aktuellen Benutzers von Firebase Authentication.
      */
     fun logout() {

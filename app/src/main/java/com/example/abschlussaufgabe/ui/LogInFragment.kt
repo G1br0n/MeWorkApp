@@ -19,8 +19,9 @@ import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
- * LogInFragment repräsentiert ein Benutzeroberflächen-Element, in dem sich Benutzer anmelden können.
- * Es bietet auch die Möglichkeit, zum Registrierungsbildschirm zu navigieren.
+ * ## Information
+ * ### LogInFragment repräsentiert ein Benutzeroberflächen-Element, in dem sich Benutzer anmelden können.
+ * ### Es bietet auch die Möglichkeit, zum Registrierungsbildschirm zu navigieren.
  */
 class LogInFragment : Fragment() {
 
@@ -33,6 +34,7 @@ class LogInFragment : Fragment() {
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**
+     * ## Information
      * Wird aufgerufen, um die Benutzeroberfläche für das Fragment zu erstellen.
      */
     override fun onCreateView(
@@ -50,6 +52,7 @@ class LogInFragment : Fragment() {
     }
 
     /**
+     * ## Information
      * Konfiguriert UI-Interaktionen und -Logik nach der Erstellung der Ansicht.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -149,6 +152,7 @@ class LogInFragment : Fragment() {
 
 
     /**
+     * ## Information
      * Konfiguriert bestimmte UI-Elemente, wenn das Fragment wieder im Vordergrund ist.
      */
     override fun onResume() {

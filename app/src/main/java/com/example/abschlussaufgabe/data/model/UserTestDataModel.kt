@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.data.model
 
 /**
+ * ## Information
  * Die Datenklasse `UserTestDataModel` repräsentiert Testbenutzerdaten.
  *
  * Diese Datenklasse enthält Informationen über Testbenutzer, einschließlich Benutzer-ID, E-Mail,

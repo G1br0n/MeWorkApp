@@ -4,7 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Die Datenklasse `UserMaterialModel` repräsentiert Materialinformationen eines Benutzers.
+ * ## Information
+ * ### Die Datenklasse `UserMaterialModel` repräsentiert Materialinformationen eines Benutzers.
  *
  * Diese Datenklasse enthält Informationen über ein Material, einschließlich Material-ID, Name und
  * Standort-ID.
