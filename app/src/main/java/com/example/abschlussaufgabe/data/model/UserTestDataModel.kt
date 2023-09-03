@@ -1,3 +1,5 @@
+package com.example.abschlussaufgabe.data.model
+
 /**
  * Die Datenklasse `UserTestDataModel` repräsentiert Testbenutzerdaten.
  *

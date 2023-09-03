@@ -130,15 +130,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _userMaterialList.value = materialList
 
         }
+    }
 
-
-        //mit der funktion überschreibe ich die daten in storage_material_table RoomData
-        fun updateMaterialLocation(id: Int, newLocationId: String) {
-            viewModelScope.launch {
-                repository.updateStorageMaterial(id, newLocationId)
-                _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank()
-                loadUserMaterialList()
-            }
+    //mit der funktion überschreibe ich die daten in storage_material_table RoomData
+    fun updateMaterialLocation(id: Int, newLocationId: String) {
+        viewModelScope.launch {
+            repository.updateStorageMaterial(id, newLocationId)
+            _storageMaterialDataList.value = repository.getAllStorageMaterialFromDataBank()
+            loadUserMaterialList()
         }
     }
 
@@ -170,7 +169,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             throw Exception("ID befindet sich nicht in der liste")
         }
     }
-
 
 
     // Globale Variable zum Halten des MediaPlayer-Objekts, das zur Wiedergabe von Tönen verwendet wird.
@@ -250,7 +248,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         // Startet die Wiedergabe.
         mediaPlayer.start()
     }
-
 
 
     /**
