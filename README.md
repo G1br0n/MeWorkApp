@@ -68,17 +68,17 @@ Die `MainViewModel` ist die Hauptaktivität der App und verwaltet die Hauptnavig
 
 Die App enthält auch einige zusätzliche Features, um die Benutzererfahrung zu verbessern:
 
-- **Hauptnavigation**: Die App verwendet die `bottomNavBar`, um die Hauptnavigation durch verschiedene Fragmente zu ermöglichen.
-- **GPS-Standortverfolgung**: ist eine Funktion in Android, mit der genauen geografischen Standort eines Geräts verfolg werden können. Im Kontext auf das Projekts  könnte die GPS-Ortungsverfolgung in verschiedenen Szenarien verwendet werden.
-- **QR-Code-Scanner**: QR-Code-Scanner ermöglicht es Benutzern die Material-ID zu scannen, wenn Materialien empfangen,plziert oder abgegeben werden
-- **Kalender-Picker**: Ermöglicht es den Benutzern, aus dem Kalender ein bestimmtes Datum auszuwählen.
-- **Time Picker**: Ermöglicht es den Benutzern, eine genaue Uhrzeit auszuwählen
-- **AlertDialog**: Die AlertDialog-Komponente wird in Android verwendet, um Pop-up-Dialoge anzuzeigen, die dem Benutzer zusätzliche Informationen, Warnungen, Bestätigungen oder Eingabemöglichkeiten bieten können
-- **API-Zugriff**: Die App kann Bahnhofsfotos von einer externen API abrufen und anzeigen.
-- **Lokale Datenbank**: Die App verwendet eine lokale Datenbank, um Materialinformationen und andere Daten zu speichern.
-- **Klick-Sounds**: Die App spielt Klick-Sounds ab, wenn der Benutzer in der Hauptnavigation navigiert.
-- **RecyclerView**: Ermöglicht dynamische Listen von Elementen anzuzeigen und bietet eine bessere Kontrolle über die Ansichtswiederverwendung
-- **Flexbox**: Ermöglicht Elemente flexibel in Zeilen oder Spalten anzuordnen und ihre Größen dynamisch anzupassen, um den verfügbaren Platz optimal zu nutzen.
+- **`Hauptnavigation`**: Die App verwendet die `bottomNavBar`, um die Hauptnavigation durch verschiedene Fragmente zu ermöglichen.
+- **`GPS-Standortverfolgung`**: ist eine Funktion in Android, mit der genauen geografischen Standort eines Geräts verfolg werden können. Im Kontext auf das Projekts  könnte die GPS-Ortungsverfolgung in verschiedenen Szenarien verwendet werden.
+- **`QR-Code-Scanner`**: QR-Code-Scanner ermöglicht es Benutzern die Material-ID zu scannen, wenn Materialien empfangen,plziert oder abgegeben werden
+- **`Kalender-Picker`**: Ermöglicht es den Benutzern, aus dem Kalender ein bestimmtes Datum auszuwählen.
+- **`Time Picker`**: Ermöglicht es den Benutzern, eine genaue Uhrzeit auszuwählen
+- **`AlertDialog`**: Die AlertDialog-Komponente wird in Android verwendet, um Pop-up-Dialoge anzuzeigen, die dem Benutzer zusätzliche Informationen, Warnungen, Bestätigungen oder Eingabemöglichkeiten bieten können
+- **`API-Zugriff`**: Die App kann Bahnhofsfotos von einer externen API abrufen und anzeigen.
+- **`Lokale Datenbank`**: Die App verwendet eine lokale Datenbank, um Materialinformationen und andere Daten zu speichern.
+- **`Klick-Sounds`**: Die App spielt Klick-Sounds ab, wenn der Benutzer in der Hauptnavigation navigiert.
+- **`RecyclerView`**: Ermöglicht dynamische Listen von Elementen anzuzeigen und bietet eine bessere Kontrolle über die Ansichtswiederverwendung
+- **`Flexbox`**: Ermöglicht Elemente flexibel in Zeilen oder Spalten anzuordnen und ihre Größen dynamisch anzupassen, um den verfügbaren Platz optimal zu nutzen.
 
 ---
 
