@@ -34,7 +34,7 @@ Willkommen zur Dokumentation der Abschlussaufgabe App! Hier finden Sie detaillie
 
 Im Paket `data.model` werden verschiedene Datenmodelle definiert, die in der App verwendet werden. Diese Modelle repräsentieren wichtige Aspekte der App-Daten.
 
-- `UserTestDataModel`: Ein Datenmodell, das Testbenutzerinformationen wie Name, Passwort, Qualifikationen und mehr enthält.
+- `UserDataModel`: Ein Datenmodell, das Testbenutzerinformationen wie Name, Passwort, Qualifikationen und mehr enthält.
 - `UserWorkTimeModel`: Ein Datenmodell, das die Arbeitszeit eines Benutzers mit Datum, Start- und Endzeit speichert.
 - `StorageMaterialModel`: Ein Datenmodell, das Informationen über Materialien im Lager mit IDs und Standorten enthält.
 - `RailStationsPhotoModel`: Ein Datenmodell, das den Titel und die Foto-URL eines Bahnhofsfotos speichert.
