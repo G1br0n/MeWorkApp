@@ -8,8 +8,7 @@ Willkommen zur Dokumentation der Abschlussaufgabe App! Hier finden Sie detaillie
 1. [Datenmodelle](#datenmodelle)
 2. [Lokale Datenbank](#lokale-datenbank)
 3. [API-Zugriff](#api-zugriff)
-4. [MainViewModel](#mainactivity)
-5. [Zusätzliche Features](#zusätzliche-features)
+4. [Zusätzliche Features](#zusätzliche-features)
 
 ---
 
@@ -52,15 +51,6 @@ Das Paket `data` enthält auch den Code für den Zugriff auf externe APIs.
 
 - `ApiService`: Ein Interface, das die API-Endpunkte definiert, um Bahnhofsfotos abzurufen.
 - `RailStationApi`: Ein Singleton-Objekt, das den API-Dienst mithilfe von Retrofit erstellt.
-
-## MainViewModel
-
-Die `MainViewModel` ist die Hauptaktivität der App und verwaltet die Hauptnavigation und Benutzeroberfläche.
-
-- Navigationsleiste: Die `bottomNavBar` verwaltet die Hauptnavigation der App.
-- MediaPlayer: Ein `MediaPlayer` wird verwendet, um Klick-Sounds für Navigationsaktionen abzuspielen.
-
-
 
 
 
