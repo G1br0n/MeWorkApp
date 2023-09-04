@@ -46,6 +46,7 @@ class RegisterQualificationFragment : Fragment() {
         return binding.root
     }
 
+
     /**
      * ## Information
      * Initialisiert die View, nachdem sie erstellt wurde.
