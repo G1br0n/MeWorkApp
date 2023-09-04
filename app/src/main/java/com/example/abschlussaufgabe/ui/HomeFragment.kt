@@ -111,14 +111,4 @@ class HomeFragment : Fragment() {
             Log.e(TAG, "ImageViewSetOnClick: ${ ex.message!! }")
         }
     }
-
-    /**
-     * ## Information
-     * ### Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
-     * ### Hier wird eine Liste von Fotos von der API geladen.
-     */
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadBfPhotoList()
-    }
 }

@@ -18,10 +18,10 @@ import com.example.abschlussaufgabe.data.model.UserTestDataModel
  * - [insertAll]: Fügt eine Liste von Lagermaterialien in die Datenbank ein.
  * - [getAllStorageMaterialFromDataBank]: Holt alle Lagermaterialdaten aus der Datenbank.
  * - [updateStorageMaterial]: Aktualisiert den Standort eines bestimmten Materials.
- * - [insert (Nicht genutzt)]: Fügt ein einzelnes Lagermaterial in die Datenbank ein.
- * - [getCountStorageMaterial (Nicht genutzt): Gibt die Anzahl der Lagermaterialien in der Datenbank zurück.
- * - [getMaterialsByUserIdLiveData (Nicht genutzt)]
- * - [getById (Nicht genutzt)]: Holt Lagermaterialdaten nach Material-ID.
+ * - (Nicht genutzt) [insert]: Fügt ein einzelnes Lagermaterial in die Datenbank ein.
+ * - (Nicht genutzt) [getCountStorageMaterial]: Gibt die Anzahl der Lagermaterialien in der Datenbank zurück.
+ * - (Nicht genutzt) [getMaterialsByUserIdLiveData] : Holt Lagermaterialdaten nach User-ID.
+ * - (Nicht genutzt) [getById]: Holt Lagermaterialdaten nach Material-ID.
  */
 class AppRepository(
     private val storageMaterialDatabase: StorageMaterialDatabase

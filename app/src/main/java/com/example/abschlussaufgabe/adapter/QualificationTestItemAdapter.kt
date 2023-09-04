@@ -8,6 +8,7 @@ import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.example.abschlussaufgabe.databinding.QualificationItemBinding
 
 /**
+ * ## Information
  * Ein Adapter, um Qualifikationstestdaten in einem RecyclerView darzustellen.
  *
  * @param dataset Datenmodell, das Benutzerqualifikationen enthält.
@@ -17,6 +18,7 @@ class QualificationTestItemAdapter(
 ) : RecyclerView.Adapter<QualificationTestItemAdapter.ItemViewHolder>() {
 
     /**
+     * ## Information
      * ViewHolder für einzelne Einträge im RecyclerView.
      * Hier wird die Datenbindung für die Darstellung des Eintrags genutzt.
      */
@@ -28,6 +30,7 @@ class QualificationTestItemAdapter(
     var valueList = loadValues(keysList, dataset)
 
     /**
+     * ## Information
      * Erstellt einen neuen ViewHolder für den RecyclerView.
      *
      * @param parent Der ViewGroup, in den der neue View eingefügt wird.
@@ -40,6 +43,7 @@ class QualificationTestItemAdapter(
     }
 
     /**
+     * ## Information
      * Gibt die Gesamtanzahl der Einträge in der Datenliste zurück.
      *
      * @return Anzahl der Einträge in der Datenliste.
@@ -49,6 +53,7 @@ class QualificationTestItemAdapter(
     }
 
     /**
+     * ## Information
      * Verknüpft die Daten des Qualifikationseintrags mit dem ViewHolder.
      *
      * @param holder Der ViewHolder, der den Inhalt des Eintrags darstellen soll.
@@ -60,6 +65,7 @@ class QualificationTestItemAdapter(
     }
 
     /**
+     * ## Information
      * Hilfsfunktion, um die Werte aus dem Benutzerqualifikationsdatensatz zu laden.
      *
      * @param keysList Liste von Schlüsseln, für die Werte geladen werden sollen.

@@ -8,6 +8,7 @@ import com.example.abschlussaufgabe.data.model.StorageMaterialModel
 import com.example.abschlussaufgabe.databinding.MaterialItemBinding
 
 /**
+ * ## Information
  * Ein Adapter für das RecyclerView, der Materialien aus einem Lager in der App darstellt.
  *
  * @param itemList Eine Liste von Material-Objekten, die angezeigt werden sollen.
@@ -15,12 +16,14 @@ import com.example.abschlussaufgabe.databinding.MaterialItemBinding
 class MaterialItemAdapter(private val itemList: List<StorageMaterialModel>) : RecyclerView.Adapter<MaterialItemAdapter.ItemViewHolder>() {
 
     /**
+     * ## Information
      * Ein ViewHolder, der für die Darstellung eines einzelnen Material-Objekts in der Liste verantwortlich ist.
      * Er verwendet das MaterialItemBinding für die Datenbindung, um die Darstellung des Objekts zu steuern.
      */
     class ItemViewHolder(val binding: MaterialItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     /**
+     * ## Information
      * Erzeugt einen neuen ViewHolder, der für die Darstellung eines einzelnen Eintrags im RecyclerView verantwortlich ist.
      *
      * @param parent Der ViewGroup, in den der neue View eingefügt wird.
@@ -34,6 +37,7 @@ class MaterialItemAdapter(private val itemList: List<StorageMaterialModel>) : Re
     }
 
     /**
+     * ## Information
      * Befüllt den ViewHolder mit Daten aus der Liste basierend auf der angegebenen Position.
      *
      * @param holder Der ViewHolder, der den Inhalt des Eintrags anzeigen soll.
@@ -47,6 +51,7 @@ class MaterialItemAdapter(private val itemList: List<StorageMaterialModel>) : Re
     }
 
     /**
+     * ## Information
      * Gibt die Gesamtanzahl der Einträge in der Liste zurück.
      *
      * @return Anzahl der Einträge in der Materialliste.
