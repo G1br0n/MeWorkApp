@@ -8,7 +8,7 @@ Willkommen zur Dokumentation der Abschlussaufgabe App! Hier finden Sie detaillie
 1. [Datenmodelle](#datenmodelle)
 2. [Lokale Datenbank](#lokale-datenbank)
 3. [API-Zugriff](#api-zugriff)
-4. [MainActivity](#mainactivity)
+4. [MainViewModel](#mainactivity)
 5. [Zusätzliche Features](#zusätzliche-features)
 
 ---
@@ -28,7 +28,7 @@ Willkommen zur Dokumentation der Abschlussaufgabe App! Hier finden Sie detaillie
 
 ![App Screenshot](app/src/main/res/drawable/readme_image7.png)
 
-
+---
 
 ## Datenmodelle
 
@@ -53,21 +53,32 @@ Das Paket `data` enthält auch den Code für den Zugriff auf externe APIs.
 - `ApiService`: Ein Interface, das die API-Endpunkte definiert, um Bahnhofsfotos abzurufen.
 - `RailStationApi`: Ein Singleton-Objekt, das den API-Dienst mithilfe von Retrofit erstellt.
 
-## MainActivity
+## MainViewModel
 
-Die `MainActivity` ist die Hauptaktivität der App und verwaltet die Hauptnavigation und Benutzeroberfläche.
+Die `MainViewModel` ist die Hauptaktivität der App und verwaltet die Hauptnavigation und Benutzeroberfläche.
 
 - Navigationsleiste: Die `bottomNavBar` verwaltet die Hauptnavigation der App.
 - MediaPlayer: Ein `MediaPlayer` wird verwendet, um Klick-Sounds für Navigationsaktionen abzuspielen.
+
+
+
+
 
 ## Zusätzliche Features
 
 Die App enthält auch einige zusätzliche Features, um die Benutzererfahrung zu verbessern:
 
 - **Hauptnavigation**: Die App verwendet die `bottomNavBar`, um die Hauptnavigation durch verschiedene Fragmente zu ermöglichen.
+- **GPS-Standortverfolgung**: ist eine Funktion in Android, mit der genauen geografischen Standort eines Geräts verfolg werden können. Im Kontext auf das Projekts  könnte die GPS-Ortungsverfolgung in verschiedenen Szenarien verwendet werden.
+- **QR-Code-Scanner**: QR-Code-Scanner ermöglicht es Benutzern die Material-ID zu scannen, wenn Materialien empfangen,plziert oder abgegeben werden
+- **Kalender-Picker**: Ermöglicht es den Benutzern, aus dem Kalender ein bestimmtes Datum auszuwählen.
+- **Time Picker**: Ermöglicht es den Benutzern, eine genaue Uhrzeit auszuwählen
+- **AlertDialog**: Die AlertDialog-Komponente wird in Android verwendet, um Pop-up-Dialoge anzuzeigen, die dem Benutzer zusätzliche Informationen, Warnungen, Bestätigungen oder Eingabemöglichkeiten bieten können
 - **API-Zugriff**: Die App kann Bahnhofsfotos von einer externen API abrufen und anzeigen.
 - **Lokale Datenbank**: Die App verwendet eine lokale Datenbank, um Materialinformationen und andere Daten zu speichern.
 - **Klick-Sounds**: Die App spielt Klick-Sounds ab, wenn der Benutzer in der Hauptnavigation navigiert.
+- **RecyclerView**: Ermöglicht dynamische Listen von Elementen anzuzeigen und bietet eine bessere Kontrolle über die Ansichtswiederverwendung
+- **Flexbox**: Ermöglicht Elemente flexibel in Zeilen oder Spalten anzuordnen und ihre Größen dynamisch anzupassen, um den verfügbaren Platz optimal zu nutzen.
 
 ---
 
