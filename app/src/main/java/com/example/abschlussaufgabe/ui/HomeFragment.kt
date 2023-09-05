@@ -14,7 +14,6 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.MaterialItemAdapter
 import com.example.abschlussaufgabe.adapter.QualificationTestItemAdapter
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
-import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -33,7 +32,6 @@ class HomeFragment : Fragment() {
 
     // ViewModels, die für verschiedene Daten- und UI-Operationen innerhalb dieses Fragments verwendet werden.
     private val viewModel: MainViewModel by activityViewModels()
-    private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**

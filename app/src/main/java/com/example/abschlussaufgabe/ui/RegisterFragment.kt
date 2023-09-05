@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.example.abschlussaufgabe.databinding.FragmentRegisterBinding
-import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
@@ -25,7 +24,6 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
 
     private val viewModel: MainViewModel by activityViewModels()
-    private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**

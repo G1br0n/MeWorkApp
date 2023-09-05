@@ -13,6 +13,7 @@ import android.net.NetworkCapabilities
 import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -39,24 +40,27 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 /**
- * ## Information
- * ### Haupt-ViewModel der App, verantwortlich für die Interaktion zwischen der Benutzeroberfläche und den Datenquellen.
- * ## Funktionen
- * - [loadBfPhotoList] - Holt eine Liste von Fotos aus der API.
- * - [loadUserMaterialList] - Lädt Benutzermaterialien und sortiert sie.
- * - [updateMaterialLocation] - Aktualisiert den Ort des Materials in der Room-Datenbank.
- * - [checkMaterialId] - Überprüft das Vorhandensein einer Material-ID in der Liste.
- * - [playQrSound] - Spielt den QR-Sound ab.
- * - [playClickSound] - Spielt den Klick-Sound ab.
- * - [playActionSound] - Spielt den Action-Sound ab.
- * - [playLockedSound] - Spielt den Locked-Sound ab.
- * - [playLogInSound] - Spielt den Login-Sound ab.
- * - [showDatePicker] - Zeigt einen DatePickerDialog.
- * - [getGPSLocation] - Holt den letzten bekannten GPS-Standort des Geräts.
- * - [isValidEmail] - Überprüft, ob ein String ein gültiges E-Mail-Format hat.
- * - [isValidPassword] - Überprüft die Anforderungen eines Passworts.
- * - [internetCheck] - Überprüft, ob eine Internetverbindung vorhanden ist.
- * - private [isInternetAvailable](#isInternetAvailable) - Bestimmt, ob eine aktive Internetverbindung besteht.
+ * ## Inhaltsverzeichnis
+ *
+ * ### Information
+ * - Haupt-ViewModel der App: Verantwortlich für die Interaktion zwischen der Benutzeroberfläche und den Datenquellen.
+ *
+ * ### Funktionen
+ * - [loadBfPhotoList]: Holt eine Liste von Fotos aus der API.
+ * - [loadUserMaterialList]: Lädt Benutzermaterialien und sortiert sie.
+ * - [updateMaterialLocation]: Aktualisiert den Ort des Materials in der Room-Datenbank.
+ * - [checkMaterialId]): Überprüft das Vorhandensein einer Material-ID in der Liste.
+ * - [playQrSound]: Spielt den QR-Sound ab.
+ * - [playClickSound]: Spielt den Klick-Sound ab.
+ * - [playActionSound]: Spielt den Action-Sound ab.
+ * - [playLockedSound]: Spielt den Locked-Sound ab.
+ * - [playLogInSound]: Spielt den Login-Sound ab.
+ * - [showDatePicker]: Zeigt einen DatePickerDialog.
+ * - [getGPSLocation]: Holt den letzten bekannten GPS-Standort des Geräts.
+ * - [isValidEmail]: Überprüft, ob ein String ein gültiges E-Mail-Format hat.
+ * - [isValidPassword]: Überprüft die Anforderungen eines Passworts.
+ * - [internetCheck]: Überprüft, ob eine Internetverbindung vorhanden ist.
+ * - [isInternetAvailable]: Bestimmt, ob eine aktive Internetverbindung besteht.
  */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -525,5 +529,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return id.toString()
     }
 
+
+    /**
+     * ## Information
+     * ### Konfiguriert das Verhalten einer CheckBox in Bezug auf einen zugehörigen TextView.
+     * Wenn die CheckBox aktiviert ist, wird der TextView sichtbar und sein Text wird zu
+     * [userQualification] hinzugefügt. Wenn die CheckBox deaktiviert ist, wird der TextView
+     * unsichtbar und der entsprechende Eintrag wird aus [userQualification] entfernt.
+     *
+     * @param checkBox Die zu konfigurierende CheckBox.
+     * @param textView Der zugehörige TextView, dessen Sichtbarkeit und Textinhalt
+     *                 basierend auf dem Zustand der CheckBox geändert wird.
+     */
+    fun setupCheckbox(checkBox: CheckBox, textView: TextView, userQualification: MutableMap<String, String>) {
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                textView.visibility = View.VISIBLE
+                userQualification[checkBox.text.toString()] = textView.text.toString()
+            } else {
+                textView.visibility = View.GONE
+                userQualification.remove(checkBox.text.toString())
+            }
+        }
+    }
 
 }

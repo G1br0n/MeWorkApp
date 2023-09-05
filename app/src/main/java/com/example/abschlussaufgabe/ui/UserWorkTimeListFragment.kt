@@ -11,7 +11,6 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.UserWorkTimeListAdapter
 import com.example.abschlussaufgabe.data.model.UserTestDataModel
 import com.example.abschlussaufgabe.databinding.FragmentUserWorkTimeListBinding
-import com.example.abschlussaufgabe.viewmodel.FireBaseAuthViewModel
 import com.example.abschlussaufgabe.viewmodel.FireStoreViewModel
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
@@ -25,7 +24,6 @@ class UserWorkTimeListFragment : Fragment() {
     private lateinit var binding: FragmentUserWorkTimeListBinding
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var userData: UserTestDataModel
-    private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
 
     /**
