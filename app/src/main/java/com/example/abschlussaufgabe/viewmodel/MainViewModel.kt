@@ -10,8 +10,11 @@ import android.location.Location
 import android.media.MediaPlayer
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.text.Editable
 import android.util.Log
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -19,6 +22,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.CodeScannerView
+import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.ApiRepository
 import com.example.abschlussaufgabe.data.AppRepository
@@ -50,12 +56,15 @@ import java.util.Calendar
  * - [isValidEmail] - Überprüft, ob ein String ein gültiges E-Mail-Format hat.
  * - [isValidPassword] - Überprüft die Anforderungen eines Passworts.
  * - [internetCheck] - Überprüft, ob eine Internetverbindung vorhanden ist.
- * - private [isInternetAvailable] - Bestimmt, ob eine aktive Internetverbindung besteht.
+ * - private [isInternetAvailable](#isInternetAvailable) - Bestimmt, ob eine aktive Internetverbindung besteht.
  */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // Globale Variable zum Halten des MediaPlayer-Objekts, das zur Wiedergabe von Tönen verwendet wird.
     private lateinit var mediaPlayer: MediaPlayer
+
+    //Private variable für qr Scaner
+    lateinit var codeScanner: CodeScanner
 
     // Instanz der Materialdatenbank.
     var storageMaterialDatabase: StorageMaterialDatabase = getStorageMaterialDatabase(application)
@@ -435,6 +444,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      *
      * @param context Kontext, um Zugriff auf das System Connectivity Service zu erhalten.
      * @return `true`, wenn eine aktive Internetverbindung vorhanden ist, sonst `false`.
+     *
      */
     private fun isInternetAvailable(context: Context): Boolean {
         // Hole sich den ConnectivityManager aus dem Kontext, um den Netzwerkstatus abzufragen.
@@ -457,4 +467,63 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             else -> false
         }
     }
+
+
+    /**
+     * ## Information
+     * ### Initialisiert und startet den QR-Code-Scanner, um eine Material-ID zu scannen.
+     *
+     * Diese Funktion setzt den QR-Code-Scanner auf das bereitgestellte [view]-Objekt
+     * und startet den Scanvorgang. Bei einem erfolgreichen Scan wird versucht,
+     * die gescannte ID als Ganzzahl zu interpretieren und der bereitgestellte
+     * [textView] aktualisiert. Wenn der Scan fehlschlägt oder der gescannte
+     * Text nicht in eine Ganzzahl konvertiert werden kann, wird ein Fehlersound
+     * abgespielt und ein Toast-Nachricht angezeigt.
+     *
+     * @param view Das View-Objekt, das den Scanner enthält.
+     * @param activity Die zugehörige [FragmentActivity], in der diese Funktion aufgerufen wird.
+     * @param context Der Kontext, der für verschiedene UI-Operationen verwendet wird.
+     * @param textView Das TextView-Objekt, das aktualisiert wird, wenn ein gültiger Scan erkannt wird.
+     *
+     * @return Die gescannte Material-ID als Zeichenkette, oder "0" wenn der Scan fehlschlägt.
+     */
+    fun getQrCodeScan (view: View,activity: FragmentActivity, context: Context, textView: TextView): String{
+
+        // Findet das CodeScannerView-Element in der bereitgestellten View
+        val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
+
+        // Initialwert der gescannten ID
+        var id = 0
+
+        // Erstellt ein neues CodeScanner-Objekt mit der angegebenen Activity und dem scannerView
+        codeScanner = CodeScanner(activity, scannerView)
+
+        // Definiert, was passieren soll, sobald ein QR-Code erkannt wurde
+        codeScanner.decodeCallback = DecodeCallback {
+            // Führt den folgenden Code im Haupt-Thread aus, um UI-Operationen sicher durchzuführen
+            activity.runOnUiThread {
+                try {
+                    // Versucht, den gescannten Text in eine Integer-Zahl zu konvertieren
+                    val materialId = it.text.toInt()
+
+                    // Spielt den QR-Code-Scan-Sound ab
+                    playQrSound(context)
+
+                    // Speichert die gescannte ID
+                    id = materialId
+
+                    // Aktualisiert den übergebenen TextView mit der gescannten ID
+                    textView.text = Editable.Factory.getInstance().newEditable(materialId.toString())
+                } catch (ex: Exception) {
+                    // Wenn der gescannte Text keine gültige Zahl ist oder ein anderer Fehler auftritt, wird dieser Block ausgeführt
+                    playLockedSound(context)
+                    Toast.makeText(activity, "Die Id darf nur aus zahlen bestähen", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+        // Gibt die gescannte ID als String zurück, oder "0" wenn der Scan nicht erfolgreich war
+        return id.toString()
+    }
+
+
 }

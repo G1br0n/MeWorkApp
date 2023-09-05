@@ -3,7 +3,6 @@ package com.example.abschlussaufgabe.ui
 // Importe der notwendigen Bibliotheken und Klassen
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.CodeScannerView
-import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentMaterialReceivedBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
@@ -52,53 +49,27 @@ class MaterialReceivedFragment : Fragment() {
      * View erstellt wurde.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
-        val activity = requireActivity()
-        var id = 0
 
-        // Initialisierung des QR-Code-Scanners
-        codeScanner = CodeScanner(activity, scannerView)
-        codeScanner.decodeCallback = DecodeCallback {
-            activity.runOnUiThread {
-                try {
-                    // Versuche, den gescannten Text in eine Zahl umzuwandeln
-                    val text = it.text.toInt()
+        // Extrahiert die ID aus dem QR scaner in TextView
+        var id = viewModel.getQrCodeScan(view,activity!!,context!!,binding.etMaterialId)
 
-                    // Abspielen eines Sounds, wenn QR-Code gescannt wurde
-                    viewModel.playQrSound(context!!)
+        // Startet die Kamera-Vorschau
+        viewModel.codeScanner.startPreview()
 
-                    id = text
-                    // Setzen des gescannten Texts in ein Eingabefeld
-                    binding.etMaterialId.text = Editable.Factory.getInstance().newEditable(text.toString())
-                } catch (ex: Exception) {
-                    // Abspielen eines Fehler-Sounds
-                    viewModel.playLockedSound(context!!)
-
-                    // Anzeigen einer Fehlermeldung, wenn der gescannte Code nicht nur Zahlen enthält
-                    Toast.makeText(activity, "Die Id darf nur aus zahlen bestähen", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-
-        // Starten der Kamera-Vorschau
-        codeScanner.startPreview()
-
-        // Listener, um die Kamera-Vorschau erneut zu starten, wenn auf die Ansicht geklickt wird
+        // Wird aufgerufen, wenn der Scanner-Bereich angeklickt wird
         binding.scannerView.setOnClickListener {
-            codeScanner.startPreview()
+            viewModel.codeScanner.startPreview()
         }
 
         // Listener für den "Empfangen"-Button
         binding.ibReceived.setOnClickListener {
             try {
-                // Holen der ID aus dem Eingabefeld
-                id = binding.etMaterialId.text.toString().toInt()
 
                 // Überprüfung, ob die ID in einer Liste vorhanden ist
-                viewModel.checkMaterialId(id)
+                viewModel.checkMaterialId(id.toInt())
 
                 // Aktualisierung der Materialposition in der Datenbank
-                viewModel.updateMaterialLocation(id, viewModel.userData.userUid)
+                viewModel.updateMaterialLocation(id.toInt(), viewModel.userData.userUid)
 
                 // Abspielen eines Aktions-Sounds
                 viewModel.playActionSound(context!!)

@@ -2,7 +2,6 @@ package com.example.abschlussaufgabe.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.CodeScannerView
-import com.budiyev.android.codescanner.DecodeCallback
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentMaterialPlacementBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
@@ -50,51 +47,28 @@ class MaterialPlacementFragment : Fragment() {
      */
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
-        val activity = requireActivity()
-        var id = 0
-
-        // Initialisierung des QR-Code-Scanners
-        codeScanner = CodeScanner(activity, scannerView)
-        codeScanner.decodeCallback = DecodeCallback {
-            activity.runOnUiThread {
-                try {
-                    // Versucht, den gescannten Text in eine Zahl umzuwandeln
-                    val text = it.text.toInt()
-
-                    // Spielt einen Sound ab, wenn ein QR-Code gescannt wurde
-                    viewModel.playQrSound(context!!)
-
-                    id = text
-                    binding.etMaterialId.text = Editable.Factory.getInstance().newEditable(text.toString())
-                } catch (ex: Exception) {
-                    // Spielt einen Fehler-Sound ab
-                    viewModel.playLockedSound(context!!)
-                    Toast.makeText(activity, "Die Id darf nur aus zahlen bestähen", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
+        // Extrahiert die ID aus dem QR scaner in TextView
+        var id = viewModel.getQrCodeScan(view,activity!!,context!!,binding.etMaterialId)
 
         // Startet die Kamera-Vorschau
-        codeScanner.startPreview()
+        viewModel.codeScanner.startPreview()
 
-        // Event-Listener, um die Kamera-Vorschau erneut zu starten, wenn auf den Scanner geklickt wird
+        // Wird aufgerufen, wenn der Scanner-Bereich angeklickt wird
         binding.scannerView.setOnClickListener {
-            codeScanner.startPreview()
+            viewModel.codeScanner.startPreview()
         }
 
         // Event-Listener für den Platzierungs-Button
         binding.ibPlace.setOnClickListener {
             try {
-                // Extrahiert die ID und SAP-Nummer aus den Eingabefeldern
-                id = binding.etMaterialId.text.toString().toInt()
+                // Extrahiert AP-Nummer aus den Eingabefeldern
                 val sapNumber = binding.etSapNumber.text.toString().toInt()
 
                 // Überprüft, ob die ID in der Liste ist
-                viewModel.checkMaterialId(id)
+                viewModel.checkMaterialId(id.toInt())
 
                 // Aktualisiert die Position des Materials in der Datenbank
-                viewModel.updateMaterialLocation(id, sapNumber.toString())
+                viewModel.updateMaterialLocation(id.toInt(), sapNumber.toString())
 
                 // Lädt die Benutzer-Materialliste aus der Datenbank
                 viewModel.loadUserMaterialList()
@@ -120,7 +94,7 @@ class MaterialPlacementFragment : Fragment() {
      */
     override fun onResume() {
         super.onResume()
-        codeScanner.startPreview()
+        viewModel.codeScanner.startPreview()
     }
 
     /**
@@ -129,7 +103,7 @@ class MaterialPlacementFragment : Fragment() {
      */
     override fun onPause() {
         // Gibt Ressourcen des Scanners frei
-        codeScanner.releaseResources()
+        viewModel.codeScanner.releaseResources()
         super.onPause()
     }
 }
