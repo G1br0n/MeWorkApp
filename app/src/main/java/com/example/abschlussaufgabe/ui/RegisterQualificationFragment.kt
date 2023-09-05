@@ -67,7 +67,6 @@ class RegisterQualificationFragment : Fragment() {
         viewModel.setupCheckbox(binding.checkBoxSaS, binding.etSas, userQualification)
         viewModel.setupCheckbox(binding.checkBoxPlPf, binding.etPlPf, userQualification)
 
-
         // Hinzufügen von Listeners für Datums-Eingabefelder, um DatePickerDialog anzuzeigen.
         binding.etHiB.setOnClickListener { viewModel.showDatePicker(binding.etHiB, context!!) }
         binding.etHip.setOnClickListener { viewModel.showDatePicker(binding.etHip, context!!) }
@@ -86,36 +85,45 @@ class RegisterQualificationFragment : Fragment() {
 
         // Listener für den Registrierungsabschluss-Button
         binding.butRegEnd.setOnClickListener {
-
             // Aktualisiere die Qualifikationsdaten basierend auf den Eingabewerten.
-            for (key in userQualification.keys) {
-                if (key == "Hib") { userQualification[key] = binding.etHiB.text.toString() }
-                if (key == "Hip") { userQualification[key] = binding.etHip.text.toString() }
-                if (key == "BE") { userQualification[key] = binding.etBe.text.toString() }
-                if (key == "Sipo") { userQualification[key] = binding.etSipo.text.toString() }
-                if (key == "BM") { userQualification[key] = binding.etBm.text.toString() }
-                if (key == "Sakra") { userQualification[key] = binding.etSakre.text.toString() }
-                if (key == "BuP") { userQualification[key] = binding.etBup.text.toString() }
-                if (key == "PlPf") { userQualification[key] = binding.etPlPf.text.toString() }
-                if (key == "SaS") { userQualification[key] = binding.etSas.text.toString() }
-            }
-            try {
-                // Versuche, den Benutzer mit den eingegebenen Daten zu registrieren.
-                fireBase.register(
-                    context!!,
-                    userData.email,
-                    userData.password,
-                    userData.firstName,
-                    userData.lastName,
-                    userData.baNumber,
-                    userQualification,
-                )
 
-                // Navigiere zum Login-Fragment nach erfolgreicher Registrierung.
-                findNavController().navigate(R.id.logInFragment)
-            } catch (ex: Exception) {
-                // Hier könnte man einen Fehler loggen oder dem Benutzer eine Nachricht anzeigen.
+            // Erstelle eine Zuordnung von Schlüsseln zu den zugehörigen EditText-Bindings.
+            val keyToEditTextBinding = mapOf(
+                "Hib" to binding.etHiB,
+                "Hip" to binding.etHip,
+                "BE" to binding.etBe,
+                "Sipo" to binding.etSipo,
+                "BM" to binding.etBm,
+                "Sakra" to binding.etSakre,
+                "BuP" to binding.etBup,
+                "PlPf" to binding.etPlPf,
+                "SaS" to binding.etSas
+            )
+
+            // Iteriere über alle Schlüssel in userQualification.
+            for (key in userQualification.keys) {
+                keyToEditTextBinding[key]?.let {
+                    userQualification[key] = it.text.toString()
+                }
             }
+        }
+        // Versuche, den Benutzer mit den eingegebenen Daten zu registrieren.
+        try {
+            fireBase.register(
+                context!!,
+                userData.email,
+                userData.password,
+                userData.firstName,
+                userData.lastName,
+                userData.baNumber,
+                userQualification,
+            )
+
+            // Navigiere zum Login-Fragment nach erfolgreicher Registrierung.
+            findNavController().navigate(R.id.logInFragment)
+        } catch (ex: Exception) {
+            // Hier könnte man einen Fehler loggen oder dem Benutzer eine Nachricht anzeigen.
         }
     }
 }
+
