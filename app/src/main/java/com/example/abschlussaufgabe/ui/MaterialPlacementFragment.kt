@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.budiyev.android.codescanner.CodeScanner
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentMaterialPlacementBinding
 import com.example.abschlussaufgabe.viewmodel.MainViewModel
@@ -23,7 +22,6 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 class MaterialPlacementFragment : Fragment() {
 
     // Deklaration von Klassenvariablen für den QR-Code-Scanner, Datenbindung und ViewModel
-    private lateinit var codeScanner: CodeScanner
     private lateinit var binding: FragmentMaterialPlacementBinding
     private val viewModel: MainViewModel by activityViewModels()
 

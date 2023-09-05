@@ -24,7 +24,6 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 class MaterialReceivedFragment : Fragment() {
 
     // Deklaration von Mitgliedervariablen für den CodeScanner, Datenbindung und ViewModel
-    private lateinit var codeScanner: CodeScanner
     private lateinit var binding: FragmentMaterialReceivedBinding
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -93,7 +92,7 @@ class MaterialReceivedFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // Fortsetzen der Kamera-Vorschau, wenn das Fragment fortgesetzt wird
-        codeScanner.startPreview()
+        viewModel.codeScanner.startPreview()
     }
 
     /**
@@ -102,7 +101,7 @@ class MaterialReceivedFragment : Fragment() {
      */
     override fun onPause() {
         // Freigeben von Ressourcen, wenn das Fragment pausiert wird
-        codeScanner.releaseResources()
+        viewModel.codeScanner.releaseResources()
         super.onPause()
     }
 }
