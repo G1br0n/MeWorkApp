@@ -40,12 +40,10 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 /**
- * ## Inhaltsverzeichnis
- *
- * ### Information
+ * ## Information
  * - Haupt-ViewModel der App: Verantwortlich für die Interaktion zwischen der Benutzeroberfläche und den Datenquellen.
  *
- * ### Funktionen
+ * ## Funktionen
  * - [loadBfPhotoList]: Holt eine Liste von Fotos aus der API.
  * - [loadUserMaterialList]: Lädt Benutzermaterialien und sortiert sie.
  * - [updateMaterialLocation]: Aktualisiert den Ort des Materials in der Room-Datenbank.
@@ -62,6 +60,7 @@ import java.util.Calendar
  * - [internetCheck]: Überprüft, ob eine Internetverbindung vorhanden ist.
  * - [isInternetAvailable]: Bestimmt, ob eine aktive Internetverbindung besteht.
  */
+
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // Globale Variable zum Halten des MediaPlayer-Objekts, das zur Wiedergabe von Tönen verwendet wird.
