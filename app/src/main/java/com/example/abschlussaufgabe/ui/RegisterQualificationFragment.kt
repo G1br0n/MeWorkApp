@@ -16,8 +16,8 @@ import com.example.abschlussaufgabe.viewmodel.MainViewModel
 
 /**
  * ## Information
- * Ein Fragment zur Eingabe und Registrierung von Benutzerqualifikationen.
- */
+* Ein Fragment zur Eingabe und Registrierung von Benutzerqualifikationen.
+*/
 class RegisterQualificationFragment : Fragment() {
 
     // Datenbindung für dieses Fragment.
@@ -27,9 +27,6 @@ class RegisterQualificationFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private val fireBase: FireBaseAuthViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
-
-    private var userQualification = mutableMapOf<String, String>()
-    var userData = fireStore.userData
 
     /**
      * ## Information
@@ -56,74 +53,189 @@ class RegisterQualificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Aufruf der Methode für jede CheckBox:
-        viewModel.setupCheckbox(binding.checkBoxHib, binding.etHiB, userQualification)
-        viewModel.setupCheckbox(binding.checkBoxHip, binding.etHip, userQualification)
-        viewModel.setupCheckbox(binding.checkBoxSipo, binding.etSipo, userQualification)
-        viewModel.setupCheckbox(binding.checkBoxBm, binding.etBm, userQualification)
-        viewModel.setupCheckbox(binding.checkBoxSakra, binding.etSakre, userQualification)
-        viewModel.setupCheckbox(binding.checkBoxBup, binding.etBup, userQualification)
-        viewModel.setupCheckbox(binding.checkBoxBe, binding.etBe, userQualification)
-        viewModel.setupCheckbox(binding.checkBoxSaS, binding.etSas, userQualification)
-        viewModel.setupCheckbox(binding.checkBoxPlPf, binding.etPlPf, userQualification)
+        var userQualification = mutableMapOf<String, String>()
+        var userData = fireStore.userData
+
+        // Listeners für Checkboxen. Abhängig von der Auswahl wird ein Textfeld ein- oder ausgeblendet.
+        // Wenn die Checkbox aktiviert ist, wird das entsprechende Textfeld angezeigt und die Qualifikation hinzugefügt.
+        // Wenn die Checkbox deaktiviert ist, wird das Textfeld verborgen und die Qualifikation entfernt.
+        binding.checkBoxHib.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.checkBoxHib.isChecked) {
+                binding.etHiB.visibility = View.VISIBLE
+                userQualification[binding.checkBoxHib.text.toString()] =
+                    binding.etHiB.text.toString()
+            } else {
+                binding.etHiB.visibility = View.GONE
+                userQualification.remove(binding.checkBoxHib.text.toString())
+            }
+        }
+        binding.checkBoxHip.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.etHip.visibility = View.VISIBLE
+                userQualification[binding.checkBoxHip.text.toString()] =
+                    binding.etHip.text.toString()
+
+            } else {
+                binding.etHip.visibility = View.GONE
+                userQualification.remove(binding.checkBoxHip.text.toString())
+            }
+
+        }
+        binding.checkBoxSipo.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.etSipo.visibility = View.VISIBLE
+                userQualification[binding.checkBoxSipo.text.toString()] =
+                    binding.etSipo.text.toString()
+            } else {
+                binding.etSipo.visibility = View.GONE
+                userQualification.remove(binding.checkBoxSipo.text.toString())
+            }
+        }
+        binding.checkBoxBm.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.etBm.visibility = View.VISIBLE
+                userQualification[binding.checkBoxBm.text.toString()] = binding.etBm.text.toString()
+            } else {
+                binding.etBm.visibility = View.GONE
+                userQualification.remove(binding.checkBoxBm.text.toString())
+            }
+        }
+        binding.checkBoxSakra.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.etSakre.visibility = View.VISIBLE
+                userQualification[binding.checkBoxSakra.text.toString()] =
+                    binding.etSakre.text.toString()
+            } else {
+                binding.etSakre.visibility = View.GONE
+                userQualification.remove(binding.checkBoxSakra.text.toString())
+            }
+        }
+        binding.checkBoxBup.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.etBup.visibility = View.VISIBLE
+                userQualification[binding.checkBoxBup.text.toString()] =
+                    binding.etBup.text.toString()
+            } else {
+                binding.etBup.visibility = View.GONE
+                userQualification.remove(binding.checkBoxBup.text.toString())
+            }
+        }
+        binding.checkBoxBe.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.etBe.visibility = View.VISIBLE
+                userQualification[binding.checkBoxBe.text.toString()] = binding.etBe.text.toString()
+            } else {
+                binding.etBe.visibility = View.GONE
+                userQualification.remove(binding.checkBoxBe.text.toString())
+            }
+        }
+        binding.checkBoxSaS.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.etSas.visibility = View.VISIBLE
+                userQualification[binding.checkBoxSaS.text.toString()] =
+                    binding.etSas.text.toString()
+            } else {
+                binding.etSas.visibility = View.GONE
+                userQualification.remove(binding.checkBoxSaS.text.toString())
+            }
+        }
+        binding.checkBoxPlPf.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.etPlPf.visibility = View.VISIBLE
+                userQualification[binding.checkBoxPlPf.text.toString()] =
+                    binding.etPlPf.text.toString()
+            } else {
+                binding.etPlPf.visibility = View.GONE
+                userQualification.remove(binding.checkBoxPlPf.text.toString())
+            }
+        }
 
         // Hinzufügen von Listeners für Datums-Eingabefelder, um DatePickerDialog anzuzeigen.
-        binding.etHiB.setOnClickListener { viewModel.showDatePicker(binding.etHiB, context!!) }
-        binding.etHip.setOnClickListener { viewModel.showDatePicker(binding.etHip, context!!) }
-        binding.etSipo.setOnClickListener { viewModel.showDatePicker(binding.etSipo, context!!) }
-        binding.etBm.setOnClickListener { viewModel.showDatePicker(binding.etBm, context!!) }
-        binding.etSakre.setOnClickListener { viewModel.showDatePicker(binding.etSakre, context!!) }
-        binding.etBup.setOnClickListener { viewModel.showDatePicker(binding.etBup, context!!) }
-        binding.etBe.setOnClickListener { viewModel.showDatePicker(binding.etBe, context!!) }
-        binding.etSas.setOnClickListener { viewModel.showDatePicker(binding.etSas, context!!) }
-        binding.etPlPf.setOnClickListener { viewModel.showDatePicker(binding.etPlPf, context!!) }
+        binding.etHiB.setOnClickListener {
+            viewModel.showDatePicker(binding.etHiB, context!!)
+        }
+        binding.etHip.setOnClickListener {
+            viewModel.showDatePicker(binding.etHip, context!!)
+        }
+        binding.etSipo.setOnClickListener {
+            viewModel.showDatePicker(binding.etSipo, context!!)
+        }
+        binding.etBm.setOnClickListener {
+            viewModel.showDatePicker(binding.etBm, context!!)
+        }
+        binding.etSakre.setOnClickListener {
+            viewModel.showDatePicker(binding.etSakre, context!!)
+        }
+        binding.etBup.setOnClickListener {
+            viewModel.showDatePicker(binding.etBup, context!!)
+        }
+        binding.etBe.setOnClickListener {
+            viewModel.showDatePicker(binding.etBe, context!!)
+        }
+        binding.etSas.setOnClickListener {
+            viewModel.showDatePicker(binding.etSas, context!!)
+        }
+        binding.etPlPf.setOnClickListener {
+            viewModel.showDatePicker(binding.etPlPf, context!!)
+        }
 
         // Listener für den Zurück-Button
         binding.butBac.setOnClickListener {
             findNavController().navigateUp()
         }
-
         // Listener für den Registrierungsabschluss-Button
         binding.butRegEnd.setOnClickListener {
+
             // Aktualisiere die Qualifikationsdaten basierend auf den Eingabewerten.
-
-            // Erstelle eine Zuordnung von Schlüsseln zu den zugehörigen EditText-Bindings.
-            val keyToEditTextBinding = mapOf(
-                "Hib" to binding.etHiB,
-                "Hip" to binding.etHip,
-                "BE" to binding.etBe,
-                "Sipo" to binding.etSipo,
-                "BM" to binding.etBm,
-                "Sakra" to binding.etSakre,
-                "BuP" to binding.etBup,
-                "PlPf" to binding.etPlPf,
-                "SaS" to binding.etSas
-            )
-
-            // Iteriere über alle Schlüssel in userQualification.
             for (key in userQualification.keys) {
-                keyToEditTextBinding[key]?.let {
-                    userQualification[key] = it.text.toString()
+                if (key == "Hib") {
+                    userQualification[key] = binding.etHiB.text.toString()
+                }
+                if (key == "Hip") {
+                    userQualification[key] = binding.etHip.text.toString()
+                }
+                if (key == "BE") {
+                    userQualification[key] = binding.etBe.text.toString()
+                }
+                if (key == "Sipo") {
+                    userQualification[key] = binding.etSipo.text.toString()
+                }
+                if (key == "BM") {
+                    userQualification[key] = binding.etBm.text.toString()
+                }
+                if (key == "Sakra") {
+                    userQualification[key] = binding.etSakre.text.toString()
+                }
+                if (key == "BuP") {
+                    userQualification[key] = binding.etBup.text.toString()
+                }
+                if (key == "PlPf") {
+                    userQualification[key] = binding.etPlPf.text.toString()
+                }
+                if (key == "SaS") {
+                    userQualification[key] = binding.etSas.text.toString()
                 }
             }
-        }
-        // Versuche, den Benutzer mit den eingegebenen Daten zu registrieren.
-        try {
-            fireBase.register(
-                context!!,
-                userData.email,
-                userData.password,
-                userData.firstName,
-                userData.lastName,
-                userData.baNumber,
-                userQualification,
-            )
+            try {
+                // Versuche, den Benutzer mit den eingegebenen Daten zu registrieren.
+                fireBase.register(
+                    context!!,
+                    userData.email,
+                    userData.password,
+                    userData.firstName,
+                    userData.lastName,
+                    userData.baNumber,
+                    userQualification,
+                )
 
-            // Navigiere zum Login-Fragment nach erfolgreicher Registrierung.
-            findNavController().navigate(R.id.logInFragment)
-        } catch (ex: Exception) {
-            // Hier könnte man einen Fehler loggen oder dem Benutzer eine Nachricht anzeigen.
+                // Navigiere zum Login-Fragment nach erfolgreicher Registrierung.
+                findNavController().navigate(R.id.logInFragment)
+            } catch (ex: Exception) {
+                // Hier könnte man einen Fehler loggen oder dem Benutzer eine Nachricht anzeigen.
+            }
         }
     }
-}
 
+
+
+}
