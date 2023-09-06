@@ -51,18 +51,21 @@ class RegisterFragment : Fragment() {
 
         // Button, um zum vorherigen Bildschirm zurückzukehren.
         binding.butBack.setOnClickListener {
+            viewModel.playClickSound(context!!)
             findNavController().navigateUp()
         }
 
         // Button, um zum nächsten Bildschirm (Registrierungsqualifikation) zu navigieren.
         binding.butNext.setOnClickListener {
             try {
+                viewModel.playClickSound(context!!)
                 viewModel.isValidEmail(binding.etEmail.text.toString().replace(" ",""))
                 viewModel.isValidPassword(binding.etPassword.text.toString().replace(" ",""))
 
                 fireStore.userData = updateUser(fireStore.userData)
                 findNavController().navigate(R.id.registerQualificationFragment)
             } catch (ex: Exception) {
+                viewModel.playLockedSound(context!!)
                 Toast.makeText(requireContext(), ex.message , Toast.LENGTH_SHORT).show()
             }
         }

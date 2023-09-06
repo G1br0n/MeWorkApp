@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -88,7 +89,7 @@ class RegisterQualificationFragment : Fragment() {
         }
         // Listener für den Registrierungsabschluss-Button
         binding.butRegEnd.setOnClickListener {
-
+            viewModel.playClickSound(context!!)
             // Aktualisiere die Qualifikationsdaten basierend auf den Eingabewerten.
             for (key in userQualification.keys) {
                 if (key == "Hib") {
@@ -120,6 +121,8 @@ class RegisterQualificationFragment : Fragment() {
                 }
             }
             try {
+                viewModel.internetCheck(context!!)
+                viewModel.playActionSound(context!!)
                 // Versuche, den Benutzer mit den eingegebenen Daten zu registrieren.
                 fireBase.register(
                     context!!,
@@ -130,10 +133,12 @@ class RegisterQualificationFragment : Fragment() {
                     userData.baNumber,
                     userQualification,
                 )
-
+                Toast.makeText(requireContext(), "Sie haben sich erfolgreich regestriert" , Toast.LENGTH_SHORT).show()
                 // Navigiere zum Login-Fragment nach erfolgreicher Registrierung.
                 findNavController().navigate(R.id.logInFragment)
             } catch (ex: Exception) {
+                Toast.makeText(requireContext(), ex.message , Toast.LENGTH_SHORT).show()
+                viewModel.playLockedSound(context!!)
                 // Hier könnte man einen Fehler loggen oder dem Benutzer eine Nachricht anzeigen.
             }
         }

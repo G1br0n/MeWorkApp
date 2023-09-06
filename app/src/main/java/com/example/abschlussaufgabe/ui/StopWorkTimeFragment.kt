@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.ui
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -132,13 +133,16 @@ class StopWorkTimeFragment : Fragment() {
      * ## Information
      * Zeigt einen Dialog zur Bestätigung des Arbeitszeitendes.
      */
+
     private fun showConfirmationDialog() {
 
         val builder = AlertDialog.Builder(requireContext())
 
         builder.setTitle("Bestätigung")
-        builder.setMessage("Schicht beenden?")
+        builder.setMessage("Möchten Sie ihre Auftrag jetzt beenden ??")
         builder.setPositiveButton("Ja") { dialog, _ ->
+
+            viewModel.playClickSound(context!!)
             Toast.makeText(requireContext(), "Schönen Feierabend", Toast.LENGTH_SHORT).show()
 
             // Daten des Benutzers aktualisieren und speichern
@@ -157,15 +161,24 @@ class StopWorkTimeFragment : Fragment() {
             fireStore._currentTimWorkList.value!!.add(workReportString)
             fireStore.saveUserWorkTimeLogStore(fireStore._currentTimWorkList.value!!)
 
+            viewModel.playActionSound(context!!)
             // Zum InWorkTimeFragment navigieren
             findNavController().navigate(R.id.inWorkTimeFragment)
-
         }
         builder.setNegativeButton("Nein") { dialog, _ ->
-            Toast.makeText(requireContext(), "Nein-Button geklickt", Toast.LENGTH_SHORT).show()
+
+            viewModel.playClickSound(context!!)
+            Toast.makeText(requireContext(), "Auftrag wird weiter aufgezeichnet", Toast.LENGTH_SHORT).show()
         }
 
         val dialog: AlertDialog = builder.create()
         dialog.show()
+
+        //Farben anpassung für alert dialog
+
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+        dialog.window!!.setBackgroundDrawableResource(R.color.back_ground)
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+
     }
 }

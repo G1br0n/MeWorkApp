@@ -1,5 +1,7 @@
 package com.example.abschlussaufgabe.ui
 
+import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -29,6 +32,15 @@ class StartWorkTimeFragment : Fragment() {
     // ViewModel-Referenzen
     private val viewModel: MainViewModel by activityViewModels()
     private val fireStore: FireStoreViewModel by activityViewModels()
+
+
+    private var adjustedDateString = ""
+    private var weekName = "${LocalDateTime.now().dayOfWeek.name[0]}${LocalDateTime.now().dayOfWeek.name[1]}"
+
+    private var adjustedDate = LocalDate.now()
+    private var latitude = "0"
+    private var longitude = "0"
+    private var selectedPosition = ""
 
     /**
      * ## Information
@@ -77,10 +89,15 @@ class StartWorkTimeFragment : Fragment() {
         spinner.adapter = adapter
         adapter.setDropDownViewResource(R.layout.custom_spinner_item)
 
-        var selectPosition = ""
+
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectPosition = parent?.getItemAtPosition(position).toString()
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedPosition = parent?.getItemAtPosition(position).toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -89,11 +106,8 @@ class StartWorkTimeFragment : Fragment() {
         }
 
         // Anzeige und Anpassung von Datum und Uhrzeit
-        var adjustedDateString = ""
-        var weekName = "${LocalDateTime.now().dayOfWeek.name[0]}${LocalDateTime.now().dayOfWeek.name[1]}"
-        var dayTimerCheck = 0
-        var adjustedDate = LocalDate.now()
-        var previousHour = binding.myTimePicker.currentHour
+         var dayTimerCheck = 0
+         var previousHour = binding.myTimePicker.currentHour
         binding.tvDate.text = "$weekName ${LocalDate.now().dayOfMonth}.${LocalDate.now().month.value}.${LocalDate.now().year}"
 
         // Listener für Zeitanpassung
@@ -103,7 +117,8 @@ class StartWorkTimeFragment : Fragment() {
             if (hourOfDay == 23 && previousHour == 0) dayTimerCheck--
             previousHour = hourOfDay
             weekName = "${adjustedDate.dayOfWeek.name[0]}${adjustedDate.dayOfWeek.name[1]}"
-            adjustedDateString = "$weekName ${adjustedDate.dayOfMonth}.${adjustedDate.monthValue}.${adjustedDate.year}"
+            adjustedDateString =
+                "$weekName ${adjustedDate.dayOfMonth}.${adjustedDate.monthValue}.${adjustedDate.year}"
             binding.tvDate.text = adjustedDateString
         }
 
@@ -111,8 +126,7 @@ class StartWorkTimeFragment : Fragment() {
         binding.myTimePicker.setIs24HourView(true)
 
         // GPS-Positionserfassung und Anzeige
-        var latitude = "0"
-        var longitude = "0"
+
         binding.checkBoxSaveCurrentPosition.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.getGPSLocation(requireActivity()) { locationList ->
@@ -129,26 +143,58 @@ class StartWorkTimeFragment : Fragment() {
 
         // Logik für den "Start"-Button
         binding.ibStart.setOnClickListener {
-
-            fireStore.userData = fireStore.currentUserStore.value!!
-            fireStore.userData.timerStatus = true
-            fireStore.userData.timerMap["startYear"] = adjustedDate.year.toString()
-            fireStore.userData.timerMap["startMonth"] = adjustedDate.month.value.toString()
-            fireStore.userData.timerMap["startWeek"] = weekName
-            fireStore.userData.timerMap["startDay"] = (adjustedDate.dayOfMonth).toString()
-            fireStore.userData.timerMap["startHour"] = binding.myTimePicker.hour.toString()
-            fireStore.userData.timerMap["startMin"] = binding.myTimePicker.minute.toString()
-            fireStore.userData.timerMap["startSek"] = LocalTime.now().second.toString()
-            fireStore.userData.timerMap["sap"] = binding.editTextNumberSigned.text.toString()
-            fireStore.userData.timerMap["latitude"] = "$latitude"
-            fireStore.userData.timerMap["longitude"] = "$longitude"
-            fireStore.userData.timerMap["position"] = selectPosition
-
-            fireStore.saveUserDataStore(fireStore.userData)
-            fireStore.getUserDataStore(fireStore.currentUserStore.value!!.userUid)
-
-            viewModel.playActionSound(context!!)
-            findNavController().navigate(R.id.stopWorkTimeFragment)
+            showConfirmationDialog()
         }
     }
+       private fun showConfirmationDialog() {
+
+            val builder = AlertDialog.Builder(requireContext())
+
+            builder.setTitle("Bestätigung")
+            builder.setMessage("Auftrag aufzeichnung strarten?")
+            builder.setPositiveButton("Ja") { dialog, _ ->
+
+                viewModel.playClickSound(context!!)
+                Toast.makeText(requireContext(), "Ruhigen schicht!\nAchten Sie auf Ihre sicherheit!", Toast.LENGTH_SHORT).show()
+
+                fireStore.userData = fireStore.currentUserStore.value!!
+                fireStore.userData.timerStatus = true
+                fireStore.userData.timerMap["startYear"] = adjustedDate.year.toString()
+                fireStore.userData.timerMap["startMonth"] = adjustedDate.month.value.toString()
+                fireStore.userData.timerMap["startWeek"] = weekName
+                fireStore.userData.timerMap["startDay"] = (adjustedDate.dayOfMonth).toString()
+                fireStore.userData.timerMap["startHour"] = binding.myTimePicker.hour.toString()
+                fireStore.userData.timerMap["startMin"] = binding.myTimePicker.minute.toString()
+                fireStore.userData.timerMap["startSek"] = LocalTime.now().second.toString()
+                fireStore.userData.timerMap["sap"] = binding.editTextNumberSigned.text.toString()
+                fireStore.userData.timerMap["latitude"] = "$latitude"
+                fireStore.userData.timerMap["longitude"] = "$longitude"
+                fireStore.userData.timerMap["position"] = selectedPosition
+
+                fireStore.saveUserDataStore(fireStore.userData)
+                fireStore.getUserDataStore(fireStore.currentUserStore.value!!.userUid)
+
+                viewModel.playActionSound(context!!)
+                findNavController().navigate(R.id.inWorkTimeFragment)
+            }
+            builder.setNegativeButton("Nein") { dialog, _ ->
+
+                viewModel.playClickSound(context!!)
+                Toast.makeText(
+                    requireContext(),
+                    "Start abgebrochen",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+
+            //Farben anpassung für alert dialog
+
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+            dialog.window!!.setBackgroundDrawableResource(R.color.back_ground)
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+
+        }
 }

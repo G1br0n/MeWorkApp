@@ -61,6 +61,7 @@ class LogInFragment : Fragment() {
 
         // Event-Listener für den Registrierungsbutton, um zum Registrierungs-Fragment zu navigieren.
         binding.button.setOnClickListener {
+            viewModel.playClickSound(context!!)
             findNavController().navigate(R.id.registerFragment)
         }
 
@@ -140,6 +141,7 @@ class LogInFragment : Fragment() {
                     }, 10000)
                 }
             } catch (ex: Exception) {
+                viewModel.playLockedSound(context!!)
                 // Zeigt eine Fehlermeldung an, wenn während des Login-Vorgangs eine Ausnahme auftritt.
                 Toast.makeText(
                     activity,
