@@ -70,7 +70,8 @@ class RegisterQualificationFragment : Fragment() {
         viewModel.setupCheckbox(binding.checkBoxPlPf, binding.etPlPf, userQualification)
 
 
-        // Hinzufügen von Listeners für Datums-Eingabefelder, um DatePickerDialog anzuzeigen.
+        //Listeners für Datums-Eingabefelder, um DatePickerDialog anzuzeigen.
+        // Wenn man extView anklickt wird datenPicker(Calendar) aufgerufen der nach dem ok klick, ausgewelte datum in jewaligen text feld einfüg
         viewModel.setupDatePicker(binding.etHiB, context)
         viewModel.setupDatePicker(binding.etHip, context)
         viewModel.setupDatePicker(binding.etSipo, context)
@@ -80,7 +81,6 @@ class RegisterQualificationFragment : Fragment() {
         viewModel.setupDatePicker(binding.etBe, context)
         viewModel.setupDatePicker(binding.etSas, context)
         viewModel.setupDatePicker(binding.etPlPf, context)
-
 
         // Listener für den Zurück-Button
         binding.butBac.setOnClickListener {
