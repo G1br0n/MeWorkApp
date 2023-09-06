@@ -66,11 +66,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Globale Variable zum Halten des MediaPlayer-Objekts, das zur Wiedergabe von Tönen verwendet wird.
     private lateinit var mediaPlayer: MediaPlayer
 
-    //Private variable für qr Scaner
+    //Private variable für qrCodeScan
     lateinit var codeScanner: CodeScanner
 
     // Instanz der Materialdatenbank.
-    var storageMaterialDatabase: StorageMaterialDatabase = getStorageMaterialDatabase(application)
+    private var storageMaterialDatabase: StorageMaterialDatabase = getStorageMaterialDatabase(application)
 
     // Haupt-Repository für Datenbankinteraktionen.
     private val repository = AppRepository(storageMaterialDatabase)
@@ -368,7 +368,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         ) {
             // Wenn die Berechtigung gewährt wurde, holen Sie den letzten bekannten Standort
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location ->
-                location?.let {
+                location.let {
                     // Extrahiert Breitengrad und Längengrad aus dem Standortobjekt
                     val latitude = it.latitude
                     val longitude = it.longitude
@@ -539,6 +539,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * @param checkBox Die zu konfigurierende CheckBox.
      * @param textView Der zugehörige TextView, dessen Sichtbarkeit und Textinhalt
      *                 basierend auf dem Zustand der CheckBox geändert wird.
+     * @param userQualification Die Map, in der die Benutzerqualifikationen gespeichert werden.
      */
     fun setupCheckbox(checkBox: CheckBox, textView: TextView, userQualification: MutableMap<String, String>) {
         checkBox.setOnCheckedChangeListener { _, isChecked ->

@@ -59,96 +59,17 @@ class RegisterQualificationFragment : Fragment() {
         // Listeners für Checkboxen. Abhängig von der Auswahl wird ein Textfeld ein- oder ausgeblendet.
         // Wenn die Checkbox aktiviert ist, wird das entsprechende Textfeld angezeigt und die Qualifikation hinzugefügt.
         // Wenn die Checkbox deaktiviert ist, wird das Textfeld verborgen und die Qualifikation entfernt.
-        binding.checkBoxHib.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (binding.checkBoxHib.isChecked) {
-                binding.etHiB.visibility = View.VISIBLE
-                userQualification[binding.checkBoxHib.text.toString()] =
-                    binding.etHiB.text.toString()
-            } else {
-                binding.etHiB.visibility = View.GONE
-                userQualification.remove(binding.checkBoxHib.text.toString())
-            }
-        }
-        binding.checkBoxHip.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.etHip.visibility = View.VISIBLE
-                userQualification[binding.checkBoxHip.text.toString()] =
-                    binding.etHip.text.toString()
 
-            } else {
-                binding.etHip.visibility = View.GONE
-                userQualification.remove(binding.checkBoxHip.text.toString())
-            }
+        viewModel.setupCheckbox(binding.checkBoxHib, binding.etHiB, userQualification)
+        viewModel.setupCheckbox(binding.checkBoxHip, binding.etHip, userQualification)
+        viewModel.setupCheckbox(binding.checkBoxSipo, binding.etSipo, userQualification)
+        viewModel.setupCheckbox(binding.checkBoxBm, binding.etBm, userQualification)
+        viewModel.setupCheckbox(binding.checkBoxSakra, binding.etSakre, userQualification)
+        viewModel.setupCheckbox(binding.checkBoxBup, binding.etBup, userQualification)
+        viewModel.setupCheckbox(binding.checkBoxBe, binding.etBe, userQualification)
+        viewModel.setupCheckbox(binding.checkBoxSaS, binding.etSas, userQualification)
+        viewModel.setupCheckbox(binding.checkBoxPlPf, binding.etPlPf, userQualification)
 
-        }
-        binding.checkBoxSipo.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.etSipo.visibility = View.VISIBLE
-                userQualification[binding.checkBoxSipo.text.toString()] =
-                    binding.etSipo.text.toString()
-            } else {
-                binding.etSipo.visibility = View.GONE
-                userQualification.remove(binding.checkBoxSipo.text.toString())
-            }
-        }
-        binding.checkBoxBm.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.etBm.visibility = View.VISIBLE
-                userQualification[binding.checkBoxBm.text.toString()] = binding.etBm.text.toString()
-            } else {
-                binding.etBm.visibility = View.GONE
-                userQualification.remove(binding.checkBoxBm.text.toString())
-            }
-        }
-        binding.checkBoxSakra.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.etSakre.visibility = View.VISIBLE
-                userQualification[binding.checkBoxSakra.text.toString()] =
-                    binding.etSakre.text.toString()
-            } else {
-                binding.etSakre.visibility = View.GONE
-                userQualification.remove(binding.checkBoxSakra.text.toString())
-            }
-        }
-        binding.checkBoxBup.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.etBup.visibility = View.VISIBLE
-                userQualification[binding.checkBoxBup.text.toString()] =
-                    binding.etBup.text.toString()
-            } else {
-                binding.etBup.visibility = View.GONE
-                userQualification.remove(binding.checkBoxBup.text.toString())
-            }
-        }
-        binding.checkBoxBe.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.etBe.visibility = View.VISIBLE
-                userQualification[binding.checkBoxBe.text.toString()] = binding.etBe.text.toString()
-            } else {
-                binding.etBe.visibility = View.GONE
-                userQualification.remove(binding.checkBoxBe.text.toString())
-            }
-        }
-        binding.checkBoxSaS.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.etSas.visibility = View.VISIBLE
-                userQualification[binding.checkBoxSaS.text.toString()] =
-                    binding.etSas.text.toString()
-            } else {
-                binding.etSas.visibility = View.GONE
-                userQualification.remove(binding.checkBoxSaS.text.toString())
-            }
-        }
-        binding.checkBoxPlPf.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.etPlPf.visibility = View.VISIBLE
-                userQualification[binding.checkBoxPlPf.text.toString()] =
-                    binding.etPlPf.text.toString()
-            } else {
-                binding.etPlPf.visibility = View.GONE
-                userQualification.remove(binding.checkBoxPlPf.text.toString())
-            }
-        }
 
         // Hinzufügen von Listeners für Datums-Eingabefelder, um DatePickerDialog anzuzeigen.
         binding.etHiB.setOnClickListener {
