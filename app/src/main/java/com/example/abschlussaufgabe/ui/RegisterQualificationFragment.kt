@@ -59,7 +59,6 @@ class RegisterQualificationFragment : Fragment() {
         // Listeners für Checkboxen. Abhängig von der Auswahl wird ein Textfeld ein- oder ausgeblendet.
         // Wenn die Checkbox aktiviert ist, wird das entsprechende Textfeld angezeigt und die Qualifikation hinzugefügt.
         // Wenn die Checkbox deaktiviert ist, wird das Textfeld verborgen und die Qualifikation entfernt.
-
         viewModel.setupCheckbox(binding.checkBoxHib, binding.etHiB, userQualification)
         viewModel.setupCheckbox(binding.checkBoxHip, binding.etHip, userQualification)
         viewModel.setupCheckbox(binding.checkBoxSipo, binding.etSipo, userQualification)
@@ -72,33 +71,16 @@ class RegisterQualificationFragment : Fragment() {
 
 
         // Hinzufügen von Listeners für Datums-Eingabefelder, um DatePickerDialog anzuzeigen.
-        binding.etHiB.setOnClickListener {
-            viewModel.showDatePicker(binding.etHiB, context!!)
-        }
-        binding.etHip.setOnClickListener {
-            viewModel.showDatePicker(binding.etHip, context!!)
-        }
-        binding.etSipo.setOnClickListener {
-            viewModel.showDatePicker(binding.etSipo, context!!)
-        }
-        binding.etBm.setOnClickListener {
-            viewModel.showDatePicker(binding.etBm, context!!)
-        }
-        binding.etSakre.setOnClickListener {
-            viewModel.showDatePicker(binding.etSakre, context!!)
-        }
-        binding.etBup.setOnClickListener {
-            viewModel.showDatePicker(binding.etBup, context!!)
-        }
-        binding.etBe.setOnClickListener {
-            viewModel.showDatePicker(binding.etBe, context!!)
-        }
-        binding.etSas.setOnClickListener {
-            viewModel.showDatePicker(binding.etSas, context!!)
-        }
-        binding.etPlPf.setOnClickListener {
-            viewModel.showDatePicker(binding.etPlPf, context!!)
-        }
+        viewModel.setupDatePicker(binding.etHiB, context)
+        viewModel.setupDatePicker(binding.etHip, context)
+        viewModel.setupDatePicker(binding.etSipo, context)
+        viewModel.setupDatePicker(binding.etBm, context)
+        viewModel.setupDatePicker(binding.etSakre, context)
+        viewModel.setupDatePicker(binding.etBup, context)
+        viewModel.setupDatePicker(binding.etBe, context)
+        viewModel.setupDatePicker(binding.etSas, context)
+        viewModel.setupDatePicker(binding.etPlPf, context)
+
 
         // Listener für den Zurück-Button
         binding.butBac.setOnClickListener {

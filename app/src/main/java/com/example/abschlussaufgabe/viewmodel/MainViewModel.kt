@@ -53,12 +53,15 @@ import java.util.Calendar
  * - [playActionSound]: Spielt den Action-Sound ab.
  * - [playLockedSound]: Spielt den Locked-Sound ab.
  * - [playLogInSound]: Spielt den Login-Sound ab.
- * - [showDatePicker]: Zeigt einen DatePickerDialog.
+ * - [setupDatePicker]: Zeigt einen DatePickerDialog.
+ * - private [showDatePicker]: Ruft dataPicker auf und set text in gegeben text view
  * - [getGPSLocation]: Holt den letzten bekannten GPS-Standort des Geräts.
  * - [isValidEmail]: Überprüft, ob ein String ein gültiges E-Mail-Format hat.
  * - [isValidPassword]: Überprüft die Anforderungen eines Passworts.
  * - [internetCheck]: Überprüft, ob eine Internetverbindung vorhanden ist.
- * - [isInternetAvailable]: Bestimmt, ob eine aktive Internetverbindung besteht.
+ * - private [isInternetAvailable]: Bestimmt, ob eine aktive Internetverbindung besteht.
+ * - [getQrCodeScan]:Initialisiert und startet den QR-Code-Scanner, um eine Material-ID zu scannen.
+ * - [setupCheckbox]: Konfiguriert das Verhalten einer CheckBox in Bezug auf einen zugehörigen TextView.
  */
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -306,9 +309,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         mediaPlayer.start()
     }
 
+
     /**
      * ## Information
-     * ### Zeigt einen DatePickerDialog an und setzt das ausgewählte Datum als Text in den übergebenen TextView.
+
+     * Verknüpft einen TextView mit einem DatePickerDialog. Wenn auf den TextView geklickt wird,
+     * wird der DatePickerDialog angezeigt. Nachdem ein Datum ausgewählt wurde, wird dieses Datum
+     * im TextView angezeigt.
+     *
+     * @param view Der TextView, welcher mit dem DatePickerDialog verknüpft wird.
+     * @param context Der Kontext, in dem der DatePickerDialog angezeigt wird (üblicherweise die Aktivität oder der Fragment-Kontext).
+     */
+    fun setupDatePicker(view: TextView, context: Context?) {
+        view.setOnClickListener {
+            showDatePicker(view, context!!)
+        }
+    }
+
+    /**
+     * ## Information
+     *
+     * ###Zeigt einen DatePickerDialog an und setzt das ausgewählte Datum als Text in den übergebenen TextView.
      *
      * Diese Methode initialisiert und zeigt einen DatePickerDialog mit dem aktuellen Datum als Standardwert an.
      * Nachdem der Benutzer ein Datum ausgewählt hat, wird dieses Datum im Format "Tag.Monat.Jahr" in den
@@ -317,7 +338,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * @param textView Der TextView, in den das ausgewählte Datum eingefügt werden soll.
      * @param context Der Kontext, in dem der DatePickerDialog angezeigt wird (üblicherweise die Aktivität oder der Fragment-Kontext).
      */
-    fun showDatePicker(textView: TextView, context: Context) {
+    private fun showDatePicker(textView: TextView, context: Context) {
         val calendar = Calendar.getInstance()
 
         // Aktuelles Datum holen
