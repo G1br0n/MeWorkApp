@@ -46,7 +46,7 @@ class MaterialPlacementFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Extrahiert die ID aus dem QR scaner in TextView
-        var id = viewModel.getQrCodeScan(view,activity!!,context!!,binding.etMaterialId)
+        viewModel.getQrCodeScan(view,activity!!,context!!,binding.etMaterialId)
 
         // Startet die Kamera-Vorschau
         viewModel.codeScanner.startPreview()
@@ -63,10 +63,10 @@ class MaterialPlacementFragment : Fragment() {
                 val sapNumber = binding.etSapNumber.text.toString().toInt()
 
                 // Überprüft, ob die ID in der Liste ist
-                viewModel.checkMaterialId(id.toInt())
+                viewModel.checkMaterialId(binding.etMaterialId.text.toString().toInt())
 
                 // Aktualisiert die Position des Materials in der Datenbank
-                viewModel.updateMaterialLocation(id.toInt(), sapNumber.toString())
+                viewModel.updateMaterialLocation(binding.etMaterialId.text.toString().toInt(), sapNumber.toString())
 
                 // Lädt die Benutzer-Materialliste aus der Datenbank
                 viewModel.loadUserMaterialList()

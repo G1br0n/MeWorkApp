@@ -63,7 +63,6 @@ import java.util.Calendar
  * - [getQrCodeScan]:Initialisiert und startet den QR-Code-Scanner, um eine Material-ID zu scannen.
  * - [setupCheckbox]: Konfiguriert das Verhalten einer CheckBox in Bezug auf einen zugehörigen TextView.
  */
-
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // Globale Variable zum Halten des MediaPlayer-Objekts, das zur Wiedergabe von Tönen verwendet wird.
@@ -493,6 +492,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
+
+    var materialIdForQR = 0
     /**
      * ## Information
      * ### Initialisiert und startet den QR-Code-Scanner, um eine Material-ID zu scannen.
@@ -511,7 +512,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      *
      * @return Die gescannte Material-ID als Zeichenkette, oder "0" wenn der Scan fehlschlägt.
      */
-    fun getQrCodeScan (view: View,activity: FragmentActivity, context: Context, textView: TextView): String{
+    fun getQrCodeScan (view: View,activity: FragmentActivity, context: Context, textView: TextView){
 
         // Findet das CodeScannerView-Element in der bereitgestellten View
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
@@ -527,17 +528,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             // Führt den folgenden Code im Haupt-Thread aus, um UI-Operationen sicher durchzuführen
             activity.runOnUiThread {
                 try {
-                    // Versucht, den gescannten Text in eine Integer-Zahl zu konvertieren
-                    val materialId = it.text.toInt()
-
-                    // Spielt den QR-Code-Scan-Sound ab
-                    playQrSound(context)
-
-                    // Speichert die gescannte ID
-                    id = materialId
 
                     // Aktualisiert den übergebenen TextView mit der gescannten ID
-                    textView.text = Editable.Factory.getInstance().newEditable(materialId.toString())
+                    textView.text = Editable.Factory.getInstance().newEditable(materialIdForQR.toString())
                 } catch (ex: Exception) {
                     // Wenn der gescannte Text keine gültige Zahl ist oder ein anderer Fehler auftritt, wird dieser Block ausgeführt
                     playLockedSound(context)
@@ -546,7 +539,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
         // Gibt die gescannte ID als String zurück, oder "0" wenn der Scan nicht erfolgreich war
-        return id.toString()
+
     }
 
 

@@ -152,7 +152,6 @@ class LogInFragment : Fragment() {
         }
     }
 
-
     /**
      * ## Information
      * Konfiguriert bestimmte UI-Elemente, wenn das Fragment wieder im Vordergrund ist.

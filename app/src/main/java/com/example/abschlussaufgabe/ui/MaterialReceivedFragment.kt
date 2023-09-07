@@ -49,7 +49,7 @@ class MaterialReceivedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         // Extrahiert die ID aus dem QR scaner in TextView
-        var id = viewModel.getQrCodeScan(view,activity!!,context!!,binding.etMaterialId)
+        viewModel.getQrCodeScan(view,activity!!,context!!,binding.etMaterialId)
 
         // Startet die Kamera-Vorschau
         viewModel.codeScanner.startPreview()
@@ -64,10 +64,10 @@ class MaterialReceivedFragment : Fragment() {
             try {
 
                 // Überprüfung, ob die ID in einer Liste vorhanden ist
-                viewModel.checkMaterialId(id.toInt())
+                viewModel.checkMaterialId(binding.etMaterialId.text.toString().toInt())
 
                 // Aktualisierung der Materialposition in der Datenbank
-                viewModel.updateMaterialLocation(id.toInt(), viewModel.userData.userUid)
+                viewModel.updateMaterialLocation(binding.etMaterialId.text.toString().toInt(), viewModel.userData.userUid)
 
                 // Abspielen eines Aktions-Sounds
                 viewModel.playActionSound(context!!)

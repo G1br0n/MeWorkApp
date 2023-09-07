@@ -44,7 +44,7 @@ class MaterialDeliverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         // Extrahiert die ID aus dem QR scaner in TextView
-        var id = viewModel.getQrCodeScan(view,activity!!,context!!,binding.etMaterialId)
+        viewModel.getQrCodeScan(view,activity!!,context!!,binding.etMaterialId)
 
         // Startet die Kamera-Vorschau
         viewModel.codeScanner.startPreview()
@@ -57,8 +57,8 @@ class MaterialDeliverFragment : Fragment() {
         // Wird aufgerufen, wenn der Abgabe-Button angeklickt wird
         binding.ibDeliver.setOnClickListener {
             try {
-                viewModel.checkMaterialId(id.toInt())
-                viewModel.updateMaterialLocation(id.toInt(), "1")
+                viewModel.checkMaterialId(binding.etMaterialId.text.toString().toInt())
+                viewModel.updateMaterialLocation(binding.etMaterialId.text.toString().toInt(), "1")
                 viewModel.playActionSound(context!!)
                 Toast.makeText(activity, "Material erfolgreich im Lager Abgegeben", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.materialFragment)
